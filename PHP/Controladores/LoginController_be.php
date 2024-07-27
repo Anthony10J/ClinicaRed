@@ -113,7 +113,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
 }
 
 if (!empty($mensajeError)) {
-    header("location: ../Vistas/index.php?error=" . urlencode($mensajeError));
+    header("location: ../Vistas/Index.php?error=" . urlencode($mensajeError));
     exit();
 }
 ?>
