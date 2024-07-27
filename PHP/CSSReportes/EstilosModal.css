@@ -1,0 +1,33 @@
+.encabezado th{
+	font-weight: bold;
+}
+.btn-agregar{
+    background: linear-gradient(
+        90deg,
+        rgb(30, 67, 231) 25%,
+        rgb(33, 199, 211)100%);
+        box-shadow: 0 0 20px rgba(192, 203, 251, 0.7);
+        color: #FFFFFF;
+        font-size: 14px;
+        cursor: pointer;
+		width: 180px;
+		justify-content: center;
+  		align-items: center;
+		 text-align: center;
+		display: flex;
+		font-weight: bold;		
+		border: 1px solid black;
+		margin-top: -30px;
+		padding: 10px 12px;
+}
+
+.error{
+	color: red;
+}
+p{
+	color: red;
+}
+
+.mayuscula{
+	text-transform: uppercase;
+}

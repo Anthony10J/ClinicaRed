@@ -1,0 +1,129 @@
+/* Estilos para el encabezado */
+.pagetitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.pagetitle h1 {
+    font-size: 24px;
+}
+
+/* Estilos para la tabla */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.encabezado th {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Estilos para las filas */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para los botones de editar */
+.btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #ffca28;
+    border-color: #ffca28;
+    color: #fff;
+}
+
+.btn-warning:focus, .btn-warning.focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+}
+
+#guardarCambiosBtn {
+    background: linear-gradient(
+        90deg,
+        rgb(67, 96, 227) 25%,	
+        rgb(10, 48, 217)100%);
+        box-shadow: 0 0 20px rgba(192, 203, 251, 0.7);
+        color: #FFFFFF;
+        font-size: 18x;
+        cursor: pointer;
+		width: 200px;
+		justify-content: center;
+  		align-items: center;
+		text-align: center;
+		display: flex;
+		flex-direction: row;
+		float: left;
+		border: 1px solid black;
+        margin-right: 5cqb;
+}
+
+#cancelarcamnios {
+    background: linear-gradient(
+        90deg,
+        rgb(199, 106, 106) 25%,	
+        rgb(220, 7, 7)100%);
+        box-shadow: 0 0 20px rgba(192, 203, 251, 0.7);
+        color: #FFFFFF;
+        font-size: 18x;
+        cursor: pointer;
+		width: 200px;
+		justify-content: center;
+  		align-items: center;
+		text-align: center;
+		display: flex;
+		flex-direction: row;
+		float: left;	
+		border: 1px solid black;
+}
+
+#activarpermisosBtn {
+    background: linear-gradient(
+        90deg,
+        rgb(67, 96, 227) 25%,	
+        rgb(10, 48, 217)100%);
+        box-shadow: 0 0 20px rgba(192, 203, 251, 0.7);
+        color: #FFFFFF;
+        font-size: 18x;
+        cursor: pointer;
+        width: 200px;
+        justify-content: center;
+  		align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        float: left;
+        border: 1px solid black;
+        margin-right: 5cqb;
+}
+#guardarpermisobtn {
+    background: linear-gradient(
+        90deg,
+        rgb(67, 96, 227) 25%,	
+        rgb(10, 48, 217)100%);
+        box-shadow: 0 0 20px rgba(192, 203, 251, 0.7);
+        color: #FFFFFF;
+        font-size: 18x;
+        cursor: pointer;
+        width: 200px;
+        justify-content: center;
+  		align-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        float: left;
+        border: 1px solid black;
+        margin-right: 5cqb;
+}
+
+.editFormUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

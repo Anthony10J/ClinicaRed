@@ -1,0 +1,30 @@
+.dropdown-options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  
+  .dropdown:hover .dropdown-options {
+    display: block;
+  }
+  
+  .option {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .btn-cambio-estado{
+    max-width: 100%;
+  }
+
+  #btn_regresar {
+    width: 60%;
+    height: 50%;
+  }
+  

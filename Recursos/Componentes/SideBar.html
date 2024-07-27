@@ -1,0 +1,129 @@
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/PHP/Vistas/Main.php">
+                <i class="bi bi-grid"></i>
+                <span>Inicio</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Pacientes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/PHP/Negocio/Paciente/V_Paciente/V_Paciente.php">
+                        <i class="bi bi-circle"></i><span>Gestión Paciente</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- Fin modulo paciente -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Citas</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/PHP/Negocio/Cita/V_Cita/V_modal_cita.php">
+                        <i class="bi bi-circle"></i><span>Gestión Cita</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- Fin modulo citas -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Expediente</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/PHP/Negocio/Expediente/V_Expediente/V_modal_expediente.php">
+                        <i class="bi bi-circle"></i><span>Gestión Expediente</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- Fin modulo expediente -->
+
+        <!-- Para el módulo de Seguridad -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav-security" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-shield-lock-fill"></i><span>Seguridad</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav-security" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <!-- Contenido del submenú de seguridad -->
+                <li>
+                    <a href="/PHP/Seguridad/Usuario/V_Usuario/V_usuario.php">
+                        <i class="bi bi-circle"></i><span>Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/PHP/Seguridad/Roles_permisos/V_Roles/V_roles.php">
+                        <i class="bi bi-circle"></i><span>Roles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/PHP/Seguridad/Roles_permisos/permisos/V_permisos.php">
+                        <i class="bi bi-circle"></i><span>Permisos</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Para el módulo de Administración -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav-admin" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-building-fill-gear"></i><span>Administración</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav-admin" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <!-- Contenido del submenú de administración -->
+                <li>
+                    <a href="/PHP/Vistas/Bitacora.php">
+                        <i class="bi bi-circle"></i><span>Bitácora</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/PHP/Seguridad/Parametros/V_Parametros/V_modal_parametros.php">
+                        <i class="bi bi-circle"></i><span>Parámetros</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="/PHP/Seguridad/Evaluacion/V_Evaluacion/V_modal_evaluacion.phpl">
+                        <i class="bi bi-circle"></i><span>Respaldo</span>
+                    </a>
+                </li> -->
+            </ul>
+        </li>
+
+        <!-- Para el módulo de Mantenimiento -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#charts-nav-maintenance" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-tools"></i><span>Mantenimiento</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="charts-nav-maintenance" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <!-- Contenido del submenú de mantenimiento -->
+                <li>
+                    <a href="/PHP/Seguridad/Evaluacion/V_Evaluacion/V_modal_evaluacion.php">
+                        <i class="bi bi-circle"></i><span>Expediente Clínico</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/PHP/Seguridad/Mantenimiento_Negocio/V_ETerapeutico/V_modal_terapeutico.php">
+                        <i class="bi bi-circle"></i><span>Expediente Terapéutico</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/PHP/Seguridad/Mantenimiento_Paciente/V_Identidad/V_modal_identidad.php">
+                        <i class="bi bi-circle"></i><span>Tipo de Documentos</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</aside><!-- End Sidebar-->
