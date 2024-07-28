@@ -248,8 +248,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
-  var estadoValidacion = { correoExiste : false };
+  var estadoValidacion = { correoExiste: false };
   var correoInput = document.getElementById('correo2');
 
   correoInput.addEventListener('blur', function () {
@@ -257,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var elemento = document.getElementById('grupo__correo2');
 
     if (correo2 === "") {
-      validarCampoVacio(this, 'correo2', 'Por favor, ingresa tu correo electronico');
+      validarCampoVacio(this, 'correo2', 'Por favor, ingresa tu correo electrónico');
     } else {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '../Consultas/ValidarCorreo.php', true);
@@ -267,18 +268,19 @@ document.addEventListener('DOMContentLoaded', function () {
           var response = xhr.responseText;
           
           if (response === "existe") {
-            estadoValidacion.correoExiste  = true;
+            estadoValidacion.correoExiste = true;
             elemento.classList.add('formulario__grupo-incorrecto');
             elemento.classList.remove('formulario__grupo-correcto');
             document.querySelector('#grupo__correo2 .formulario__input-error').textContent = 'Ya existe el correo electrónico';
             document.querySelector('#grupo__correo2 .formulario__input-error').classList.add('formulario__input-error-activo');
-            // document.querySelector('#grupo__correo2 i').classList.remove('fa-times-circle');
+            document.getElementById('btn_registrar').disabled = true;
           } else {
-            estadoValidacion.correoExiste  = false;
-            elemento.classList.remove('formulario__grupo-incorrecto2');
-            elemento.classList.add('formulario__grupo-correcto2');
-            document.querySelector('#grupo__correo2 .formulario__input-error2').textContent = '';
-            document.querySelector('#grupo__correo2 .formulario__input-error2').classList.remove('formulario__input-error-activo2');          
+            estadoValidacion.correoExiste = false;
+            elemento.classList.remove('formulario__grupo-incorrecto');
+            elemento.classList.add('formulario__grupo-correcto');
+            document.querySelector('#grupo__correo2 .formulario__input-error').textContent = '';
+            document.querySelector('#grupo__correo2 .formulario__input-error').classList.remove('formulario__input-error-activo');
+            document.getElementById('btn_registrar').disabled = false;
           }
         }
       };

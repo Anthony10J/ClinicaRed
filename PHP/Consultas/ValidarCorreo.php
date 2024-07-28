@@ -29,4 +29,4 @@ if (isset($_POST["correo2"])) {
 
 // Cerrar la conexión a la base de datos
 $conn->close();
-
+?>

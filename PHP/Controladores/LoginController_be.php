@@ -80,7 +80,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    bitacora($n, $a, $d);
+                    // bitacora($n, $a, $d);
                     //  enviarOTP($conexion, $correo);
                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
                    exit();
@@ -113,7 +113,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
 }
 
 if (!empty($mensajeError)) {
-    header("location: ../Vistas/Index.php?error=" . urlencode($mensajeError));
+    header("location: /index.php?error=" . urlencode($mensajeError));
     exit();
 }
 ?>
