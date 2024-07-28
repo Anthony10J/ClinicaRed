@@ -1,39 +1,31 @@
 import * as funciones from "./validacionGeneral.js";
 
-const formulario_Registro = document.getElementById('formCambiarClave');
-
-const inputs = document.querySelectorAll('#formCambiarClave');
+const inputs = document.querySelectorAll('#formCambiarClave .formulario__input');
 const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Validar sin espacios una minúscula, una mayúscula, un número y un caracter especial.  
-}
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Sin espacios, una minúscula, una mayúscula, un número y un caracter especial.  
+};
 
 const validarInputs = (e) => {
-    // let estadoValidado = true;
     switch (e.target.name) {
         case "password2":
             validarInputPassword(e, 'password2');
-            // funciones.coincidirClave();
             break;
-
         case "password3":
             validarInputPassword(e, 'password3');
             break;
     }
-}
+};
 
 inputs.forEach((input) => {
-    input.addEventListener('keyup', validarInputs); // Verificar el campo después de presionar una tecla
-    input.addEventListener('blur', validarInputs); // Comprobar cuando da clic fuera del campo
-  });
+    input.addEventListener('keyup', validarInputs);
+    input.addEventListener('blur', validarInputs);
+});
 
 icon.forEach(icon => {
     icon.addEventListener('click', function () {
-        // Obtener el campo de contraseña asociado al icono actual
         const clave = this.parentElement.querySelector('.formulario__input');
-
-        // Alternar el tipo de campo de contraseña entre 'password' y 'text'
         if (clave.type === "password") {
             clave.type = "text";
             this.classList.remove('fa-eye');
@@ -46,36 +38,54 @@ icon.forEach(icon => {
     });
 });
 
-let validarInputPassword = (e, campo) => {
+const validarInputPassword = (e, campo) => {
     let estadoValidacion = {
-      estadoCV: false,
-      estadoER: false,
-      estadoCC: false,
+        estadoCV: false,
+        estadoER: false,
+        estadoCC: false,
     };
-  
+
     estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, `${campo}`, 'Por favor, ingresa tu contraseña');
   
-    estadoValidacion.estadoCV
-      ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, `${campo}`, 
-                                     'Debe contener sin espacios una mayúscula, una minúscula, un número y un caracter especial')) : "";
-    
-    estadoValidacion.estadoCV
-      ? (estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior')) : "";
-  
-      return estadoValidacion;
-  };
-
-  formulario_Registro.addEventListener('submit', function (e) {
-    const error_Formulario_Registro = document.querySelectorAll(".formulario__grupo-incorrecto");
-    const error_Formulario = document.querySelectorAll(".formulario__input-error-activo");
-
-    // Comprueba si hay errores de validación
-    if (error_Formulario_Registro.length > 0 || error_Formulario.length > 0) {
-        e.preventDefault();
-        // funciones.MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
-        funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
-    } else {
-        // Si no hay errores, permite el envío del formulario
-        // Si llegas a este punto, el formulario se enviará
+    if (estadoValidacion.estadoCV) {
+        estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, `${campo}`, 
+            'Debe contener sin espacios una mayúscula, una minúscula, un número y un caracter especial');
+        estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
     }
+  
+    return estadoValidacion;
+};
+
+const formulario_Registro = document.getElementById('formCambiarClave');
+const botonEnviar = formulario_Registro.querySelector('button[type="submit"]');
+
+formulario_Registro.addEventListener('submit', function (e) {
+    let errorEncontrado = false;
+
+    inputs.forEach((input) => {
+        if (input.name === 'password2' || input.name === 'password3') {
+            const resultadoValidacion = validarInputPassword({ target: input }, input.name);
+            if (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || !resultadoValidacion.estadoCC) {
+                errorEncontrado = true;
+            }
+        }
+    });
+
+    if (errorEncontrado) {
+        e.preventDefault();
+        funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+    }
+});
+
+const camposFormulario = formulario_Registro.querySelectorAll('input, select');
+
+camposFormulario.forEach(function(campo) {
+    campo.addEventListener('input', function() {
+        const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
+        if (algunCampoConValor) {
+            botonEnviar.removeAttribute('disabled');
+        } else {
+            botonEnviar.setAttribute('disabled', 'disabled');
+        }
+    });
 });
