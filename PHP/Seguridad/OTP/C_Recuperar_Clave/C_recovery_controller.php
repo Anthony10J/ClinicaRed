@@ -77,7 +77,7 @@ if (!empty($correo2)) {
   // Mostrar mensaje de error de correo vacío
   echo '
     <script>
-      MostrarAlerta("error", "ERROR", "No se ingresó ningun correo.", "../V_Recuperar_Clave/V_verificar_token.php");
+      MostrarAlerta("error", "ERROR", "No se ingresó ningún correo.", "../V_Recuperar_Clave/V_verificar_token.php");
     </script>
 ';
 }
