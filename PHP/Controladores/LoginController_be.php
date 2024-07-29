@@ -36,8 +36,12 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                             INNER JOIN tbl_ms_roles AS r ON u.IdRol = r.Id_Rol
                             WHERE estU.Id_Estado IN(1, 2) AND u.Correo = '$correo' AND u.Contrasena = '$clave_encriptada'";
 
+        $consultar_Parametro = "SELECT Parametro, Valor FROM tbl_ms_parametros WHERE Parametro LIKE 'INTENTOS_FALLIDOS'";
+
         $verificar_login = mysqli_query($conexion, $consultar_Login); // Validar que existe una conexión a la BD y se realiza una consulta
+        $verificar_parametro = mysqli_query($conexion, $consultar_Parametro); // Validar que existe una conexión a la BD y se realiza una consulta
         $fila = $verificar_login->fetch_assoc();
+        $row = $verificar_parametro->fetch_assoc();
 
         if (mysqli_num_rows($verificar_login) > 0) {
             // Si no es el primer ingreso o si es el primer ingreso y se ha superado el captcha, proceder con el inicio de sesión.
@@ -98,7 +102,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
             $resultado_intentos_actualizados = mysqli_query($conexion, $consulta_intentos_actualizados);
             $fila_intentos_actualizados = $resultado_intentos_actualizados->fetch_assoc();
 
-            if ($fila_intentos_actualizados['intentos_fallidos'] >= 3) {
+            if ($fila_intentos_actualizados['intentos_fallidos'] >= $row['Valor']) {
                 // Actualizar el estado del usuario a 3 (bloqueado)
                 $actualizar_estado = "UPDATE tbl_ms_usuario SET Estado_Usuario = 3 WHERE Correo = '$correo'";
                 mysqli_query($conexion, $actualizar_estado);
