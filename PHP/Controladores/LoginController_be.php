@@ -28,6 +28,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
         // Reiniciar los intentos fallidos pero mantener el estado bloqueado
         $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
         mysqli_query($conexion, $reiniciar_intentos);
+        $mensajeError = "Cuenta bloqueada. Contacte al administrador.";
     } else {
         $consultar_Login = "SELECT estU.Descripcion, u.Id_Usuario, u.Correo, u.Contrasena, u.Usuario, u.Nombre, u.IdRol, r.Rol, u.primer_ingreso 
                             FROM tbl_estado_usuario AS estU 
@@ -108,7 +109,6 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                 // Reiniciar los intentos fallidos
                 $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
                 mysqli_query($conexion, $reiniciar_intentos);
-                $mensajeError = "Cuenta bloqueada. Contacte al administrador.";
             }
 
             $mensajeError = "Correo o contraseña incorrectos.";
