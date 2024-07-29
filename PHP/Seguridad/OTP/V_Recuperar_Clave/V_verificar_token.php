@@ -15,7 +15,7 @@
             <?php 
             include("../C_Recuperar_Clave/C_validar_token_clave.php");
             ?>
-            <form action="../V_Recuperar_Clave/V_cambiar_clave.php" method="POST" class="OTP" id="formOTP" >
+            <form action="../../../Seguridad/OTP/C_Recuperar_Clave/C_validar_token_clave.php" method="POST" class="OTP" id="formOTP" >
             <img src="../../../../EstilosLogin/images/logo.png" alt="">
                 <h4 for="codigo_otp2">Ingrese el código OTP recibido por correo electrónico:</h4><br>
                 <div class="input-wrapper">
