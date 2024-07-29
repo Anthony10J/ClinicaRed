@@ -24,7 +24,7 @@ function validarNegativos(parametro, valorParametro) {
 
 function validarCaracteresEspeciales(valorParametro) {
     // Define una lista de caracteres especiales que quieras evitar
-    const caracteresEspeciales = /[!#$%^&*()_+\-=[\]{};':"\\|,<>/?]+/;
+    const caracteresEspeciales = /[!#$%^&*()+\-=[\]{};':"\\|,<>/?]+/;
 
     // Verifica si el valor del campo de entrada contiene caracteres especiales
     if (caracteresEspeciales.test(valorParametro)) {
