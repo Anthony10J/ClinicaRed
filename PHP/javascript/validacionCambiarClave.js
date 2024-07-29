@@ -4,8 +4,9 @@ const inputs = document.querySelectorAll('#formCambiarClave .formulario__input')
 const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Expresión regular corregida
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/,
 };
+
 
 const validarInputs = (e) => {
     switch (e.target.name) {
@@ -43,15 +44,22 @@ const validarInputPassword = (e, campo) => {
         estadoCC: false,
     };
 
+    // Validar campo vacío
     estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, `${campo}`, 'Por favor, ingresa tu contraseña');
   
     if (estadoValidacion.estadoCV) {
+        // Validar expresión regular (fuerza de la contraseña)
         estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, `${campo}`, 
             'Debe contener sin espacios una mayúscula, una minúscula, un número y un caracter especial');
+            estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior.');
         
-        // Verifica que la contraseña coincida solo si `campo` es `password2`
-        if (campo === 'password2') {
-            estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
+        // Validar si las contraseñas coinciden
+        const password2Value = document.querySelector('input[name="password2"]').value;
+        const password3Value = document.querySelector('input[name="password3"]').value;
+        estadoValidacion.estadoCC = (password2Value === password3Value);
+        
+        if (!estadoValidacion.estadoCC) {
+            // funciones.MostrarAlerta('error', '¡ERROR!', 'Las contraseñas no coinciden.');
         }
     }
   
@@ -67,17 +75,15 @@ formulario_Registro.addEventListener('submit', function (e) {
     inputs.forEach((input) => {
         if (input.name === 'password2' || input.name === 'password3') {
             const resultadoValidacion = validarInputPassword({ target: input }, input.name);
-            // Si alguna validación falla, marca errorEncontrado como true
             if (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || !resultadoValidacion.estadoCC) {
                 errorEncontrado = true;
             }
         }
     });
 
-    // Solo si se encontraron errores, se previene el envío del formulario
     if (errorEncontrado) {
-        // // e.preventDefault();
-        // funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+        e.preventDefault();
+        funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
     }
 });
 
@@ -85,7 +91,6 @@ const camposFormulario = formulario_Registro.querySelectorAll('input, select');
 
 camposFormulario.forEach(function(campo) {
     campo.addEventListener('input', function() {
-        // Verifica si al menos un campo tiene valor para habilitar el botón de envío
         const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
         if (algunCampoConValor) {
             botonEnviar.removeAttribute('disabled');

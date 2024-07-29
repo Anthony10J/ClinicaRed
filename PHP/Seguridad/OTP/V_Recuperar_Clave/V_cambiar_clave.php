@@ -23,7 +23,7 @@
                           <!-- GRUPO CONTRASEÑA -->
                           <div class="formulario__grupo" id="grupo__password2">
                         <div class="formulario__grupo-input">
-                            <input type="password" class="formulario__input" name="password2" id="password2" placeholder="Contraseña" maxlength="30" required>
+                            <input type="password" class="formulario__input" name="password2" id="password2" placeholder="Contraseña" maxlength="30">
                             <img class="input-icon" src="../../../../Imagenes/password.svg" alt="">
                             <i class="ver_password fas fa-eye" id="eye"></i>
                         </div>
@@ -33,7 +33,7 @@
                     <div class="formulario__grupo" id="grupo__password3">
                         <div class="formulario__grupo-input">
                             <input type="password" class="formulario__input" name="password3" id="password3"
-                                placeholder="Confirmar contraseña" maxlength="30" required>
+                                placeholder="Confirmar contraseña" maxlength="30">
                                 <img class="input-icon" src="../../../../Imagenes/password.svg" alt="">
                             <i class="ver_password fas fa-eye" id="eye"></i>
                         </div>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <!-- <button class="btn" type="submit" name="register" disabled value="Enviar"><br>  -->
-                <button type="submit" class="btn" disabled>Enviar</button>
+                <button type="submit" class="btn">Enviar</button>
 
                
                  <a href="/index.php">Regresar al Login</a>

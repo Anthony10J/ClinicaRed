@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($password2 !== $password3) {
         echo '
         <script>
-            MostrarAlerta("Error", "ERROR", "Las contraseñas no coinciden", "");
+            MostrarAlerta("Error", "ERROR", "Las contraseñas no coinciden", "/PHP/Seguridad/OTP/V_Recuperar_Clave/V_cambiar_clave.php");
         </script>
         ';
         exit;
