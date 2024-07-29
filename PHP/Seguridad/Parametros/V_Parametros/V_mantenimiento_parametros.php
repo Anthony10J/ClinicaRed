@@ -78,7 +78,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                             <?php endif; ?>
 
                             <?php if (!$ocultarEliminacion): ?>
-                            <!-- <button class="btn btn-danger" onclick="validarSiNo('<?php echo $filas[0]; ?>')"><i class="fa-solid fa-trash-can"></i></button> -->
+                            <button class="btn btn-danger" onclick="validarSiNo('<?php echo $filas[0]; ?>')"><i class="fa-solid fa-trash-can"></i></button>
                             <?php endif; ?>
                         </td>
                     </tr>

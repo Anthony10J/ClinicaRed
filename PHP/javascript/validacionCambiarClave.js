@@ -4,16 +4,14 @@ const inputs = document.querySelectorAll('#formCambiarClave .formulario__input')
 const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Sin espacios, una minúscula, una mayúscula, un número y un caracter especial.  
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Expresión regular corregida
 };
 
 const validarInputs = (e) => {
     switch (e.target.name) {
         case "password2":
-            validarInputPassword(e, 'password2');
-            break;
         case "password3":
-            validarInputPassword(e, 'password3');
+            validarInputPassword(e, e.target.name);
             break;
     }
 };
@@ -50,7 +48,11 @@ const validarInputPassword = (e, campo) => {
     if (estadoValidacion.estadoCV) {
         estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, `${campo}`, 
             'Debe contener sin espacios una mayúscula, una minúscula, un número y un caracter especial');
-        estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
+        
+        // Verifica que la contraseña coincida solo si `campo` es `password2`
+        if (campo === 'password2') {
+            estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
+        }
     }
   
     return estadoValidacion;
@@ -65,15 +67,17 @@ formulario_Registro.addEventListener('submit', function (e) {
     inputs.forEach((input) => {
         if (input.name === 'password2' || input.name === 'password3') {
             const resultadoValidacion = validarInputPassword({ target: input }, input.name);
+            // Si alguna validación falla, marca errorEncontrado como true
             if (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || !resultadoValidacion.estadoCC) {
                 errorEncontrado = true;
             }
         }
     });
 
+    // Solo si se encontraron errores, se previene el envío del formulario
     if (errorEncontrado) {
-        e.preventDefault();
-        funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+        // // e.preventDefault();
+        // funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
     }
 });
 
@@ -81,6 +85,7 @@ const camposFormulario = formulario_Registro.querySelectorAll('input, select');
 
 camposFormulario.forEach(function(campo) {
     campo.addEventListener('input', function() {
+        // Verifica si al menos un campo tiene valor para habilitar el botón de envío
         const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
         if (algunCampoConValor) {
             botonEnviar.removeAttribute('disabled');

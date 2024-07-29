@@ -39,7 +39,7 @@ if (!empty($correo2)) {
             } else {
               echo '
               <script>
-                MostrarAlerta("error", "ERROR", "No se verificó el captcha.", "../V_Recuperar_Clave/V_verificar_token.php");
+                MostrarAlerta("error", "ERROR", "No se verificó el captcha.", "../V_Recuperar_Clave/V_ingresar_correo.php");
               </script>
               ';
              exit();
@@ -50,7 +50,7 @@ if (!empty($correo2)) {
         // Mostrar mensaje de error de correo no encontrado
         echo '
           <script>
-            MostrarAlerta("error", "ERROR", "Este correo electrónico no está registrado.", "../V_Recuperar_Clave/V_verificar_token.php");
+            MostrarAlerta("error", "ERROR", "Este correo electrónico no está registrado.", "../V_Recuperar_Clave/V_ingresar_correo.php");
           </script>
         ';
         exit();
@@ -59,7 +59,7 @@ if (!empty($correo2)) {
       // Mostrar mensaje de error de correo con punto final
       echo '
         <script>
-          MostrarAlerta("error", "ERROR", "El correo electrónico no es válido, porque finaliza con un punto.", "../V_Recuperar_Clave/V_verificar_token.php");
+          MostrarAlerta("error", "ERROR", "El correo electrónico no es válido, porque finaliza con un punto.", "../V_Recuperar_Clave/V_ingresar_correo.php");
         </script>
       ';
       exit();
@@ -68,17 +68,11 @@ if (!empty($correo2)) {
     // Mostrar mensaje de error de correo con 2 '@' o sin '@'
     echo '
       <script>
-        MostrarAlerta("error", "ERROR", "El correo electrónico no es válido.", "../V_Recuperar_Clave/V_verificar_token.php");
+        MostrarAlerta("error", "ERROR", "El correo electrónico no es válido.", "../V_Recuperar_Clave/V_ingresar_correo.php");
       </script>
     ';
     exit();
   }
-} else {
-  // Mostrar mensaje de error de correo vacío
-  echo '
-    <script>
-      MostrarAlerta("error", "ERROR", "No se ingresó ningún correo.", "../V_Recuperar_Clave/V_verificar_token.php");
-    </script>
-';
 }
+
 ?>
