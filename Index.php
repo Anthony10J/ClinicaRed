@@ -53,7 +53,7 @@ include('./PHP/Controladores/Conexion/Conexion_be.php');
                         <label for="correo" class="formulario__label">Correo Electrónico</label>
                         <div class="formulario__grupo-input">
                             <input type="email" class="formulario__input" name="correo" id="correo"
-                                placeholder="usuario@dominio.com" maxlength="40" autocomplete="off">
+                                placeholder="usuario@dominio.com" maxlength="40" autocomplete="off" required>
                         </div>
                         <p class="formulario__input-error"></p>
                     </div>
@@ -63,7 +63,7 @@ include('./PHP/Controladores/Conexion/Conexion_be.php');
                         <label for="password" class="formulario__label">Contraseña</label>
                         <div class="formulario__grupo-input">
                             <input type="password" class="formulario__input" name="password" id="password"
-                                placeholder="Contraseña" maxlength="30" autocomplete="off">
+                                placeholder="Contraseña" maxlength="30" autocomplete="off" required>
                             <i class="ver_password fas fa-eye"></i>
                         </div>
                         <p class="formulario__input-error"></p>

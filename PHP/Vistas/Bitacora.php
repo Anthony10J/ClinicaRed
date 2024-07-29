@@ -1,11 +1,18 @@
 <?php
+session_start(); // Iniciar la sesión si no está iniciada
+
 // Verificar si la sesión ya está activa
-if (session_status() === PHP_SESSION_ACTIVE) {
-  // La sesión ya está iniciada, no necesitas iniciarla nuevamente
-} else {
-  // La sesión aún no está iniciada, entonces la inicias
-  session_start();
+if (!isset($_SESSION['usuario'])) {
+    echo '
+          <script>
+                 alert("Por favor, debes iniciar sesión.")
+                window.location = "/index.php";
+            </script>
+       ';
+    session_destroy(); // Destruye la sesión
+    die(); // el código se detiene en esta línea 
 }
+
 include '../Controladores/Conexion/Conexion_be.php';
 // include '../../PHP/Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 // $id_rol = $_SESSION['IdRol'];
@@ -19,12 +26,9 @@ include '../Controladores/Conexion/Conexion_be.php';
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>CLÍNICA RED</title>
   <link rel="shortcut icon" href="/EstilosLogin/images/pestana.png" type="image/x-icon">
   <meta content="" name="description">
@@ -33,8 +37,6 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- Favicons -->
   <link href="../../assets/img/red-logo.jpeg" rel="icon">
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-
 
   <!-- Vendor CSS Files -->
   <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +51,7 @@ include '../Controladores/Conexion/Conexion_be.php';
   <link href="../../assets/css/style.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
   <!-- Estilos y librerias para reportes -->
@@ -57,10 +59,9 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- <link rel="stylesheet" href="../CSSReportes/EstilosModal.css">  -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 </head>
-
 <body>
   <?php
   include '../../Recursos/Componentes/header.php';
@@ -76,15 +77,12 @@ include '../Controladores/Conexion/Conexion_be.php';
     <!-- <button type="button" class="btn btn-secondary" style="padding: 3px 50px;" display="inline-block;"><i class="fas fa-file-pdf"></i> PDF</button> -->
     </div>
 
-
     <!-- Inserta la imagen centrada aquí -->
     <div class="text-center mb-4">
     </div>
 
     <?php
-
     include("../Controladores/Conexion/Conexion_be.php");
-
     ?>
     <div class="container mt-4">
       <div class="row">
