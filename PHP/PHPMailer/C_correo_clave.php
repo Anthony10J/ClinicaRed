@@ -21,7 +21,7 @@ function enviarCorreo2($destinatario, $otp2) {
     $mail->Host = 'smtp.gmail.com'; // Establecer el servidor SMTP para enviar a través de
     $mail->SMTPAuth = true; // Habilitar la autenticación SMTP
     $mail->Username = 'redelectrodiagnostico@gmail.com'; // Nombre de usuario SMTP
-    $mail->Password = 'pqwl jgoo lplt frph'; // Contraseña SMTP
+    $mail->Password = 'dxhw qqnv jxql zseh'; // Contraseña SMTP
     $mail->SMTPSecure = "SSL"; // Habilitar el cifrado TLS implícito
     $mail->Port = 587; // Puerto TCP para conectarse; use 587 si ha establecido `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 

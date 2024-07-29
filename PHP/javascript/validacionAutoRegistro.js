@@ -111,11 +111,20 @@ let validarInputDNI = (e) => {
     estadoCV: false,
     estadoER: false,
     estadoCC: false,
+    estadoCM: false,
+    
   };
-  estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.dniN, e.target, 'dni', 'Solo se permiten números');
-  if (estadoValidacion.estadoER) {
-    estadoValidacion.estadoCC = funciones.validarCerosConsecutivos(expresiones.dni, e.target, "dni", 'DNI no válido');
-  }
+  estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, 'dni', 'Por favor, ingresa tu DNI');
+  estadoValidacion.estadoCV
+
+    ? (estadoValidacion.estadoCC = funciones.validarCerosConsecutivos(expresiones.dni, e.target, "dni", 'DNI no válido')) :"";
+  estadoValidacion.estadoCC
+
+    ? (estadoValidacion.estadoCM = funciones.validarCampoMinimo(e.target, 'dni', 'Por favor, ingresa correctamente el DNI')) :"";
+  estadoValidacion.estadoCM
+
+    ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.dniN, e.target, 'dni', 'Solo se permiten números')) :"";
+
   return estadoValidacion;
 };
 
