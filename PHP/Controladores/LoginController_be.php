@@ -18,6 +18,19 @@ $correo = $_POST['correo'];
 $clave = $_POST['password'];
 $clave_encriptada = md5($clave);
 
+// obtener el objeto
+$id_objeto = Obtener_Id_Objeto('V_Paciente');
+if ($id_objeto === null) {
+    echo "Error: id_objeto es NULL";
+    exit();
+}
+
+$id_objeto = $conexion->real_escape_string($id_objeto);
+if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
+    echo "Error setting id_objeto variable: " . $conexion->error;
+    exit();
+}
+
 if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y contraseña no estén vacíos.
     // Verificar el número de intentos fallidos y el estado del usuario
     $consulta_intentos = "SELECT intentos_fallidos, Estado_Usuario FROM tbl_ms_usuario WHERE Correo = '$correo'";
@@ -84,7 +97,8 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    // bitacora($n, $a, $d);
+                    $o= $id_objeto;
+                    bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
                    exit();
