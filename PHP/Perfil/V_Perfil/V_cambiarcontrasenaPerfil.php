@@ -44,8 +44,8 @@
                         <p class="formulario__input-error"></p>
                     </div>
                 </div>
-                <input class="btn" type="submit" name="register" value="Enviar"><br> 
-               
+                <!-- <input class="btn" type="submit" name="register" value="Enviar"><br>  -->
+                <button type="submit" class="btn">Enviar</button>
                  <a href="../V_Perfil/V_perfil.php">Regresar al Perfil</a>
             </form>
         </div>
