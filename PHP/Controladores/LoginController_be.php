@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión aún no está iniciada, entonces la inicias
     session_start();
 }
+include('../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php');
 include('../Controladores/Conexion/Conexion_be.php');
 include('../../Recursos/SweetAlerts.php');
 include('../../Seguridad/Roles.php');
