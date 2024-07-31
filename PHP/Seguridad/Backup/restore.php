@@ -1,6 +1,7 @@
 <?php
 include './Connet.php';
 include '../../../Recursos/SweetAlerts.php';
+session_start();
 $restorePoint=SGBD::limpiarCadena($_POST['restorePoint']);
 $sql=explode(";",file_get_contents($restorePoint));
 $totalErrors=0;
