@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
 session_start();
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
@@ -9,12 +7,11 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión aún no está iniciada, entonces la inicias
     session_start();
 }
-include('../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php');
 include('../Controladores/Conexion/Conexion_be.php');
 include('../../Recursos/SweetAlerts.php');
 include('../../Seguridad/Roles.php');
 include('./bitacora.php');
-
+include('../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php');
 require_once('EnvioOTP/EnviarOTP.php');
 
 $correo = $_POST['correo'];
