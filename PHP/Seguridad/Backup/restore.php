@@ -30,7 +30,7 @@ if($totalErrors<=0){
 	// echo "Restauración completada con éxito";
     echo '
     <script>
-  MostrarAlerta("success", "Éxito", "La restauración fue exitosa.", "../../Controladores/Logout.php");
+  MostrarAlerta("success", "Éxito", "La restauración fue exitosa.", "./V_restore.php");
 </script>
 ';
 }else{
