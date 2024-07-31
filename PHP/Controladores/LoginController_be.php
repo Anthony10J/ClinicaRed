@@ -98,7 +98,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
                     $o= $id_objeto;
-                    bitacora($n, $a, $d, $o);
+                   // bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
                    exit();
