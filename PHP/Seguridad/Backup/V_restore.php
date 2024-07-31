@@ -28,7 +28,7 @@
     ?>
     <div class="container1">
         <h1>Restaurar Datos</h1>
-        <form form action="./Restore.php" method="POST">
+        <form form action="./restore.php" method="POST">
             <div class="form-group">
                 <label for="backup">Selecciona un punto de restauración:</label>
                 <select id="backup" name="restorePoint">
