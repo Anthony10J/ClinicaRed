@@ -12,20 +12,6 @@ for($i = 0; $i < (count($sql)-1); $i++){
 }
 $con->query("SET FOREIGN_KEY_CHECKS=1");
 $con->close();
-// Destruir todas las sesiones activas
-session_regenerate_id(true);
-session_unset();
-session_destroy();
-
-// Opcional: Limpiar el almacenamiento de sesiones en el servidor
-if (ini_get("session.save_path")) {
-    $sessionFiles = glob(session_save_path() . '/*');
-    foreach ($sessionFiles as $sessionFile) {
-        if (is_file($sessionFile)) {
-            unlink($sessionFile);
-        }
-    }
-}
 if($totalErrors<=0){
 	// echo "Restauración completada con éxito";
     echo '
