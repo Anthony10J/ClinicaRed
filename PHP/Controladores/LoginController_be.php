@@ -11,25 +11,12 @@ include('../Controladores/Conexion/Conexion_be.php');
 include('../../Recursos/SweetAlerts.php');
 include('../../Seguridad/Roles.php');
 include('./bitacora.php');
-include('../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php');
+
 require_once('EnvioOTP/EnviarOTP.php');
 
 $correo = $_POST['correo'];
 $clave = $_POST['password'];
 $clave_encriptada = md5($clave);
-
-// obtener el objeto
-$id_objeto = Obtener_Id_Objeto('V_Paciente');
-if ($id_objeto === null) {
-    echo "Error: id_objeto es NULL";
-    exit();
-}
-
-$id_objeto = $conexion->real_escape_string($id_objeto);
-if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
-    echo "Error setting id_objeto variable: " . $conexion->error;
-    exit();
-}
 
 if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y contraseña no estén vacíos.
     // Verificar el número de intentos fallidos y el estado del usuario
@@ -92,13 +79,12 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                     // Reiniciar los intentos fallidos a 0 después de un inicio de sesión exitoso
                     $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
                     mysqli_query($conexion, $reiniciar_intentos);
-                    echo "ID Objeto: " . $id_objeto;
+
                     $fecha = date("Y-m-d H:i:s");
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    $o= $id_objeto;
-                   // bitacora($n, $a, $d, $o);
+                    // bitacora($n, $a, $d);
                     //  enviarOTP($conexion, $correo);
                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
                    exit();
