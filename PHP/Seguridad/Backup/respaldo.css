@@ -1,0 +1,109 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    
+}
+
+.container1 {
+    width: 70%; /* Reduce el ancho del contenedor */
+    max-width: 1500px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin-left: 400px; /* Deja espacio a la izquierda para la sidebar */
+    margin-top: 200px; /* Ajusta la parte superior según sea necesario */
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+    
+}
+
+h1 {
+    font-weight: 500;
+    color: #343a40;
+    margin: 0;
+    margin-left: 50px;
+}
+
+.primary-btn, .secondary-btn, .danger-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    
+}
+
+.primary-btn {
+    background-color: #007bff;
+    color: white;
+    margin-right: 80px;
+}
+
+.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+.secondary-btn {
+    background-color: #6c757d;
+    color: white;
+    margin-right: 5px;
+}
+
+.secondary-btn:hover {
+    background-color: #5a6268;
+}
+
+.danger-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.danger-btn:hover {
+    background-color: #c82333;
+}
+
+.backups {
+    margin-top: 20px;
+}
+
+h2 {
+    font-weight: 400;
+    color: #495057;
+    margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed; /* Fija el ancho de la tabla */
+    margin-left: 50px;
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+    word-wrap: break-word; /* Permite que el texto se ajuste en múltiples líneas si es necesario */
+    
+}
+
+th {
+    background-color: #f1f1f1;
+}
