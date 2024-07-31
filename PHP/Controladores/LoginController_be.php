@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
 session_start();
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
@@ -93,7 +95,7 @@ if (!empty($correo) && !empty($clave_encriptada)) { // Validar que el correo y c
                     // Reiniciar los intentos fallidos a 0 después de un inicio de sesión exitoso
                     $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
                     mysqli_query($conexion, $reiniciar_intentos);
-
+                    echo "ID Objeto: " . $id_objeto;
                     $fecha = date("Y-m-d H:i:s");
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
