@@ -5,17 +5,28 @@ error_reporting(E_PARSE);
  comillas de los parentesis. Ejemplo: define("USER", "valor que ingresaras" ); 
  */
 
+// //Nombre de usuario de mysql
+// define("USER", "root");
+
+// //Servidor de mysql
+// define("SERVER", "localhost");
+
+// //Nombre de la base de datos
+// define("BD", "clinica_red");
+
+// //Contraseña de myqsl
+// define("PASS", "");
 //Nombre de usuario de mysql
-define("USER", "root");
+define("USER", "u452119581_red_2");
 
 //Servidor de mysql
 define("SERVER", "localhost");
 
 //Nombre de la base de datos
-define("BD", "clinica_red");
+define("BD", "u452119581_evaluacion_red");
 
 //Contraseña de myqsl
-define("PASS", "");
+define("PASS", "TechTitans2024");
 
 //Carpeta donde se almacenaran las copias de seguridad
 // define("BACKUP_PATH", "../../../Base de Datos/Respaldos Backup");
