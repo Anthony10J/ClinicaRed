@@ -1,6 +1,7 @@
 <?php
 include './Connet.php';
 include '../../../Recursos/SweetAlerts.php';
+session_start();
 
 $day=date("d");
 $mont=date("m");

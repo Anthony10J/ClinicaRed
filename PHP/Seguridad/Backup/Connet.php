@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include '../../Controladores/Conexion/Conexion_be.php';
 error_reporting(E_PARSE);
 /*Solo modifica lo que se encuentra en medio de las segundas

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include './Connet.php';
 include '../../../Recursos/SweetAlerts.php';
 $restorePoint=SGBD::limpiarCadena($_POST['restorePoint']);
