@@ -19,16 +19,16 @@ error_reporting(E_PARSE);
 // //Contraseña de myqsl
 // define("PASS", "");
 //Nombre de usuario de mysql
-define("USER", "u452119581_red_2");
+define("USER", "u452119581_RED");
 
 //Servidor de mysql
 define("SERVER", "localhost");
 
 //Nombre de la base de datos
-define("BD", "u452119581_evaluacion_red");
+define("BD", "u452119581_clinica_red");
 
 //Contraseña de myqsl
-define("PASS", "TechTitans2024");
+define("PASS", "T3chTit4n$2024");
 
 //Carpeta donde se almacenaran las copias de seguridad
 // define("BACKUP_PATH", "../../../Base de Datos/Respaldos Backup");
