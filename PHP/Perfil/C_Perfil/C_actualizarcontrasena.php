@@ -1,13 +1,12 @@
 <?php
 session_start(); // Asegúrate de iniciar la sesión al principio del script
 include '../../Controladores/Conexion/Conexion_be.php';
-require_once '../../Seguridad/OTP/C_Recuperar_Clave/C_recovery_controller.php';
 include('../../../Recursos/SweetAlerts.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password2 = $_POST['password2'];
     $password3 = $_POST['password3'];
-    $correo = $_SESSION['correo3']; // Asegúrate de que este campo exista en tu formulario y se envíe correctamente
+    $correo = $_SESSION['correo']; // Asegúrate de que este campo exista en tu formulario y se envíe correctamente
 
     // Verificar que las contraseñas coincidan
     if ($password2 !== $password3) {
@@ -61,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_close($stmt_check_password);
 
     // Actualizar la contraseña en la base de datos
-    $actualizarUsuarioQuery2 = "UPDATE tbl_ms_usuario SET Contrasena = ?, Estado_Usuario = 1, intentos_fallidos = 0 WHERE Correo = ?";
+    $actualizarUsuarioQuery2 = "UPDATE tbl_ms_usuario SET Contrasena = ? WHERE Correo = ?";
     $stmt = mysqli_prepare($conexion, $actualizarUsuarioQuery2);
     mysqli_stmt_bind_param($stmt, "ss", $hashed_password, $correo);
 
@@ -75,12 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo '
         <script>
-            MostrarAlerta("Exito", "EXITO", "Se guardó correctamente", "/index.php");
+            MostrarAlerta("Exito", "EXITO", "Se guardó correctamente", "../../Controladores/Logout.php");
         </script>
         ';
 
         // Redireccionar a la página principal o mostrar un mensaje de éxito
-        header("Location: /index.php");
+        header("Location: ../../Controladores/Logout.php");
         exit();
     } else {
         echo "Error al guardar los cambios: " . mysqli_error($conexion);
