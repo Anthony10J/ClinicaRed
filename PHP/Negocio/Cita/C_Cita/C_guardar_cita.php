@@ -1,4 +1,7 @@
 <?php
+include('../../../Controladores/Conexion/Conexion_be.php');
+include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
+session_start();
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente
@@ -7,9 +10,18 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-include('../../../Controladores/Conexion/Conexion_be.php');
-include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
+
 // include('../../../Controladores/bitacora.php');
+
+$idCita =$_POST['$idCita'];
+$motivoCita = strtoupper($_POST['motivoCita']);
+$fechaCita = date("Y-m-d", strtotime($_POST['fechaCita']));
+$horaCita = $_POST['horaCita'];
+$id_Paciente = $_POST['Id_Paciente'];
+$id_Usuario = $_SESSION['id_D'];
+$id_Tipo_Cita = $_POST['tipoCita'];
+$subespecialidad = $_POST['subespecialidad'];
+$id_Expediente = $_POST['Id_Expediente'];
 
 // obtener el objeto
 $id_objeto = Obtener_Id_Objeto('V_modal_cita');
@@ -39,16 +51,6 @@ if ($conexion->query("SET @current_user_id = '$current_user_id'") === FALSE) {
 echo "Error: current_user_id es NULL";
 exit();
 }
-
-$idCita =$_POST['$idCita'];
-$motivoCita = strtoupper($_POST['motivoCita']);
-$fechaCita = date("Y-m-d", strtotime($_POST['fechaCita']));
-$horaCita = $_POST['horaCita'];
-$id_Paciente = $_POST['Id_Paciente'];
-$id_Usuario = $_SESSION['id_D'];
-$id_Tipo_Cita = $_POST['tipoCita'];
-$subespecialidad = $_POST['subespecialidad'];
-$id_Expediente = $_POST['Id_Expediente'];
 
 $sql = "INSERT INTO tbl_cita_terapeutica (Descripcion_Cita, Fecha_Registro, Fecha_Cita, Hora_Cita, Id_Paciente, Id_Usuario, Id_Tipo_Cita, Id_Especialista, Id_Estado_Cita, Id_Expediente)
         VALUES ('$motivoCita', NOW(), '$fechaCita', '$horaCita', '$id_Paciente', '$id_Usuario', '$id_Tipo_Cita', '$subespecialidad', 1, '$id_Expediente')";

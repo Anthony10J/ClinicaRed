@@ -12,6 +12,9 @@ include('../../../Controladores/Conexion/Conexion_be.php');
 // include('../../../Controladores/bitacora.php');
 
 
+$id_Cita = $_POST['idCita_L'];
+
+
 // obtener el objeto
 $id_objeto = Obtener_Id_Objeto('V_modal_cita');
 if ($id_objeto === null) {
@@ -40,10 +43,6 @@ if ($conexion->query("SET @current_user_id = '$current_user_id'") === FALSE) {
 echo "Error: current_user_id es NULL";
 exit();
 }
-
-
-
-$id_Cita = $_POST['idCita_L'];
 
 $sql = "UPDATE tbl_cita_terapeutica SET Id_Estado_Cita = 1 WHERE id_Cita_Terapia = '$id_Cita'";
     echo $resultado = mysqli_query($conexion, $sql);
