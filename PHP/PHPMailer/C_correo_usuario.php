@@ -18,7 +18,8 @@ function enviarCorreo3($destinatario, $correo3, $contrasenatemp) {
  // $Datos_Servidor = Parametro::dataServerEmail();
   try {
     // Configuración del servidor
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Habilitar salida de depuración detallada
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Habilitar salida de depuración detallada
+    $mail->SMTPDebug = 0; 
     $mail->isSMTP(); // Enviar usando SMTP
     $mail->Host = 'smtp.gmail.com'; // Establecer el servidor SMTP para enviar a través de
     $mail->SMTPAuth = true; // Habilitar la autenticación SMTP

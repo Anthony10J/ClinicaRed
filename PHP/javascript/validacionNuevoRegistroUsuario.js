@@ -1,10 +1,10 @@
 import * as funciones from "./validacionGeneral.js";
 
-const inputs = document.querySelectorAll('#registerFormUser');
+const inputs = document.querySelectorAll('#registerFormUser  input');
 const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
-  usuario: /^[a-zA-Z]{1,15}$/, // Letras, numeros, guion y guion_bajo
+  usuario: /^[a-zA-Z]{3,15}$/, // Letras, numeros, guion y guion_bajo
   nombre: /^[a-zA-ZÀ-ÿ\s]{3,40}$/, // Letras y espacios, pueden llevar acentos.
   correo: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   direccion: /^[a-zA-Z0-9,.-_#+\s]{1,80}$/,
@@ -127,8 +127,9 @@ let validarInputUsuario = (e) => {
         ? (estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, 'usuario', 'No debe colocar el mismo caracter +2 veces seguidas')) : "";
 
     estadoValidacion.estadoMC
-        ? (estadoValidacion.estadoUE = funciones.validarEspacios(/\s\s/g, e.target, 'nombre', 'Debe limitarse a un espacio')) : "";
-    return estadoValidacion;
+        ? (estadoValidacion.estadoUE = funciones.validarEspacios(/\s\s/g, e.target, 'usuario', 'Debe limitarse a un espacio')) : "";
+    
+        return estadoValidacion;
 };
 
 //  validar input DNI
@@ -138,6 +139,7 @@ let validarInputDNI = (e) => {
         estadoER: false,
         estadoCC: false,
         estadoVDNI: false,
+        estadoCM: false,
         // estadoConsulta: false,
         // estadoConsultaCorreo2: false,
     };
@@ -149,7 +151,8 @@ let validarInputDNI = (e) => {
 
     estadoValidacion.estadoER
         ? (estadoValidacion.estadoCC = funciones.validarCerosConsecutivos(expresiones.dni, e.target, "dni", 'DNI no válido')) : "";
-
+    estadoValidacion.estadoCC
+        ? (estadoValidacion.estadoCM = funciones.validarCampoMinimo (e.target, "dni", "Por favor ingresa correctamente el DNI")): "";
     return estadoValidacion;
 };
 
@@ -161,7 +164,7 @@ let validarInputNombre = (e) => {
         estadoMC: false,
         estadoUE: false,
     };
-    estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, 'nombre', 'Por favor, ingresa tu nombre');
+    estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, 'nombre', 'Por favor, ingresa tu nombre') ;
 
     estadoValidacion.estadoCV
         ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.nombre, e.target, 'nombre', 'Solo se permiten letras')) : "";
@@ -209,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
             validarCampoVacio(this, 'dni', 'Por favor, ingresa tu DNI');
         } else {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../Consultas/ValidarDNI.php', true);
+            xhr.open('POST', '/PHP/Consultas/ValidarDNI.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
@@ -256,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
             validarCampoVacio(this, 'correo2', 'Por favor, ingresa tu correo electrónico');
         } else {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../Consultas/ValidarCorreo.php', true);
+            xhr.open('POST', '/PHP/Consultas/ValidarCorreo.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
@@ -268,13 +271,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         elemento.classList.remove('formulario__grupo-correcto');
                         document.querySelector('#grupo__correo2 .formulario__input-error').textContent = 'Ya existe el correo electrónico';
                         document.querySelector('#grupo__correo2 .formulario__input-error').classList.add('formulario__input-error-activo');
-                        // document.querySelector('#grupo__correo2 i').classList.remove('fa-times-circle');
                     } else {
                         estadoValidacion.correoExiste = false;
-                        elemento.classList.remove('formulario__grupo-incorrecto2');
-                        elemento.classList.add('formulario__grupo-correcto2');
-                        document.querySelector('#grupo__correo2 .formulario__input-error2').textContent = '';
-                        document.querySelector('#grupo__correo2 .formulario__input-error2').classList.remove('formulario__input-error-activo2');
+                        elemento.classList.remove('formulario__grupo-incorrecto');
+                        elemento.classList.add('formulario__grupo-correcto');
+                        document.querySelector('#grupo__correo2 .formulario__input-error').textContent = '';
+                        document.querySelector('#grupo__correo2 .formulario__input-error').classList.remove('formulario__input-error-activo');
                     }
                 }
             };
@@ -286,10 +288,14 @@ document.addEventListener('DOMContentLoaded', function () {
         var elemento = document.getElementById('grupo__' + campo);
         elemento.classList.add('formulario__grupo-incorrecto');
         elemento.classList.remove('formulario__grupo-correcto');
-        document.querySelector('#grupo__' + campo + ' .formulario__input-error').textContent = mensaje;
-        document.querySelector('#grupo__' + campo + ' .formulario__input-error').classList.add('formulario__input-error-activo');
+        var errorElement = document.querySelector('#grupo__' + campo + ' .formulario__input-error');
+        if (errorElement) {
+            errorElement.textContent = mensaje;
+            errorElement.classList.add('formulario__input-error-activo');
+        }
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     var estadoValidacion = { usuarioExiste: false };
@@ -303,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
             validarCampoVacio(this, 'usuario', 'Por favor, ingresa tu usuario');
         } else {
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../Consultas/ValidarUsuario.php', true);
+            xhr.open('POST', '/PHP/Consultas/ValidarUsuario.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
@@ -338,18 +344,336 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-const formulario_Registro = document.getElementById('registerFormUser');
-
-formulario_Registro.addEventListener('submit', function (e) {
-    const error_Formulario_Registro = document.querySelectorAll(".formulario__grupo-incorrecto");
-    const error_Formulario = document.querySelectorAll(".formulario__input-error-activo");
-
-    // Comprueba si hay errores de validación
-    if (error_Formulario_Registro.length > 0 || error_Formulario.length > 0) {
-        e.preventDefault();
-        funciones.MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+export const validarFechaNacimiento = () => {
+    const fechaNacimientoInput = document.getElementById('fechanacimiento');
+    const fechaNacimientoValue = new Date(fechaNacimientoInput.value);
+    const fechaActual = new Date();
+  
+    // Ajustar la fecha de nacimiento para comparar con la fecha actual
+    const fechaNacimientoValida = fechaNacimientoValue <= fechaActual;
+  
+    // Calcular la edad
+    const edad = fechaActual.getFullYear() - fechaNacimientoValue.getFullYear();
+  
+    // Verificar si la fecha de nacimiento es válida (no es posterior a la fecha actual y tiene al menos 18 años)
+    const fechaValida = fechaNacimientoValida && edad >= 18;
+  
+    // Obtener el elemento del mensaje de error
+    const mensajeFechaNacimiento = document.getElementById("mensajeFechaNacimiento");
+  
+    // Mostrar mensaje de error si la fecha de nacimiento no es válida
+    if (fechaNacimientoInput.value === '') {
+        mensajeFechaNacimiento.innerText = 'Ingrese su fecha de nacimiento';
+        fechaNacimientoInput.classList.remove('mensaje_error');
     } else {
-        // Si no hay errores, permite el envío del formulario
-        // Si llegas a este punto, el formulario se enviará
+        if (!fechaValida) {
+            mensajeFechaNacimiento.innerText = '*Fecha no válida';
+            fechaNacimientoInput.classList.add('mensaje_error');
+        } else {
+            // Si la fecha es válida, eliminamos el mensaje de error y permitimos el envío del formulario
+            mensajeFechaNacimiento.innerText = '';
+            fechaNacimientoInput.classList.remove('mensaje_error');
+            return true; // La fecha es válida
+        }
+    }
+    
+  }
+  // Agregamos un listener al evento submit del formulario para que llame a la función de validación
+  const formulario = document.getElementById('registerFormUser'); 
+  formulario.addEventListener("submit", function (event) {
+      // Llamamos a la función de validación de fecha de nacimiento
+      const fechaValida = validarFechaNacimiento();
+    
+      // Comprobamos si la fecha de nacimiento es válida
+      if (!fechaValida) {
+          event.preventDefault(); // Detener el envío del formulario
+          // MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      }   
+  });
+  // Agregar un event listener al input de fecha de nacimiento para validarla cuando cambie su valor
+  document.getElementById("fechanacimiento").addEventListener("change", validarFechaNacimiento);
+  
+////Validacion Género
+  const validarGenero = () => {
+    const generoInput = document.getElementById('genero');
+    const generoValue = generoInput.value;
+  
+    // Verificar si se ha seleccionado un género válido
+    const generoValido = generoValue !== '0';
+  
+    // Obtener el elemento del mensaje de error
+    const mensajeGenero = document.getElementById("mensajeGenero2");
+    
+    // Mostrar mensaje de error si el género no es válido
+    if (!generoValido) {
+        mensajeGenero.innerText = '*Por favor, seleccione un género';
+        generoInput.classList.add('mensaje_error');
+    } else {
+        // Si el género es válido, eliminamos el mensaje de error
+        mensajeGenero.innerText = '';
+        generoInput.classList.remove('mensaje_error');
+        return true; // El género es válido
+    }
+  }
+  
+  // Agregar un listener al evento change del campo de género para llamar a la función de validación
+  const generoInput = document.getElementById('genero');
+  generoInput.addEventListener("change", validarGenero);
+  // Agregamos un listener al evento submit del formulario para que llame a la función de validación
+  const formulario2 = document.getElementById('registerFormUser'); 
+  formulario2.addEventListener("submit", function (event) {
+      // Llamamos a la función de validación de género
+      const generoValido = validarGenero();
+    
+      // Comprobamos si el género es válido
+      if (!generoValido) {
+          event.preventDefault(); // Detener el envío del formulario
+          // MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      }   
+  });
+
+
+////Validacion ROL
+  const validarROL = () => {
+    const rolInput = document.getElementById('rol');
+    const rolValue = rolInput.value;
+  
+    // Verificar si se ha seleccionado un género válido
+    const rolValido = rolValue !== '0';
+  
+    // Obtener el elemento del mensaje de error
+    const mensajerol = document.getElementById("mensajerol2");
+    
+    // Mostrar mensaje de error si el género no es válido
+    if (!rolValido) {
+        mensajerol.innerText = '*Por favor, seleccione un rol';
+        rolInput.classList.add('mensaje_error');
+    } else {
+        // Si el género es válido, eliminamos el mensaje de error
+        mensajerol.innerText = '';
+        rolInput.classList.remove('mensaje_error');
+        return true; // El género es válido
+    }
+  }
+  
+  // Agregar un listener al evento change del campo de género para llamar a la función de validación
+  const rolInput = document.getElementById('rol');
+  rolInput.addEventListener("change", validarROL);
+  // Agregamos un listener al evento submit del formulario para que llame a la función de validación
+  const formulario2rol = document.getElementById('registerFormUser'); 
+  formulario2rol.addEventListener("submit", function (event) {
+      // Llamamos a la función de validación de género
+      const rolValido = validarROL();
+    
+      // Comprobamos si el género es válido
+      if (!rolValido) {
+          event.preventDefault(); // Detener el envío del formulario
+          // MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      }   
+  });
+
+
+////Validacion ESTADO USUARIO
+  const validarestado = () => {
+    const estadoInput = document.getElementById('estadoUser');
+    const estadoValue = estadoInput.value;
+  
+    // Verificar si se ha seleccionado un género válido
+    const estadoValido = estadoValue !== '0';
+  
+    // Obtener el elemento del mensaje de error
+    const mensajeestado = document.getElementById("mensajeestado2");
+    
+    // Mostrar mensaje de error si el género no es válido
+    if (!estadoValido) {
+        mensajeestado.innerText = '*Por favor, seleccione un estado para el usuario';
+        estadoInput.classList.add('mensaje_error');
+    } else {
+        // Si el género es válido, eliminamos el mensaje de error
+        mensajeestado.innerText = '';
+        estadoInput.classList.remove('mensaje_error');
+        return true; // El género es válido
+    }
+  }
+  
+  // Agregar un listener al evento change del campo de género para llamar a la función de validación
+  const estadoInput = document.getElementById('estadoUser');
+  estadoInput.addEventListener("change", validarestado);
+  // Agregamos un listener al evento submit del formulario para que llame a la función de validación
+  const formulario2estado = document.getElementById('registerFormUser'); 
+  formulario2estado.addEventListener("submit", function (event) {
+      // Llamamos a la función de validación de género
+      const estadoValido = validarestado();
+    
+      // Comprobamos si el género es válido
+      if (!estadoValido) {
+          event.preventDefault(); // Detener el envío del formulario
+          // MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      }   
+  });
+
+  
+  //////////////////////////////
+  export const validarContratacion = () => {
+    const fechacontratacionInput = document.getElementById('fechacontratacion');
+  
+    // Obtener el elemento del mensaje de error
+    const mensajecontratacion = document.getElementById("mensajeFechaContratacion");
+  
+    // Mostrar mensaje de error si la fecha de nacimiento no es válida
+    if (fechacontratacionInput.value === '') {
+        mensajecontratacion.innerText = 'Ingrese su fecha de contratación';
+        fechacontratacionInput.classList.remove('mensaje_error');
+    } else {
+            // Si la fecha es válida, eliminamos el mensaje de error y permitimos el envío del formulario
+            mensajecontratacion.innerText = '';
+            fechacontratacionInput.classList.remove('mensaje_error');
+            return true; // La fecha es válida
+        }
+    }
+    
+  // Agregamos un listener al evento submit del formulario para que llame a la función de validación
+  const formularioC = document.getElementById('registerFormUser'); 
+  formularioC.addEventListener("submit", function (event) {
+      // Llamamos a la función de validación de fecha de nacimiento
+      const fechaValida = validarContratacion();
+    
+      // Comprobamos si la fecha de nacimiento es válida
+      if (!fechaValida) {
+          event.preventDefault(); // Detener el envío del formulario
+          // MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      }   
+  });
+  // Agregar un event listener al input de fecha de nacimiento para validarla cuando cambie su valor
+  document.getElementById("fechacontratacion").addEventListener("change", validarContratacion);
+
+
+/////CAMPO VACIO NOMBRE
+  document.addEventListener('DOMContentLoaded', function () {
+    var usuarioInput = document.getElementById('nombre');
+
+    usuarioInput.addEventListener('blur', function () {
+        var usuario = this.value.trim();
+        var elemento = document.getElementById('grupo__nombre');
+
+        if (usuario === "") {
+            validarCampoVacio(this, 'nombre', 'Por favor, ingresa tu nombre');
+        } 
+    });
+
+    function validarCampoVacio(input, campo, mensaje) {
+        var elemento = document.getElementById('grupo__' + campo);
+        elemento.classList.add('formulario__grupo-incorrecto');
+        elemento.classList.remove('formulario__grupo-correcto');
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').textContent = mensaje;
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').classList.add('formulario__input-error-activo');
     }
 });
+
+/////CAMPO VACIO DIRECCION
+document.addEventListener('DOMContentLoaded', function () {
+    var usuarioInput = document.getElementById('direccion');
+
+    usuarioInput.addEventListener('blur', function () {
+        var usuario = this.value.trim();
+        var elemento = document.getElementById('grupo__direccion');
+
+        if (usuario === "") {
+            validarCampoVacio(this, 'direccion', 'Por favor, ingresa tu dirección');
+        } 
+    });
+
+    function validarCampoVacio(input, campo, mensaje) {
+        var elemento = document.getElementById('grupo__' + campo);
+        elemento.classList.add('formulario__grupo-incorrecto');
+        elemento.classList.remove('formulario__grupo-correcto');
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').textContent = mensaje;
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').classList.add('formulario__input-error-activo');
+    }
+});
+/////CAMPO VACIO CONTRASENA
+document.addEventListener('DOMContentLoaded', function () {
+    var usuarioInput = document.getElementById('password2');
+
+    usuarioInput.addEventListener('blur', function () {
+        var usuario = this.value.trim();
+        var elemento = document.getElementById('grupo__password2');
+
+        if (usuario === "") {
+            validarCampoVacio(this, 'password2', 'Por favor, ingresa tu contraseña');
+        } 
+    });
+
+    function validarCampoVacio(input, campo, mensaje) {
+        var elemento = document.getElementById('grupo__' + campo);
+        elemento.classList.add('formulario__grupo-incorrecto');
+        elemento.classList.remove('formulario__grupo-correcto');
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').textContent = mensaje;
+        document.querySelector('#grupo__' + campo + ' .formulario__input-error').classList.add('formulario__input-error-activo');
+    }
+});
+// -----------------------------------
+
+const formulario_Registro = document.getElementById('registerFormUser');
+const botonEnviar = formulario_Registro.querySelector('button[type="submit"]');
+const camposFormulario = formulario_Registro.querySelectorAll('input, select');
+
+const validarInput = (input) => {
+  let resultadoValidacion;
+  switch (input.name) {
+    case "correo2":
+      resultadoValidacion = validarInputCorreo({ target: input }, input.name);
+      break;
+    case "password2":
+    case "password3":
+      resultadoValidacion = validarInputPassword({ target: input }, input.name);
+      break;
+    case "usuario":
+      resultadoValidacion = validarInputUsuario({ target: input });
+      break;
+    case "nombre":
+      resultadoValidacion = validarInputNombre({ target: input });
+      break;
+    case "dni":
+      resultadoValidacion = validarInputDNI({ target: input });
+      break;
+    case "direccion":
+      resultadoValidacion = validarInputDireccion({ target: input });
+      break;
+  }
+  return resultadoValidacion;
+};
+
+formulario_Registro.addEventListener('submit', function (e) {
+  let errorEncontrado = false;
+
+  // Validar todos los inputs
+  camposFormulario.forEach((input) => {
+    const resultadoValidacion = validarInput(input);
+    if (resultadoValidacion && (!resultadoValidacion.estadoER || (resultadoValidacion.estadoCC !== undefined && !resultadoValidacion.estadoCC))) {
+      errorEncontrado = true;
+    }
+  });
+
+  if (errorEncontrado) {
+    e.preventDefault();
+    funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+  }
+});
+
+camposFormulario.forEach(function(campo) {
+  campo.addEventListener('input', function() {
+    const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
+    if (algunCampoConValor) {
+      botonEnviar.removeAttribute('disabled');
+    } else {
+      botonEnviar.setAttribute('disabled', 'disabled');
+    }
+  });
+});
+
+  
+
+
+
+

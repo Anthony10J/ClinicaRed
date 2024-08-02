@@ -61,16 +61,17 @@ include '../../../../Recursos/Componentes/SideBar.html';
 <!-- Agrega tu encabezado y estilos aquí -->
 
 <main id="main" class="table">
-    <div class="container mt-4">
+        <div class="container mt-4">
             <div class="col-12">
-            <center>
-               <h2>Editar Usuario</h2>
-            </center>
-            
-            <div class="contenedor__todo">
-                <table class="table" style:"align-items-center">
-                            <form action="../C_Usuario/C_editar_usuario.php" method="post" class="formulario__register" id="editFormUser">
-                                <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($usuario['Id_Usuario']); ?>">
+                <center>
+                    <h2>Editar Usuario</h2>
+                </center>
+                <!-- <img src="../../Imagenes/logo2.jpg" style="align-items-left; width: 100px; height: 100px; border-radius: 50%;"> -->
+
+                <form action="../C_Usuario/C_editar_usuario.php" method="post" class="formulario__register" id="editFormUser">
+                <input type="hidden" name="idUsuario" value="<?php echo htmlspecialchars($usuario['Id_Usuario']); ?>">
+                 <div class="contenedor__todo">
+                        <table class="table" style:"align-items-center">
                             <tbody>
                                 <tr>
                                     <td>
@@ -78,31 +79,32 @@ include '../../../../Recursos/Componentes/SideBar.html';
                                         <div class="formulario__grupo" id="grupo__dni">
                                             <label for="dni" class="formulario__label">DNI</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="form-control" name="dni" id="dni" placeholder="DNI" 
-                                                value="<?php echo htmlspecialchars($usuario['DNI']); ?>" required>
+                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="formulario__input" class="form-control" name="dni" id="dni" placeholder="DNI"  autocomplete="off"
+                                                value="<?php echo htmlspecialchars($usuario['DNI']); ?>">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
                                     </td>
+                                    <!-- GRUPO NOMBRE COMPLETO -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__nombre">
                                             <label for="nombre" class="formulario__label">Nombre Completo</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="form-control mayuscula" name="nombre" id="nombre" style:"text-transform: uppercase" placeholder="Nombre completo" 
-                                                maxlength="80" value="<?php echo htmlspecialchars($usuario['Nombre']); ?>" required>
+                                                <input type="text" class="formulario__input" class="form-control" name="nombre" id="nombre" autocomplete="off" style="text-transform: uppercase" placeholder="Nombre completo" maxlength="80" 
+                                                value="<?php echo htmlspecialchars($usuario['Nombre']); ?>">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
                                     </td>
-                                    </tr>
-                                    <tr>
+                                </tr>
+                                <tr>
                                     <!-- GRUPO CORREO -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__correo2">
                                             <label for="correo2" class="formulario__label">Correo Electrónico</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="email" class="form-control" name="correo" id="correo" placeholder="usuario@dominio.com" 
-                                                maxlength="40" value="<?php echo htmlspecialchars($usuario['Correo']); ?>" required>
+                                                <input type="email" class="formulario__input" class="form-control" name="correo" id="correo" autocomplete="off" placeholder="Correo Electrónico" maxlength="40" 
+                                                value="<?php echo htmlspecialchars($usuario['Correo']); ?>">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -112,109 +114,203 @@ include '../../../../Recursos/Componentes/SideBar.html';
                                         <div class="formulario__grupo" id="grupo__usuario">
                                             <label for="usuario" class="formulario__label">Usuario</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="form-control mayuscula" style:"text-transform: uppercase" name="usuario" id="usuario" placeholder="Usuario" 
-                                                maxlength="15" value="<?php echo htmlspecialchars($usuario['Usuario']); ?>" required>
+                                                <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase" autocomplete="off" name="usuario" id="usuario" placeholder="Usuario" maxlength="15" 
+                                                value="<?php echo htmlspecialchars($usuario['Usuario']); ?>">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
                                     </td>
-                                    </tr>
-                                    <tr>
+                                </tr>
+                                <tr>
+                                    <!-- GRUPO CONTRASEÑA -->
+                                    <!-- <td>
+                                        <div class="formulario__grupo" id="grupo__password2">
+                                            <label for="password2" class="formulario__label">Contraseña</label>
+                                            <div class="formulario__grupo-input">
+                                                <input type="password" class="formulario__input" name="password2" id="password2" autocomplete="off" placeholder="Contraseña" maxlength="30" style="width: 620px" >
+                                                <i class="ver_password fas fa-eye"></i>
+                                            </div>
+                                            <p class="formulario__input-error"></p>
+                                        </div>
+                                    </td> -->
+                                    <!-- GRUPO CONFIRMACION CONTRASEÑA -->
+                                    <!-- <td>
+                                        <div class="formulario__grupo" id="grupo__password3">
+                                            <label for="password3" class="formulario__label">Confirmar Contraseña</label>
+                                            <div class="formulario__grupo-input">
+                                                <input type="password" class="formulario__input" class="form-control" name="password3" id="password3" autocomplete="off" placeholder="Confirmar contraseña" maxlength="30" style="width: 585px" >
+                                                <i class="ver_password fas fa-eye"></i>
+                                            </div>
+                                            <p class="formulario__input-error"></p>
+                                        </div>
+                                    </td> -->
+                                </tr>
+
+                                <tr>
                                     <!-- GRUPO DIRECCION -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__direccion">
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="form-control mayuscula" name="direccion" id="direccion" placeholder="Dirección" 
-                                                maxlength="80" value="<?php echo htmlspecialchars($usuario['Direccion']); ?>" required>
+                                                <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80" 
+                                                value="<?php echo htmlspecialchars($usuario['Direccion']); ?>">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
                                     </td>
                                     <!-- GRUPO GENERO -->
                                     <td>
-                                        <div class="formulario__grupo">
-                                            <select type="text" name="genero" id="genero" class="form-control" placeholder="Genero" class="combobox"
-                                            value="<?php echo htmlspecialchars($usuario['IdGenero']); ?>" required>
-                                            <option value="0" <?php if ($usuario['IdGenero'] == 0) echo "selected"; ?>>Seleccione un género</option>
-                                            <option value="1" <?php if ($usuario['IdGenero'] == 1) echo "selected"; ?>>MASCULINO</option>
-                                            <option value="2" <?php if ($usuario['IdGenero'] == 2) echo "selected"; ?>>FEMENINO</option>
-                                            </select>
+                                        <div class="gender-options">
+                                            <!-- <label for="genero" class="formulario__label">Género</label> -->
+                                            <div></div>
+                                            <select type="int" class="formulario__input" autocomplete="off" name="genero" id="genero" placeholder="Genero" class="combobox"
+                                            value="<?php echo htmlspecialchars($usuario['IdGenero']); ?>">
+                                                <!-- <option value="0" selected>Seleccione un Género</option> -->
+                                                <?php
+                                                // Conexión a la base de datos
 
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "SELECT idGenero, Descripcion FROM tbl_genero";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['idGenero'] . '">' . $fila['Descripcion'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                // mysqli_close($conexion);
+                                                ?>
+                                            </select>
+                                            <p id="mensajeGenero2" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
                                     </td>
-                                    </tr>
-                                    <tr>
+                                </tr>
+                                <tr>
+
                                     <!-- GRUPO FECHA NACIMIENTO -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
-                                        <label for="Fechavencimiento">Fecha de Nacimiento:</label>
-                                            <input  type="date" placeholder="Fecha de Nacimiento" name="fechanacimiento" id="fechanacimiento" class="form-control" min="1900-01-01" max="2006-01-01" value="<?php echo htmlspecialchars($usuario['FechaNacimiento']); ?>" required>
-                                            <p id="mensajeFechaNacimiento" class="mensaje_error" style:"color: red;" > </p>
+                                            <label for="Fechanacimiento">Fecha de Nacimiento:</label>
+                                            <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" class="form-control" class="fecha-nacimiento-input" 
+                                            value="<?php echo htmlspecialchars($usuario['FechaNacimiento']); ?>">
+                                            <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: #bb2929;" ></p>
                                         </div>
                                     </td>
                                     <!-- GRUPO FECHA CONTRATACION -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
-                                        <label for="FechaContratacion">Fecha de Contratación:</label>
-                                            <input type="date" name="fechacontratacion" id="fechacontratacion" class="form-control"
-                                            value="<?php echo htmlspecialchars($usuario['FechaContratacion']); ?>" required>
+                                            <label for="Fechavencimiento">Fecha de Contratación:</label>
+                                            <input type="date" class="formulario__input" name="fechacontratacion" id="fechacontratacion" autocomplete="off" class="form-control" 
+                                            value="<?php echo htmlspecialchars($usuario['FechaContratacion']); ?>">
+                                            <p id="mensajeFechaContratacion" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
                                     </td>
-                                    </tr>
-                                    <tr>
+                                </tr>
+                                <tr>
                                     <!-- GRUPO ROL -->
                                     <td>
-                                        <div class="gender-options">
-                                            <div></div>
-                                            <select type="int" name="rol" id="rol" class="form-control" placeholder="rol" class="combobox"
-                                            value="<?php echo htmlspecialchars($usuario['IdRol']); ?>" required>
-                                            <option value="0" <?php if ($usuario['IdRol'] == 0) echo "selected"; ?>>Seleccione un rol</option>
-                                            <option value="2" <?php if ($usuario['IdRol'] == 2) echo "selected"; ?>>DEFECTO</option>
-                                            <option value="3" <?php if ($usuario['IdRol'] == 3) echo "selected"; ?>>USUARIO</option>
-                                            <option value="4" <?php if ($usuario['IdRol'] == 4) echo "selected"; ?>>ADMINISTRADOR</option>
-                                            <option value="5" <?php if ($usuario['IdRol'] == 5) echo "selected"; ?>>SECRETARIA</option>
-                                            <option value="6" <?php if ($usuario['IdRol'] == 6) echo "selected"; ?>>FISIATRA</option>
-                                            <option value="7" <?php if ($usuario['IdRol'] == 7) echo "selected"; ?>>TERAPEUTA</option>
-                                        </select>
-                                        </div>
+                                    <div class="gender-options">
+                                    <select type="int" class="formulario__input" autocomplete="off" name="rol" id="rol" placeholder="rol" class="combobox"
+                                    value="<?php echo htmlspecialchars($usuario['IdRol']); ?>">
+                                                <?php
+                                                // Conexión a la base de datos
+
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "SELECT Id_Rol, Rol FROM tbl_ms_roles WHERE Rol <> 'SUPERADMINISTRADOR'";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['Id_Rol'] . '">' . $fila['Rol'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                // mysqli_close($conexion);
+                                                ?>
+                                            </select>
+                                            <p id="mensajerol2" class="mensaje_error" style="color: #bb2929;"></p>
+                                    </div>
                                     </td>
                                     <!-- GRUPO ESTADO USUARIO -->
                                     <td>
                                         <div class="gender-options">
-                                            <div></div>
-                                            <select type="int" class="form-control" name="estadoUser" id="estadoUser" placeholder="estadoUser" class="combobox"
-                                            value="<?php echo htmlspecialchars($usuario['Estado_Usuario']); ?>" required>
-                                            <option value="0" <?php if ($usuario['Estado_Usuario'] == 0) echo "selected"; ?>>Seleccione un estado</option>
-                                            <option value="1" <?php if ($usuario['Estado_Usuario'] == 1) echo "selected"; ?>>ACTIVO</option>
-                                            <option value="2" <?php if ($usuario['Estado_Usuario'] == 2) echo "selected"; ?>>INACTIVO</option>
+                                            <!-- <div></div> -->
+                                            <select type="int" class="formulario__input" autocomplete="off" name="estadoUser" id="estadoUser" placeholder="estadoUser" class="combobox"
+                                            value="<?php echo htmlspecialchars($usuario['Estado_Usuario']); ?>">
+                                                <?php
+                                                // Conexión a la base de datos
+
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "select Id_Estado, Descripcion FROM tbl_estado_usuario WHERE Descripcion <> 'BLOQUEADO'";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['Id_Estado'] . '">' . $fila['Descripcion'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                mysqli_close($conexion);
+                                                ?>
                                             </select>
-
+                                            <p id="mensajeestado2" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
+                                       
                                     </td>
-                                    </tr>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <button type="submit" id="Btnregistrar" class="btn btn-primary">Guardar</button>
 
-                                     <tr>
-                                    <td>  
-                                        <button type="submit" id="registrarBtn" class="btn btn-primary">Guardar Cambios</button>
-                                        </td>
-                                        <td> 
-                                         <button id="cancelarbtn" onclick="confirmarCancelar()" class="btn btn-danger" type="button">Cancelar</button>
-                                         </td>
-                                     </tr>
-                                     </form>
-                                    </tbody>
-<script>
-    function confirmarCancelar() {
-        // Mostrar un cuadro de diálogo de confirmación
-        const confirmacion = confirm("¿Estás seguro de que deseas cancelar?");
-       
-        // Si el usuario hace clic en "Aceptar", redirigir a la pantalla de usuarios
-        if (confirmacion) {
-            // Redirigir a la pantalla de usuarios (reemplaza con la URL correcta)
-            window.location.href = "./V_usuario.php";
+                                    </td>
+                                    
+                </form>
+                <td>
+                    <!-- <a href="./V_usuario.php"> -->
+                    <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
+                    <!-- </a> -->
+                </td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+        </div>
+    </main>
+
+    <script>
+        var Btncancelar = document.getElementById('Btncancelar');
+        Btncancelar.addEventListener('click', confirmarCancelar);
+
+        function confirmarCancelar() {
+            Swal.fire({
+                title: "Quieres Cancelar esta Acción?",
+                text: "Estas seguro que quieres Cancelar?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Cancelado",
+                        text: "No se Guardaron registros",
+                        icon: "success",
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location = "./V_usuario.php";
+                    }, 1300);
+                }
+            });
         }
-    }
-</script>
+    </script>
                 
             </div>
         </div>
@@ -231,6 +327,8 @@ include '../../../../Recursos/Componentes/SideBar.html';
     <script src="../../../../assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="../../../../assets/vendor/php-email-form/validate.js"></script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script type="module" src="../../../javascript/validacionEditarUsuario.js"></script>
+
 
     <!-- Template Main JS File -->
     <script src="../../../../assets/js/main.js"></script>
@@ -242,7 +340,7 @@ include '../../../../Recursos/Componentes/SideBar.html';
 <!-- <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script> -->
 <!-- <script src="../../../../EstilosLogin/js/script.js"></script>     -->
 <!-- <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
 <!-- <script type="module" src="../../../javascript/validacionNuevoRegistroUsuario.js"></script> -->
 

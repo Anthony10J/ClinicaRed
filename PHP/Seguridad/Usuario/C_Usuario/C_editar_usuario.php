@@ -1,6 +1,7 @@
 <?php
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 include '../../../Controladores/Conexion/Conexion_be.php';
+include('../../../../Recursos/SweetAlerts.php');
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente
@@ -60,14 +61,18 @@ exit();
     mysqli_stmt_bind_param($stmt, "sssssiissi", $dni, $usuario, $direccion, $correo, $nombre, $estado, $rol,
         $fechanacimiento, $fechacontratacion, $idUsuario);
 
-    if (mysqli_stmt_execute($stmt)) {
-        // Mensaje de éxito
-        $mensajeExito = "¡Los cambios se han guardado exitosamente!";
-        
-        // Redireccionar a la página principal o mostrar un mensaje de éxito
-        header("Location: ../V_Usuario/V_usuario.php");
-        exit();
-    } else {
+        if (mysqli_stmt_execute($stmt)) {
+            // Mensaje de éxito
+            // $mensajeExito = "¡Los cambios se han guardado exitosamente!";
+            echo '
+            <script>
+                MostrarAlerta("success", "¡GENIAL!", "Usuario editado correctamente.", "../V_Usuario/V_usuario.php");
+            </script>
+        ';
+            // Redireccionar a la página principal o mostrar un mensaje de éxito
+            // header("Location: ../V_Usuario/V_usuario.php");
+            // exit();
+        } else {
         // Manejar el error de forma adecuada
         echo "Error al guardar los cambios";
     }

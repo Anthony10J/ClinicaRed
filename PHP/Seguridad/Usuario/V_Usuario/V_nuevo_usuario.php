@@ -78,7 +78,7 @@
     ?>
 
 
-    <main id="main" class="table">
+<main id="main" class="table">
         <div class="container mt-4">
             <div class="col-12">
                 <center>
@@ -96,7 +96,7 @@
                                         <div class="formulario__grupo" id="grupo__dni">
                                             <label for="dni" class="formulario__label">DNI</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="formulario__input" class="form-control" name="dni" id="dni" placeholder="DNI" required autocomplete="off">
+                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="formulario__input" class="form-control" name="dni" id="dni" placeholder="DNI"  autocomplete="off">
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -106,7 +106,7 @@
                                         <div class="formulario__grupo" id="grupo__nombre">
                                             <label for="nombre" class="formulario__label">Nombre Completo</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" name="nombre" id="nombre" autocomplete="off" style="text-transform: uppercase" placeholder="Nombre completo" maxlength="80">
+                                                <input type="text" class="formulario__input" class="form-control" name="nombre" id="nombre" autocomplete="off" style="text-transform: uppercase" placeholder="Nombre completo" maxlength="80" >
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -118,7 +118,7 @@
                                         <div class="formulario__grupo" id="grupo__correo2">
                                             <label for="correo2" class="formulario__label">Correo Electrónico</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="email" class="formulario__input" class="form-control" name="correo2" id="correo2" autocomplete="off" placeholder="Correo Electrónico" maxlength="40">
+                                                <input type="email" class="formulario__input" class="form-control" name="correo2" id="correo2" autocomplete="off" placeholder="Correo Electrónico" maxlength="40" >
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="formulario__grupo" id="grupo__usuario">
                                             <label for="usuario" class="formulario__label">Usuario</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase" autocomplete="off" name="usuario" id="usuario" placeholder="Usuario" maxlength="15">
+                                                <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase" autocomplete="off" name="usuario" id="usuario" placeholder="Usuario" maxlength="15" >
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -140,7 +140,7 @@
                                         <div class="formulario__grupo" id="grupo__password2">
                                             <label for="password2" class="formulario__label">Contraseña</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="password" class="formulario__input" name="password2" id="password2" autocomplete="off" placeholder="Contraseña" maxlength="30" style="width: 620px">
+                                                <input type="password" class="formulario__input" name="password2" id="password2" autocomplete="off" placeholder="Contraseña" maxlength="30" style="width: 620px" >
                                                 <i class="ver_password fas fa-eye"></i>
                                             </div>
                                             <p class="formulario__input-error"></p>
@@ -151,7 +151,7 @@
                                         <div class="formulario__grupo" id="grupo__password3">
                                             <label for="password3" class="formulario__label">Confirmar Contraseña</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="password" class="formulario__input" class="form-control" name="password3" id="password3" autocomplete="off" placeholder="Confirmar contraseña" maxlength="30" style="width: 585px">
+                                                <input type="password" class="formulario__input" class="form-control" name="password3" id="password3" autocomplete="off" placeholder="Confirmar contraseña" maxlength="30" style="width: 585px" >
                                                 <i class="ver_password fas fa-eye"></i>
                                             </div>
                                             <p class="formulario__input-error"></p>
@@ -164,19 +164,36 @@
                                     <td>
                                         <div class="formulario__grupo" id="grupo__direccion">
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80">
+                                                <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80" >
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
                                     </td>
                                     <!-- GRUPO GENERO -->
                                     <td>
-                                        <div class="formulario__grupo">
-                                            <select type="text" class="formulario__input" name="genero" id="genero" class="form-control" autocomplete="off" placeholder="Genero" class="combobox">
-                                                <option value="0" selected>Seleccione un género</option>
-                                                <option value="1">MASCULINO</option>
-                                                <option value="2">FEMENINO</option>
+                                        <div class="gender-options">
+                                            <!-- <label for="genero" class="formulario__label">Género</label> -->
+                                            <div></div>
+                                            <select type="int" class="formulario__input" autocomplete="off" name="genero" id="genero" placeholder="Genero" class="combobox">
+                                                <option value="0" selected>Seleccione un Género</option>
+                                                <?php
+                                                // Conexión a la base de datos
+
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "SELECT idGenero, Descripcion FROM tbl_genero";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['idGenero'] . '">' . $fila['Descripcion'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                // mysqli_close($conexion);
+                                                ?>
                                             </select>
+                                            <p id="mensajeGenero2" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
                                     </td>
                                 </tr>
@@ -185,64 +202,92 @@
                                     <!-- GRUPO FECHA NACIMIENTO -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
-                                            <label for="Fechavencimiento">Fecha de Nacimiento:</label>
-                                            <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" class="form-control" min="1900-01-01" max="2006-01-01">
-                                            <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: red;"></p>
+                                            <label for="Fechanacimiento">Fecha de Nacimiento:</label>
+                                            <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" class="form-control" class="fecha-nacimiento-input" >
+                                            <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: #bb2929;" ></p>
                                         </div>
                                     </td>
                                     <!-- GRUPO FECHA CONTRATACION -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
                                             <label for="Fechavencimiento">Fecha de Contratación:</label>
-                                            <input type="date" class="formulario__input" name="fechacontratacion" id="fechacontratacion" autocomplete="off" class="form-control">
-                                            <p id="mensajeFechaContratacion" class="mensaje_error" style="color: red;"></p>
+                                            <input type="date" class="formulario__input" name="fechacontratacion" id="fechacontratacion" autocomplete="off" class="form-control" >
+                                            <p id="mensajeFechaContratacion" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <!-- GRUPO ROL -->
                                     <td>
-                                        <div class="gender-options">
-                                            <div></div>
-                                            <select type="int" class="formulario__input" name="rol" id="rol" class="form-control" autocomplete="off" placeholder="rol" class="combobox">
-                                                <option value="0" selected>Seleccione un rol</option>
-                                                <option value="2">DEFECTO</option>
-                                                <option value="3">USUARIO</option>
-                                                <option value="4">ADMINISTRADOR</option>
-                                                <option value="5">SECRETARIA</option>
-                                                <option value="6">FISIATRA</option>
-                                                <option value="7">TERAPEUTA</option>
+                                    <div class="gender-options">
+                                    <select type="int" class="formulario__input" autocomplete="off" name="rol" id="rol" placeholder="rol" class="combobox">
+                                                <option value="0" selected>Seleccione un Rol</option>
+                                                <?php
+                                                // Conexión a la base de datos
+
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "SELECT Id_Rol, Rol FROM tbl_ms_roles WHERE Rol <> 'SUPERADMINISTRADOR'";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['Id_Rol'] . '">' . $fila['Rol'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                // mysqli_close($conexion);
+                                                ?>
                                             </select>
-                                        </div>
+                                            <p id="mensajerol2" class="mensaje_error" style="color: #bb2929;"></p>
+                                    </div>
                                     </td>
                                     <!-- GRUPO ESTADO USUARIO -->
                                     <td>
                                         <div class="gender-options">
-                                            <div></div>
-                                            <select type="int" class="formulario__input" class="form-control" name="estadoUser" id="estadoUser" autocomplete="off" placeholder="estadoUser" class="combobox">
-                                                <option value="0" selected>Seleccione un estado</option>
-                                                <option value="1">ACTIVO</option>
-                                                <option value="2">INACTIVO</option>
+                                            <!-- <div></div> -->
+                                            <select type="int" class="formulario__input" autocomplete="off" name="estadoUser" id="estadoUser" placeholder="estadoUser" class="combobox">
+                                                <option value="0" selected>Seleccione un Estado</option>
+                                                <?php
+                                                // Conexión a la base de datos
+
+                                                // Consulta SQL para obtener los géneros
+                                                $query = "select Id_Estado, Descripcion FROM tbl_estado_usuario WHERE Descripcion <> 'BLOQUEADO'";
+                                                $resultado = mysqli_query($conexion, $query);
+
+                                                // Iterar sobre los resultados y generar las opciones del select
+                                                while ($fila = mysqli_fetch_assoc($resultado)) {
+                                                    echo '<option value="' . $fila['Id_Estado'] . '">' . $fila['Descripcion'] . '</option>';
+                                                }
+                                                // Liberar resultado
+                                                mysqli_free_result($resultado);
+                                                // Cerrar conexión
+                                                mysqli_close($conexion);
+                                                ?>
                                             </select>
+                                            <p id="mensajeestado2" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
+                                       
                                     </td>
                                 </tr>
+                                
                                 <tr>
                                     <td>
                                         <button type="submit" id="Btnregistrar" class="btn btn-primary">Guardar</button>
 
                                     </td>
-                                </form>
-                                    <td>
-                                        <!-- <a href="./V_usuario.php"> -->
-                                        <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
-                                        <!-- </a> -->
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    
+                </form>
+                <td>
+                    <!-- <a href="./V_usuario.php"> -->
+                    <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
+                    <!-- </a> -->
+                </td>
+                </tr>
+                </tbody>
+                </table>
             </div>
+        </div>
         </div>
         </div>
     </main>
