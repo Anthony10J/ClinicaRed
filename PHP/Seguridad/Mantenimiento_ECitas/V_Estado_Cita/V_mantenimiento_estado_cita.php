@@ -68,8 +68,8 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                         <td><?php echo $filas[1] ?></td>
                         <td>
 
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalVerEstadoCita" onclick="cargarDatosLectura('<?php echo $datos; ?>')">
-                                <i class="fa-solid fa-eye"></i></button>
+                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalVerEstadoCita" onclick="cargarDatosLectura('<?php echo $datos; ?>')">
+                                <i class="fa-solid fa-eye"></i></button> -->
                                 <?php if (!$ocultarActualizacion): ?>
                             <button class="btn btn-warning" data-toggle="modal" data-target="#modalEditarEstadoCita" onclick="cargarDatos('<?php echo $datos; ?>')">
                                 <i class="fa-solid fa-pen-to-square"></i></button>

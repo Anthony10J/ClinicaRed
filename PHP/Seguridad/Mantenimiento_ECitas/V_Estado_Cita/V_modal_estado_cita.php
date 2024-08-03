@@ -54,7 +54,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
 
     <!-- librerias javascript -->
-    <script src="../C_Identidad/C_funciones_tipo_identidad.js"></script> <!-- Funciones para el CRUD -->
+    <script src="../C_Estado_Cita//C_funciones_estado_cita.js"></script> <!-- Funciones para el CRUD -->
     <script src="../../../../librerias/bootstrap/js/bootstrap.js"></script> <!-- libreria Bootstrap -->
     <script src="../../../../librerias/alertifyjs/js/alertify.js"></script> <!-- libreria Alertify -->
 
@@ -79,7 +79,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         </div>
 
         <!-- MODAL AGREGAR Estado Cita -->
-        <div class="modal fade" id="modalNuevoEstadoCita" tabindex="-1" aria-labelledby="modalNuevoEsadoCitaLabel"
+        <div class="modal fade" id="modalNuevoEstadoCita" tabindex="-1" aria-labelledby="modalNuevoEstadoCitaLabel"
             aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">
@@ -93,7 +93,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
                         <label for="Estado_Cita">Escriba estado de cita:</label>
                         <input type="text" name="Estado_Cita" id="Estado_Cita" placeholder="Nuevo estado de cita"
                             class="form-control input-sm mayuscula">
-                            <p class="error" id="mensaje_error"></p>
+                            <div id="mensaje_error" class="error-container"></div>
 
                     </div>
                     <div class="modal-footer">
@@ -154,12 +154,12 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
                         <label for="Estado_Cita_E">Estado Cita:</label>
                         <input type="text" name="Estado_Cita_E" id="Estado_Cita_E" placeholder="Nombre del Estado Cita"
                             class="form-control input-sm mayuscula">
-                        <label for="Id_Tipo_Documento" hidden readonly>Id Estado_Cita:</label>
-                        <input type="hidden" readonly name="Id_Tipo_Documento" id="Id_Tipo_Documento" class="form-control input-sm">
+                        <label for="Id_Estado_Cita" hidden readonly>Id Estado_Cita:</label>
+                        <input type="hidden" readonly name="Id_Estado_Cita" id="Id_Estado_Cita" class="form-control input-sm">
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="actualizarIdentidad"
+                        <button type="button" id="actualizarEstadoCita"
                             class="btn btn-primary btn-block">Actualizar</button>
                     </div>
                 </div>
@@ -215,14 +215,14 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         $('#guardarEstadoCita').click(function () {
            //$('#tablaTipoIdentidad').load('./V_mantenimiento_identidad.php');
            
-            identidad = $('#identidad').val();
-            insertarTipoIdentidad(identidad);
+            Estado_Cita = $('#Estado_Cita').val();
+            insertarEstadoCita(Estado_Cita);
         });
 
-        $('#actualizarIdentidad').click(function () {
-            actualizarTipoIdentidad();
+        $('#actualizarEstadoCita').click(function () {
+            actualizarEstadoCita();
             setTimeout(function() {
-                    window.location.reload();
+                    // window.location.reload();
                 }, 800);
         });
     });
