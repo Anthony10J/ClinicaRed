@@ -30,13 +30,21 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_modal_identidad');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
-if ($id_objeto == "12"){
-    $u=$_SESSION['usuario'];
-    $n= $_SESSION['id_D'];
-    $a='INGRESO A PANTALLA';
-    $d= $_SESSION['usuario'].' INGRESO A LA PANTALLA DE IDENTIDAD.';
-    $o= $id_objeto;
-    bitacora($n,$a,$d,$o); 
+if (isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
+    // condición para el ID del objeto correspondiente
+    if ($id_objeto == "12") {
+        $u = $_SESSION['usuario'];
+        $n = $_SESSION['id_D'];
+        $a = 'INGRESO A PANTALLA';
+        $d = $u . ' INGRESÓ A LA PANTALLA DE IDENTIDAD.';
+        $o = $id_objeto;
+
+        // Registrar en la bitácora
+        bitacora($n, $a, $d, $o);
+    }
+} else {
+    // Manejar el caso en que los datos de sesión no están disponibles
+    echo "Error: No se pudo obtener la información del usuario.";
 }
 
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
