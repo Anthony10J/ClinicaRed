@@ -222,7 +222,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         $('#actualizarIdentidad').click(function () {
             actualizarTipoCita();
             setTimeout(function() {
-                    window.location.reload();
+                    // window.location.reload();
                 }, 800);
         });
     });

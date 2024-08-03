@@ -64,12 +64,12 @@ function insertarTipoCita() {
             success: function (respuesta) {
                 if (respuesta == 1) {
                     $('#tablaTipoCita').load('../V_Tipo_Cita/V_mantenimiento_tipo_cita.php');
-                    alertify.success("Tipo de identificación registrado correctamente.");
+                    alertify.success("Tipo de cita registrada correctamente.");
                     setTimeout(function() {
                         window.location.reload();
                     }, 800);
                 } else {
-                    alertify.error("Fallo al guardar el tipo de identificación.");
+                    alertify.error("Fallo al guardar el tipo de cita.");
                 }
             }
         });
@@ -104,16 +104,30 @@ function cargarDatos(datos) {
 }
 
 function actualizarTipoCita() {
-    Id_Tipo_Cita = $('#Id_Tipo_Cita').val();
-    Tipo_Cita_E = $('#Tipo_Cita_E').val();
+    var Id_Tipo_Cita = $('#Id_Tipo_Cita').val();
+    var Tipo_Cita_E = $('#Tipo_Cita_E').val().trim(); // Trim para eliminar espacios al inicio y al final
 
-    cadena = "Id_Tipo_Cita=" + Id_Tipo_Cita +
-        "&Tipo_Cita_E=" + Tipo_Cita_E;
+    // Validar que Tipo_Cita_E no esté vacío
+    if (Tipo_Cita_E === '') {
+        alertify.error("Los campos no pueden estar vacíos.");
+        return;
+    }
 
-        if(Tipo_Cita_E.trim()===''){
-            alertify.error("Los campos no pueden estar vacíos.");
-            return;
-        }
+    // Validar que solo contenga letras y espacios
+    var letraEspacioRegex = /^[a-zA-Z\s]+$/;
+    if (!letraEspacioRegex.test(Tipo_Cita_E)) {
+        alertify.error("El campo solo puede contener letras y espacios.");
+        return;
+    }
+
+    // Contar el número de espacios
+    var espacioCount = (Tipo_Cita_E.match(/\s/g) || []).length;
+    if (espacioCount > 1) {
+        alertify.error("El campo no puede contener más de dos espacios.");
+        return;
+    }
+
+    var cadena = "Id_Tipo_Cita=" + Id_Tipo_Cita + "&Tipo_Cita_E=" + Tipo_Cita_E;
 
     $.ajax({
         type: 'POST',
@@ -124,13 +138,16 @@ function actualizarTipoCita() {
                 $('#tablaTipoCita').load('../V_Tipo_Cita/V_mantenimiento_tipo_cita.php');
                 alertify.success("Tipo de cita actualizado correctamente.");
                 $('#modalEditarTipoCita').modal('hide'); // Cerrar el modal
-
+                setTimeout(function() {
+                    window.location.reload();
+                }, 800);
             } else {
                 alertify.error("Fallo al actualizar el tipo de cita.");
             }
         }
     });
 }
+
 
 function validarSiNo(Id_Tipo_Documento){
     alertify.confirm('Eliminar Tipo de Cita', '¿Está seguro de eliminar el tipo de cita?', 
