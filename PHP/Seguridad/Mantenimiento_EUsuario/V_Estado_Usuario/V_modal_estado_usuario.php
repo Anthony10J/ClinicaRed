@@ -11,8 +11,8 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_modal_identidad');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
-if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
-        header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
+if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
+    header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +54,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
 
     <!-- librerias javascript -->
-    <script src="../C_Identidad/C_funciones_tipo_identidad.js"></script> <!-- Funciones para el CRUD -->
+    <script src="../C_Estado_Usuario/C_funciones_estado_usuario.js"></script> <!-- Funciones para el CRUD -->
     <script src="../../../../librerias/bootstrap/js/bootstrap.js"></script> <!-- libreria Bootstrap -->
     <script src="../../../../librerias/alertifyjs/js/alertify.js"></script> <!-- libreria Alertify -->
 
@@ -71,7 +71,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
         <div class="pagetitle">
             <h1>Mantenimiento Estado Usuario</h1>
-         
+
         </div><!-- End Page Title -->
 
         <div class="container mt-4">
@@ -79,40 +79,34 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         </div>
 
         <!-- MODAL AGREGAR Estado Cita -->
-        <div class="modal fade" id="modalNuevoEstadoCita" tabindex="-1" aria-labelledby="modalNuevoEsadoCitaLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalNuevoEstadoUsuario" tabindex="-1" aria-labelledby="modalNuevoEstadoUsuarioLabel" aria-hidden="true">
             <div class="modal-dialog ">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalNuevoEsadoCitaLabel">Nuevo Estado de Cita</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title fs-5" id="modalNuevoEstadoUsuarioLabel">Nuevo Estado de Usuario</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
-                    <div class="modal-body">                    
+                    <div class="modal-body">
 
-                        <label for="Estado_Cita">Escriba estado de cita:</label>
-                        <input type="text" name="Estado_Cita" id="Estado_Cita" placeholder="Nuevo estado de cita"
-                            class="form-control input-sm mayuscula">
-                            <p class="error" id="mensaje_error"></p>
-
+                        <label for="Estado_Usuario">Escriba estado de usuario:</label>
+                        <input type="text" name="Estado_Usuario" id="Estado_Usuario" placeholder="Nuevo estado de usuario" class="form-control input-sm mayuscula">
+                        <div id="mensaje_error" class="error-container"></div>
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="guardarEstadoCita" class="btn btn-primary btn-block">Guardar</button>
+                        <button type="button" id="guardarEstadoUsuario" class="btn btn-primary btn-block">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- MODAL PARA VER Identidad -->
-        <div class="modal fade" id="modalVerEstadoCita" tabindex="-1" aria-labelledby="modalVerEstadoCitaLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalVerEstadoCita" tabindex="-1" aria-labelledby="modalVerEstadoCitaLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalVerEstadoCitaLabel">Ver Estado Cita</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <input type="text" id="Id_Estado_Cita_L" hidden readonly class="form-control input-sm">
@@ -140,27 +134,22 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         </div>
 
         <!-- MODAL PARA EDITAR Identidad -->
-
-        <div class="modal fade" id="modalEditarEstadoCita" tabindex="-1" aria-labelledby="modalEditarEstadoCitaLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modalEditarEstadoUsuario" tabindex="-1" aria-labelledby="modalEditarEstadoUsuarioLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalEditarEstadoCitaLabel">Editar Estado Cita</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title fs-5" id="modalEditarEstadoUsuarioLabel">Editar Estado Usuario</h1>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <label for="Estado_Cita_E">Estado Cita:</label>
-                        <input type="text" name="Estado_Cita_E" id="Estado_Cita_E" placeholder="Nombre del Estado Cita"
-                            class="form-control input-sm mayuscula">
-                        <label for="Id_Tipo_Documento" hidden readonly>Id Estado_Cita:</label>
-                        <input type="hidden" readonly name="Id_Tipo_Documento" id="Id_Tipo_Documento" class="form-control input-sm">
+                        <label for="Estado_Usuario_E">Estado Usuario:</label>
+                        <input type="text" name="Estado_Usuario_E" id="Estado_Usuario_E" placeholder="Nombre del Estado Usuario" class="form-control input-sm mayuscula">
+                        <label for="Id_Estado" hidden readonly>Id Estado Usuario:</label>
+                        <input type="hidden" readonly name="Id_Estado" id="Id_Estado" class="form-control input-sm">
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="actualizarIdentidad"
-                            class="btn btn-primary btn-block">Actualizar</button>
+                        <button type="button" id="actualizarEstadoUsuario" class="btn btn-primary btn-block">Actualizar</button>
                     </div>
                 </div>
             </div>
@@ -173,8 +162,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
     include '../../../../Recursos/Componentes/footer.html';
     ?>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 
     <!-- Vendor JS Files -->
@@ -205,25 +193,25 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 </html>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#tablaEstadoUsuario').load('./V_mantenimiento_estado_usuario.php');
     });
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('#guardarEstadoCita').click(function () {
-           //$('#tablaTipoIdentidad').load('./V_mantenimiento_identidad.php');
-           
-            identidad = $('#identidad').val();
-            insertarTipoIdentidad(identidad);
+    $(document).ready(function() {
+        $('#guardarEstadoUsuario').click(function() {
+            //$('#tablaTipoIdentidad').load('./V_mantenimiento_identidad.php');
+
+            descripcion = $('#Estado_Usuario').val();
+            insertarEstadoUsuario(descripcion);
         });
 
-        $('#actualizarIdentidad').click(function () {
-            actualizarTipoIdentidad();
-            setTimeout(function() {
-                    window.location.reload();
-                }, 800);
+        $('#actualizarEstadoUsuario').click(function() {
+            actualizarEstadoUsuario();
+            // setTimeout(function() {
+            //     window.location.reload();
+            // }, 800);
         });
     });
 </script>

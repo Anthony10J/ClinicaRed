@@ -37,7 +37,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
         <table id="tablaEstadoUsuarioLoad" class="table">
             <!-- <br><h2>Mantenimiento de Parámetros</h2> -->
             <?php if (!$ocultarInsercion): ?>
-            <button style="width: 20%;" class="btn btn-primary btn-agregar" data-toggle="modal" data-target="#modalNuevoEstadoCita">
+            <button style="width: 20%;" class="btn btn-primary btn-agregar" data-toggle="modal" data-target="#modalNuevoEstadoUsuario">
                 <i class="fa-solid fa-plus"></i> Agregar Estado Usuario</button>
                 <?php endif; ?>
 
@@ -68,10 +68,10 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                         <td><?php echo $filas[1] ?></td>
                         <td>
 
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalVerEstadoCita" onclick="cargarDatosLectura('<?php echo $datos; ?>')">
-                                <i class="fa-solid fa-eye"></i></button>
+                            <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#modalVerEstadoCita" onclick="cargarDatosLectura('<//?php echo $datos; ?>')">
+                                <i class="fa-solid fa-eye"></i></button> -->
                                 <?php if (!$ocultarActualizacion): ?>
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#modalEditarEstadoCita" onclick="cargarDatos('<?php echo $datos; ?>')">
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#modalEditarEstadoUsuario" onclick="cargarDatos('<?php echo $datos; ?>')">
                                 <i class="fa-solid fa-pen-to-square"></i></button>
                                 <?php endif; ?>
 
@@ -172,7 +172,7 @@ if (file_exists($ruta_imagen)) {
                             }
                         });
                         // Agregar un título al reporte
-                        var title = 'Reporte de Tipos de Documentos';
+                        var title = 'Reporte de Estado de Usuario';
                         // Obtener la fecha y hora actual
                         var now = new Date();
                         var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
