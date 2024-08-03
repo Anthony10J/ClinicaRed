@@ -30,9 +30,16 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_modal_identidad');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
+$nombre_modulo = 'modulo_identidad'; // Identificador único para el módulo
+
+// Asegurarse de que los datos de sesión están disponibles
 if (isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
-    // condición para el ID del objeto correspondiente
-    if ($id_objeto == "12") {
+    //  agregar la condición para el ID del objeto correspondiente
+    if ($id_objeto == "12" && !isset($_SESSION[$nombre_modulo])) {
+        // Marcar que el usuario ha ingresado al módulo en esta sesión
+        $_SESSION[$nombre_modulo] = true;
+
+        // Datos para la bitácora
         $u = $_SESSION['usuario'];
         $n = $_SESSION['id_D'];
         $a = 'INGRESO A PANTALLA';
