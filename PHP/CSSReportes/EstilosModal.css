@@ -1,3 +1,13 @@
+.error-container {
+    height: 20px; /* Ajusta esta altura según sea necesario */
+    visibility: hidden;
+    color: red; /* Asegúrate de que el mensaje de error sea visible */
+    margin-top: 5px; /* Ajusta el margen según sea necesario */
+}
+
+.error-container.error {
+    visibility: visible;
+}
 .encabezado th{
 	font-weight: bold;
 }

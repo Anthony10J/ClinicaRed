@@ -54,7 +54,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
 
     <!-- librerias javascript -->
-    <script src="../C_Identidad/C_funciones_tipo_identidad.js"></script> <!-- Funciones para el CRUD -->
+    <script src="../C_Tipo_Cita/C_funciones_tipo_cita.js"></script> <!-- Funciones para el CRUD -->
     <script src="../../../../librerias/bootstrap/js/bootstrap.js"></script> <!-- libreria Bootstrap -->
     <script src="../../../../librerias/alertifyjs/js/alertify.js"></script> <!-- libreria Alertify -->
 
@@ -90,15 +90,15 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
                     </div>
                     <div class="modal-body">                    
 
-                        <label for="Estado_Cita">Escriba estado de cita:</label>
-                        <input type="text" name="Estado_Cita" id="Estado_Cita" placeholder="Nuevo estado de cita"
+                        <label for="Tipo_Cita">Escriba el Tipo de Cita:</label>
+                        <input type="text" name="Tipo_Cita" id="Tipo_Cita" placeholder="Nuevo Tipo de Cita"
                             class="form-control input-sm mayuscula">
-                            <p class="error" id="mensaje_error"></p>
+                            <div id="mensaje_error" class="error-container"></div>
 
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="guardarEstadoCita" class="btn btn-primary btn-block">Guardar</button>
+                        <button type="button" id="guardarTipoCita" class="btn btn-primary btn-block">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -141,21 +141,21 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
         <!-- MODAL PARA EDITAR Identidad -->
 
-        <div class="modal fade" id="modalEditarEstadoCita" tabindex="-1" aria-labelledby="modalEditarEstadoCitaLabel"
+        <div class="modal fade" id="modalEditarTipoCita" tabindex="-1" aria-labelledby="modalEditarTipoCitaLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalEditarEstadoCitaLabel">Editar Estado Cita</h1>
+                        <h1 class="modal-title fs-5" id="modalEditarTipoCitaLabel">Editar Tipo Cita</h1>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                        <label for="Estado_Cita_E">Estado Cita:</label>
-                        <input type="text" name="Estado_Cita_E" id="Estado_Cita_E" placeholder="Nombre del Estado Cita"
+                        <label for="Tipo_Cita_E">Tipo de Cita:</label>
+                        <input type="text" name="Tipo_Cita_E" id="Tipo_Cita_E" placeholder="Nombre del Tipo de Cita"
                             class="form-control input-sm mayuscula">
-                        <label for="Id_Tipo_Documento" hidden readonly>Id Estado_Cita:</label>
-                        <input type="hidden" readonly name="Id_Tipo_Documento" id="Id_Tipo_Documento" class="form-control input-sm">
+                        <label for="Id_Tipo_Cita" hidden readonly>Id Tipo_Cita:</label>
+                        <input type="hidden" readonly name="Id_Tipo_Cita" id="Id_Tipo_Cita" class="form-control input-sm">
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
@@ -212,15 +212,15 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
 
 <script>
     $(document).ready(function () {
-        $('#guardarEstadoCita').click(function () {
+        $('#guardarTipoCita').click(function () {
            //$('#tablaTipoIdentidad').load('./V_mantenimiento_identidad.php');
            
-            identidad = $('#identidad').val();
-            insertarTipoIdentidad(identidad);
+           Tipo_Cita = $('#Tipo_Cita').val();
+            insertarTipoCita(Tipo_Cita);
         });
 
         $('#actualizarIdentidad').click(function () {
-            actualizarTipoIdentidad();
+            actualizarTipoCita();
             setTimeout(function() {
                     window.location.reload();
                 }, 800);
