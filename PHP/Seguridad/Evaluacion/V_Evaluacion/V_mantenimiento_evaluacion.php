@@ -72,6 +72,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                                 <?php if (!$ocultarActualizacion): ?>
                             <form action="../../Expediente_Clinico/V_EClinico/V_modal_EClinico.php" method="POST">
                                 <input type="hidden" name="Id_Evaluacion" value="<?php echo $filas[0]; ?>">
+                                <input type="hidden" name="Descripcion" value="<?php echo $filas[1]; ?>">
                                 <button class="btn btn-primary" title="Agregar Evaluación" style="margin-top: 5px;">
                                     <i class="fa-solid fa-plus"></i></button>
                             </form>

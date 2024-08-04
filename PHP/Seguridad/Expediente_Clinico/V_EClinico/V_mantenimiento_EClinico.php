@@ -13,9 +13,12 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 }// Iniciar la sesión para poder acceder a las variables de sesión
 
 // Verificar si las variables de sesión existen
-if (isset($_SESSION['Id_Evaluacion'])) {
+if (isset($_SESSION['Id_Evaluacion']) && $_SESSION['Descripcion']) {
     // Acceder a las variables de sesión
     $Id_Evaluacion = $_SESSION['Id_Evaluacion'];
+    $Descripcion = $_SESSION['Descripcion'];
+    // Formatear la descripción para que solo la primera letra de cada palabra sea mayúscula
+    $Descripcion = ucwords(mb_strtolower($Descripcion, "UTF-8"));
 
     // Ahora puedes usar $id_expediente y $id_paciente según lo necesites
     // echo "ID de expediente: $id_expediente <br>";
@@ -25,6 +28,8 @@ if (isset($_SESSION['Id_Evaluacion'])) {
 } else {
     // Si las variables de sesión no existen, puedes redirigir o mostrar un mensaje de error
     echo "Las variables de sesión no están disponibles.";
+    $Descripcion = ''; // Valor por defecto si la variable de sesión no está establecida
+
 }
 ?>
 
@@ -39,7 +44,6 @@ if (isset($_SESSION['Id_Evaluacion'])) {
                 <thead class="encabezado bg-light table-info">
                 <tr>
                     <td>N°</td>
-                    <td>Evaluación</td>
                     <td>Descripcion</td>
                     <td>Acciones</td>
                 </tr>
@@ -67,7 +71,6 @@ if (isset($_SESSION['Id_Evaluacion'])) {
 
                     <tr>
                         <td><?php echo $correlativo ?></td>
-                        <td><?php echo $filas[1] ?></td>
                         <td><?php echo $filas[2] ?></td>
 
                         <td>
@@ -105,6 +108,8 @@ if (file_exists($ruta_imagen)) {
 ?>
 
 <script>
+
+    var descripcion = <?php echo json_encode($Descripcion); ?>
 // REPORTE DE PARAMETROS 
 $(document).ready(function () {
     $('#tablaEvaluacionRLoad').DataTable({
@@ -170,7 +175,7 @@ $(document).ready(function () {
             }
         });
                 // Agregar un título al reporte
-                var title = 'Reporte de Evaluaciones';
+                var title = 'Reporte de Evaluaciones de ' + descripcion;
                 // Obtener la fecha y hora actual
                 var now = new Date();
                 var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
@@ -214,7 +219,7 @@ $(document).ready(function () {
                 };
             },
             exportOptions: {
-                columns: [0, 1, 2],
+                columns: [0, 1],
                 modifier: {
                     page: 'current'
                 },

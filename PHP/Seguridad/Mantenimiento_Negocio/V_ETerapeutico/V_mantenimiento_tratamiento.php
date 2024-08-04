@@ -13,14 +13,18 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 }
 
 // Verificar si las variables de sesión existen
-if (isset($_SESSION['Id_Tipo_Tratamiento'])) {
+if (isset($_SESSION['Id_Tipo_Tratamiento']) && $_SESSION['Nombre']) {
     // Acceder a las variables de sesión
     $Id_Tipo_Tratamiento = $_SESSION['Id_Tipo_Tratamiento'];
+    $Nombre = $_SESSION['Nombre'];
+
+    $Nombre = ucwords(mb_strtolower($Nombre, "UTF-8"));
 
     // También puedes realizar cualquier otra lógica que necesites con estas variables
 } else {
     // Si las variables de sesión no existen, puedes redirigir o mostrar un mensaje de error
     echo "Las variables de sesión no están disponibles.";
+    $Nombre = '';
 }
 ?>
 
@@ -35,8 +39,7 @@ if (isset($_SESSION['Id_Tipo_Tratamiento'])) {
             <thead class="encabezado bg-light table-info">
                 <tr>
                     <td>N°</td>
-                    <td>Tipo de Terapia</td>
-                    <td>Tipo de Tratamiento</td>
+                    <td>Tratamiento</td>
                     <td>Acciones</td>
                 </tr>
             </thead>
@@ -61,7 +64,6 @@ if (isset($_SESSION['Id_Tipo_Tratamiento'])) {
 
                     <tr>
                         <td><?php echo $correlativo ?></td>
-                        <td><?php echo $filas[1] ?></td>
                         <td><?php echo $filas[2] ?></td>
                         <td>
 
@@ -98,6 +100,7 @@ if (file_exists($ruta_imagen)) {
 ?>
 
 <script>
+    var Nombre = <?php echo json_encode($Nombre); ?>
     // REPORTE DE PARAMETROS 
     $(document).ready(function() {
         $('#tablaTratamientoLoad').DataTable({
@@ -167,7 +170,7 @@ if (file_exists($ruta_imagen)) {
         });
 
                         // Agregar un título al reporte
-                        var title = 'Reporte de Tipos de Tratamientos';
+                        var title = 'Reporte Terapia de ' + Nombre;
                         // Obtener la fecha y hora actual
                         var now = new Date();
                         var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
@@ -211,7 +214,7 @@ if (file_exists($ruta_imagen)) {
                         };
                     },
                     exportOptions: {
-                        columns: [0, 1, 2],
+                        columns: [0, 1],
                         modifier: {
                             page: 'current'
                         },

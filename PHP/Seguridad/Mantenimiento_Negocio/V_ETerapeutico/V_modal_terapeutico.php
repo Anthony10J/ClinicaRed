@@ -70,7 +70,7 @@ include '../../../../Recursos/Componentes/header.php';
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Mantenimiento Tipos de Terapia</h1>
+            <h1>Mantenimiento Expediente Terapéutico</h1><br>
            
         </div><!-- End Page Title -->
 

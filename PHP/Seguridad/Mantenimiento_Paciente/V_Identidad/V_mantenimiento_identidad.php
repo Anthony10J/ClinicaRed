@@ -103,8 +103,8 @@ if (file_exists($ruta_imagen)) {
 }
 ?>
 
-// REPORTE
 <script>
+    // REPORTE DE TIPOS DE IDENTIFICACIÓN
 $(document).ready(function() {
     $('#tablaIdentidadLoad').DataTable({
         language: {

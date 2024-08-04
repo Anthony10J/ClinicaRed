@@ -62,103 +62,90 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Mantenimiento de Evaluaciones</h1>
-          
-        </div><!-- End Page Title -->
+            <h1>Mantenimiento de Evaluaciones de <?php echo isset($_POST['Descripcion']) ? mb_convert_case($_POST['Descripcion'], MB_CASE_TITLE, "UTF-8") : ''; ?></h1>
+            <div class="container mt-4">
+                <div id="tablaEvaluacionR"></div>
+            </div>
 
-        <div class="container mt-4">
-            <div id="tablaEvaluacionR"></div>
-        </div>
+            <!-- MODAL AGREGAR EvaluacionR -->
+            <div class="modal fade" id="modalNuevaEvaluacionR" tabindex="-1" aria-labelledby="modalNuevaEvaluacionRLabel" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalNuevaEvaluacionRLabel">Agregar Nueva Evaluación</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
 
-        <!-- MODAL AGREGAR EvaluacionR -->
-        <div class="modal fade" id="modalNuevaEvaluacionR" tabindex="-1" aria-labelledby="modalNuevaEvaluacionRLabel"
-            aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalNuevaEvaluacionRLabel">Agregar Nueva Evaluación</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <label for="evaluacionR">Nombre de la Evaluación:</label>
-                        <input type="text" name="evaluacionR" id="evaluacionR" placeholder="Nombre de la evaluación"
-                            class="form-control input-sm mayuscula">
+                            <label for="evaluacionR">Nombre de la Evaluación:</label>
+                            <input type="text" name="evaluacionR" id="evaluacionR" placeholder="Nombre de la evaluación" class="form-control input-sm mayuscula">
                             <div id="mensaje_error" class="error-container"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="guardarEvaluacionR" class="btn btn-primary btn-block">Guardar</button>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
+                            <button type="button" id="guardarEvaluacionR" class="btn btn-primary btn-block">Guardar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- MODAL PARA VER EvaluacionRs -->
-        <div class="modal fade" id="modalVerEvaluacionR" tabindex="-1" aria-labelledby="modalVerEvaluacionRLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalVerEvaluacionRLabel">Ver EvaluacionRs</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" id="Id_EvaluacionR_L" hidden readonly class="form-control input-sm">
-                        <label>EvaluacionR:</label>
-                        <input type="text" id="evaluacionR_L" readonly class="form-control input-sm">
-                        <label>Valor:</label>
-                        <input type="text" id="valorEvaluacionR_L" readonly class="form-control input-sm">
-                        <!-- Seleccionar el tipo de terapia -->
-                        <!-- <label>Tipo de Terapia:</label>
+            <!-- MODAL PARA VER EvaluacionRs -->
+            <div class="modal fade" id="modalVerEvaluacionR" tabindex="-1" aria-labelledby="modalVerEvaluacionRLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalVerEvaluacionRLabel">Ver Evaluaciones</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" id="Id_EvaluacionR_L" hidden readonly class="form-control input-sm">
+                            <label>EvaluacionR:</label>
+                            <input type="text" id="evaluacionR_L" readonly class="form-control input-sm">
+                            <label>Valor:</label>
+                            <input type="text" id="valorEvaluacionR_L" readonly class="form-control input-sm">
+                            <!-- Seleccionar el tipo de terapia -->
+                            <!-- <label>Tipo de Terapia:</label>
                         <input type="text" id="terapia_L" readonly class="form-control input-sm"> -->
 
-                        <!--  <label>Fecha Creación:</label>
+                            <!--  <label>Fecha Creación:</label>
                         <input type="text" id="fechaCreacion_L" readonly class="form-control input-sm">
                         <label>Modificado Por:</label>
                         <input type="text" id="modificadoPor_L" readonly class="form-control input-sm">
                         <label>Fecha Modificación:</label>
                         <input type="text" id="fechaModificacion_L" readonly class="form-control input-sm"> -->
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" id="VerParametro" class="btn btn-primary">Actualizar</button> -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- MODAL PARA EDITAR EvaluacionR -->
-       
-             <div class="modal fade" id="modalEditarEvaluacionR"
-            tabindex="-1" aria-labelledby="modalEditarEvaluacionRLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalEditarEvaluacionRLabel">Editar Evaluacion</h1>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
+            <!-- MODAL PARA EDITAR EvaluacionR -->
 
-                        <label for="evaluacionR">Nombre de la Evaluación:</label>
-                        <input type="text" name="evaluacionR_E" id="evaluacionR_E" placeholder="Nombre de la evaluación"
-                            class="form-control input-sm mayuscula">
-                        <label for="Id_Resultado_Evaluacion" readonly hidden>Id Evaluacion:</label>
-                        <input type="hidden" readonly name="Id_Resultado_Evaluacion" id="Id_Resultado_Evaluacion"
-                             class="form-control input-sm">
-                    </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
-                        <button type="button" id="actualizarEvaluacionR"
-                            class="btn btn-primary btn-block">Actualizar</button>
+            <div class="modal fade" id="modalEditarEvaluacionR" tabindex="-1" aria-labelledby="modalEditarEvaluacionRLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalEditarEvaluacionRLabel">Editar Evaluación</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <label for="evaluacionR">Nombre de la Evaluación:</label>
+                            <input type="text" name="evaluacionR_E" id="evaluacionR_E" placeholder="Nombre de la evaluación" class="form-control input-sm mayuscula">
+                            <label for="Id_Resultado_Evaluacion" readonly hidden>Id Evaluacion:</label>
+                            <input type="hidden" readonly name="Id_Resultado_Evaluacion" id="Id_Resultado_Evaluacion" class="form-control input-sm">
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->
+                            <button type="button" id="actualizarEvaluacionR" class="btn btn-primary btn-block">Actualizar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-     
+
     </main>
     <!-- dentro del main va la tabla o informacion -->
 
@@ -166,8 +153,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     include '../../../../Recursos/Componentes/footer.html';
     ?>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 
     <!-- Vendor JS Files -->
@@ -198,41 +184,43 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 </html>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#tablaEvaluacionR').load('./V_mantenimiento_EClinico.php');
     });
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('#guardarEvaluacionR').click(function () {
-           // $('#tablaEvaluacionR').load('./V_mantenimiento_EClinico.php');
+    $(document).ready(function() {
+        $('#guardarEvaluacionR').click(function() {
+            // $('#tablaEvaluacionR').load('./V_mantenimiento_EClinico.php');
             evaluacionR = $('#evaluacionR').val();
             insertarTipoEvaluacionR(evaluacionR);
             setTimeout(function() {
-                    window.location.reload();
-                }, 800);
-            
+                window.location.reload();
+            }, 800);
+
         });
 
-        $('#actualizarEvaluacionR').click(function () {
+        $('#actualizarEvaluacionR').click(function() {
             actualizarTipoEvaluacionR();
-       
+
         });
     });
 </script>
 
 <?php
 // Verificar si se recibieron los datos del formulario
-if (isset($_POST['Id_Evaluacion'])) {
+if (isset($_POST['Id_Evaluacion']) && $_POST['Descripcion']) {
     // Obtener los valores de id_expediente e id_paciente del formulario
     $_SESSION['Id_Evaluacion'] = $_POST['Id_Evaluacion'];
+    $_SESSION['Descripcion'] = $_POST['Descripcion'];
 
     // Ahora puedes utilizar $id_expediente y $id_paciente como necesites
     // echo "ID de expediente: $id_expediente <br>";
     // echo "ID de paciente: $id_paciente <br>";
 } else {
     unset($_SESSION['Id_Evaluacion']);
+    unset($_SESSION['Descripcion']);
     echo '
     <script>
         alertify.error("No se recibieron datos del expediente.");

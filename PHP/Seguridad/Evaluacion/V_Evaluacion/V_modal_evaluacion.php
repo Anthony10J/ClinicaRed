@@ -70,8 +70,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Mantenimiento Tipos de Exámenes</h1>
-         
+            <h1>Mantenimiento Expediente Clínico</h1><br>
         </div><!-- End Page Title -->
 
         <div class="container mt-4">

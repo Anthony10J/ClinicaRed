@@ -79,6 +79,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
 
                             <form action="./V_modal_tratamiento.php" method="POST">
                             <input type="hidden" name="Id_Tipo_Tratamiento" value="<?php echo $filas[0]; ?>">
+                            <input type="hidden" name="Nombre" value="<?php echo $filas[1]; ?>">
                             <button class="btn btn-primary" title="Agregar Tratamiento" style="margin-top: 5px;">
                                     <i class="fa-solid fa-plus"></i></button>
                             </form>

@@ -62,7 +62,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Mantenimiento Tipos de Tratamiento</h1>
+            <h1>Mantenimiento Terapia de <?php echo isset($_POST['Nombre']) ? mb_convert_case($_POST['Nombre'], MB_CASE_TITLE, "UTF-8") : ''; ?> </h1>
           
         </div><!-- End Page Title -->
 
@@ -221,15 +221,17 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
 <?php
 // Verificar si se recibieron los datos del formulario
-if (isset($_POST['Id_Tipo_Tratamiento'])) {
+if (isset($_POST['Id_Tipo_Tratamiento']) && $_POST['Nombre']) {
     // Obtener los valores de id_expediente e id_paciente del formulario
     $_SESSION['Id_Tipo_Tratamiento'] = $_POST['Id_Tipo_Tratamiento'];
+    $_SESSION['Nombre'] = $_POST['Nombre'];
 
     // Ahora puedes utilizar $id_expediente y $id_paciente como necesites
     // echo "ID de expediente: $id_expediente <br>";
     // echo "ID de paciente: $id_paciente <br>";
 } else {
     unset($_SESSION['Id_Tipo_Tratamiento']);
+    unset($_SESSION['Nombre']);
     echo '
     <script>
         alertify.error("No se recibieron datos del expediente.");
