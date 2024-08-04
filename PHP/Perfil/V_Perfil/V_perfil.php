@@ -86,17 +86,17 @@ include '../../../Recursos/Componentes/footer.html';
             window.location.href = "../../Vistas/Main.php";
             
         }
-        function editarPerfil() {
-        // Obtener los datos del perfil
-        var nombre = "<?php echo $fila['Nombre']; ?>";
-        var usuario = "<?php echo $fila['Usuario']; ?>";
-        var correo = "<?php echo $fila['Correo']; ?>";
-        var dni = "<?php echo $fila['DNI']; ?>";
-        var direccion = "<?php echo $fila['Direccion']; ?>";
+    //     function editarPerfil() {
+    //     // Obtener los datos del perfil
+    //     var nombre = "<?php echo $fila['Nombre']; ?>";
+    //     var usuario = "<?php echo $fila['Usuario']; ?>";
+    //     var correo = "<?php echo $fila['Correo']; ?>";
+    //     var dni = "<?php echo $fila['DNI']; ?>";
+    //     var direccion = "<?php echo $fila['Direccion']; ?>";
 
-        // Redirigir a la página de edición con los datos del perfil como parámetros en la URL
-        window.location.href = "./V_editar_datos_perfil.php?nombre=" + nombre + "&usuario=" + usuario + "&correo=" + correo + "&dni=" + dni + "&direccion=" + direccion;
-    }
+    //     // Redirigir a la página de edición con los datos del perfil como parámetros en la URL
+    //     window.location.href = "./V_editar_datos_perfil.php?nombre=" + nombre + "&usuario=" + usuario + "&correo=" + correo + "&dni=" + dni + "&direccion=" + direccion;
+    // }
 
         function cambiarImagen() {
             // Obtener el input de tipo file
