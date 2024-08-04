@@ -85,7 +85,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
                         <label for="evaluacionR">Nombre de la Evaluación:</label>
                         <input type="text" name="evaluacionR" id="evaluacionR" placeholder="Nombre de la evaluación"
                             class="form-control input-sm mayuscula">
-                            <p class="error" id="mensaje_error"></p>
+                            <div id="mensaje_error" class="error-container"></div>
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button> -->

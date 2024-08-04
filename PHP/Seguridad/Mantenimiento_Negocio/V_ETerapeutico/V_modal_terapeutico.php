@@ -89,7 +89,8 @@ include '../../../../Recursos/Componentes/header.php';
                     <div class="modal-body">
                         <label for="terapia">Nombre de la Terapia:</label>
                         <input type="text" id="terapia" name="terapia" class="form-control input-sm mayuscula">
-                        <p class="error" id="mensaje_error"></p>
+                        <div id="mensaje_error" class="error-container"></div>
+
 
                         <!-- <label for="valorTerapia">Valor:</label>
                         <input type="text" id="valorTerapia" class="form-control input-sm"> -->
@@ -209,9 +210,9 @@ include '../../../../Recursos/Componentes/footer.html';
 
         $('#actualizarTerapia').click(function() {
             actualizarTipoTerapia();
-            setTimeout(function() {
-                    window.location.reload();
-                }, 800);
+            // setTimeout(function() {
+            //         window.location.reload();
+            //     }, 800);
         });
     });
 </script>

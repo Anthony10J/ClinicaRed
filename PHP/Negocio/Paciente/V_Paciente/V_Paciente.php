@@ -302,10 +302,14 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
         $ImagenBase64 = base64_encode($contenido_imagen);
     }
     ?>
-    <script type="text/javascript">
+    
+    <script
+     type="text/javascript">
+        
         // REPORTE DE USUARIOS 
         $(document).ready(function () {
             $('#tablaAgenda').DataTable({
+                
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
                 },
@@ -313,21 +317,25 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                 paging: true,
                 buttons: [{
                     extend: 'excelHtml5',
+                    <?php if (!$ocultarReportes): ?>
                     text: '<i class="fas fa-file-excel"> Excel </i>',
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6, 7], // Índices de las columnas que quieres exportar
                         modifier: {
                             page: 'current'
+                            
                         },
+                        
                     }
                 },
                 {
-                    <?php if (!$ocultarReportes): ?>
+                        filename: 'Reporte RED',
                         extend: 'pdfHtml5',
                         download: 'open',
                         text: '<i class="fas fa-file-pdf"> PDF </i>',
                         title: 'CLINICA RED',
                         orientation: 'landscape',
+                        
                     <?php endif; ?>
                     customize: function (doc) {
 

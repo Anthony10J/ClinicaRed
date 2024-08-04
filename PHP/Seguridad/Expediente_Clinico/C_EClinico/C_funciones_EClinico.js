@@ -6,6 +6,7 @@ function validarCamposVacios(evaluacionR) {
     return true;
 }
 function verificarEvaluacion() {
+    return new Promise((resolve, reject) => {
     // Obtén el valor del campo de entrada
     var evaluacionR = $('#evaluacionR').val();
 
@@ -25,10 +26,11 @@ function verificarEvaluacion() {
                         // Si el parámetro ya existe, muestra el mensaje de error
                         $('#mensaje_error').text('La evaluacion ya existe.').addClass('error').show();
                         // alertify.error("El parámetro ya existe.");
-                        return false;
+                        resolve(false);
                     } else {
                         // Si el parámetro no existe, oculta el mensaje de error
-                        $('#mensaje_error').text('').removeClass('error').hide();
+                        $('#mensaje_error').text('').removeClass('visible');
+                        resolve(true);
                     }
                 },
                 error: function () {
@@ -38,32 +40,35 @@ function verificarEvaluacion() {
             });
         } else {
             // Si el campo está vacío, oculta el mensaje de error
-            $('#mensaje_error').text('').removeClass('error').hide();
+            $('#mensaje_error').text('').removeClass('visible');
+            resolve(true);
         }
-    }, ); // Retraso de 300 ms antes de la solicitud
+    }, 300);
+ }); // Retraso de 300 ms antes de la solicitud
 }
 
-$(document).ready(function () {
-    // Agregar el evento focusout a la función verificarParametro
-    $('#evaluacionR').on('focusout', verificarEvaluacion);
-});
+
 
 function insertarTipoEvaluacionR(evaluacionR) {
+    var cadena = "evaluacionR=" + evaluacionR;
     if (!validarCamposVacios(evaluacionR)) {
         return;
     }
 
     // Verifica si el parámetro ya existe utilizando la función verificarParametro()
     // Asumiendo que verificarParametro() retorna true si el parámetro existe y false si no existe.
-    verificarEvaluacion();
+    verificarEvaluacion().then(existe => {
+        if (!existe){
+            return;
+        }
+    
 
     // Si se muestra un mensaje de error, detén la ejecución de insertarParametro
-    if ($('#mensaje_error').is(':visible')) {
-        // El mensaje de error es visible, significa que el parámetro ya existe
-        // Por lo tanto, no procedemos con la inserción
-        return;
-    }
-    cadena = "evaluacionR=" + evaluacionR;
+    // if ($('#mensaje_error').is(':visible')) {
+    //     // El mensaje de error es visible, significa que el parámetro ya existe
+    //     // Por lo tanto, no procedemos con la inserción
+    //     return;
+    // }
     $.ajax({
         type: 'POST',
         url: '../C_EClinico/C_guardar_EClinico.php',
@@ -73,14 +78,21 @@ function insertarTipoEvaluacionR(evaluacionR) {
                 $('#tablaEvaluacionR').load('../V_EClinico/V_mantenimiento_EClinico.php');
                 alertify.success("Evaluación registrada correctamente.");
                 // $('#modalEditarEvaluacionR').modal('hide'); // Cerrar el modal
-               
+                setTimeout(function() {
+                    window.location.reload();
+                }, 800);
             } else {
                 alertify.error("Fallo al guardar la evaluación.");
                 
             }
         }
     });
+});
 }
+$(document).ready(function () {
+    // Agregar el evento focusout a la función verificarParametro
+    $('#evaluacionR').on('focusout', verificarEvaluacion);
+});
 
 // function cargarDatosLectura(datos) {
 //     extraerDatos = datos.split('||');

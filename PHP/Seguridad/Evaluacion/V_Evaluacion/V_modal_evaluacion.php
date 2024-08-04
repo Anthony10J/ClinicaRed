@@ -90,7 +90,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
                         <input type="text" hidden name="Id_Evaluacion_E" id="Id_Evaluacion_E">
                         <label for="descripcion">Tipo de Examen:</label>
                         <input type="text" id="descripcion" class="form-control input-sm mayuscula" placeholder="Nombre de exámen">
-                        <p class="error" id="mensaje_error"></p>
+                        <div id="mensaje_error" class="error-container"></div>
 
                     </div>
                     <div class="modal-footer">

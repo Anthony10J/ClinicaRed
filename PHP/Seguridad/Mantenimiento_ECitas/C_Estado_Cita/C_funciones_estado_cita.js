@@ -11,7 +11,7 @@ function verificarEstadoCita() {
                     dataType: 'json',
                     success: function (response) {
                         if (response.existe) {
-                            $('#mensaje_error').text('El tipo de cita ya existe.').addClass('visible');
+                            $('#mensaje_error').text('El estado de cita ya existe.').addClass('visible');
                             resolve(false);
                         } else {
                             $('#mensaje_error').text('').removeClass('visible');
