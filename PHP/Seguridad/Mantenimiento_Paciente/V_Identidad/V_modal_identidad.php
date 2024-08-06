@@ -32,19 +32,20 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_modal_identidad');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
-$nombre_modulo = 'modulo_identidad'; // Identificador único para el módulo
+$nombre_modulo = 'V_modulo_identidad'; // Identificador único para el módulo
 
 header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (isset($data['action']) && isset($data['module']) && isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
-    $a= $data['action'];
+    $action= $data['action'];
     $module = $data['module'];
     $id_objeto = Obtener_Id_Objeto($module); // Asumimos que el nombre del módulo coincide con el objeto
 
     $u = $_SESSION['usuario'];
     $n = $_SESSION['id_D'];
+    $a = 'INGRESO A PANTALLA';
     $d = $u . ' INGRESÓ A LA PANTALLA DE ' . strtoupper($module) . '.';
     $o = $id_objeto;
 

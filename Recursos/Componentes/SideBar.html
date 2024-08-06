@@ -1,4 +1,5 @@
 <!-- ======= Sidebar ======= -->
+
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -134,12 +135,19 @@
                                 action: 'INGRESO',
                                 module: modulo
                             })
-                        }).then(response => {
-                            if (!response.ok) {
-                                console.error('Error al registrar en bitácora');
-                            }
-                        }).catch(error => console.error('Error de red:', error));
-                    }
+                        })
+                        .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            console.log('Registro de bitácora exitoso');
+        } else {
+            console.error('Error al registrar en la bitácora:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
                     </script>
                 <li>
                     <a href="/PHP/Seguridad/Mantenimiento_EUsuario/V_Estado_Usuario/V_modal_estado_usuario.php">
