@@ -89,5 +89,19 @@ if (!isset($_SESSION["usuario"])) {
 
 <!-- Template Main JS File -->
 <script src="../../../assets/js/main.js"></script>
+<script>
+    document.getElementById('restoreForm').addEventListener('submit', function(event) {
+        var backupSelect = document.getElementById('backup');
+        if (backupSelect.value === '') {
+            event.preventDefault();  // Evita que el formulario se envíe
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor selecciona la Base de datos a restaurar',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+</script>
 </body>
 </html>
