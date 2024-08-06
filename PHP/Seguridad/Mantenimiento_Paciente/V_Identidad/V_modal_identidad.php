@@ -32,33 +32,37 @@ $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
 $nombre_modulo = 'modulo_identidad'; // Identificador único para el módulo
 
-// Asegurarse de que los datos de sesión están disponibles
-if (isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
-    //  agregar la condición para el ID del objeto correspondiente
-    if ($id_objeto == "12" && !isset($_SESSION[$nombre_modulo])) {
-        // Marcar que el usuario ha ingresado al módulo en esta sesión
-        $_SESSION[$nombre_modulo] = true;
+header('Content-Type: application/json');
 
-        // Datos para la bitácora
-        $u = $_SESSION['usuario'];
-        $n = $_SESSION['id_D'];
-        $a = 'INGRESO A PANTALLA';
-        $d = $u . ' INGRESÓ A LA PANTALLA DE IDENTIDAD.';
-        $o = $id_objeto;
+$data = json_decode(file_get_contents('php://input'), true);
 
-        // Registrar en la bitácora
-        bitacora($n, $a, $d, $o);
-    }
+if (isset($data['action']) && isset($data['module']) && isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
+    $a= $data['action'];
+    $module = $data['module'];
+    $id_objeto = Obtener_Id_Objeto($module); // Asumimos que el nombre del módulo coincide con el objeto
+
+    $u = $_SESSION['usuario'];
+    $n = $_SESSION['id_D'];
+    $d = $u . ' INGRESÓ A LA PANTALLA DE ' . strtoupper($module) . '.';
+    $o = $id_objeto;
+
+    // Registrar en la bitácora
+    bitacora($n, $a, $d, $o);
+
+    echo json_encode(['status' => 'success', 'message' => 'Registro de bitácora exitoso.']);
 } else {
-    // Manejar el caso en que los datos de sesión no están disponibles
-    echo "Error: No se pudo obtener la información del usuario.";
+    echo json_encode(['status' => 'error', 'message' => 'Datos insuficientes para registrar en la bitácora.']);
 }
 
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
 }
 ?>
+
+
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>

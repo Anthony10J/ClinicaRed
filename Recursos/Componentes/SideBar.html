@@ -118,10 +118,29 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/PHP/Seguridad/Mantenimiento_Paciente/V_Identidad/V_modal_identidad.php">
+                    <a id="tipo-documento" href="/PHP/Seguridad/Mantenimiento_Paciente/V_Identidad/V_modal_identidad.php" onclick="registrarIngresoModulo('Tipo de Documentos');">
                         <i class="bi bi-circle"></i><span>Tipo de Documentos</span>
                     </a>
                 </li>
+
+                <script>
+                    function registrarIngresoModulo(modulo) {
+                        fetch('/PHP/Controladores/bitacora.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                action: 'INGRESO',
+                                module: modulo
+                            })
+                        }).then(response => {
+                            if (!response.ok) {
+                                console.error('Error al registrar en bitácora');
+                            }
+                        }).catch(error => console.error('Error de red:', error));
+                    }
+                    </script>
                 <li>
                     <a href="/PHP/Seguridad/Mantenimiento_EUsuario/V_Estado_Usuario/V_modal_estado_usuario.php">
                         <i class="bi bi-circle"></i><span>Estado Usuario</span>
