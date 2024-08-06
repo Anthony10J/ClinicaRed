@@ -126,6 +126,11 @@
 
                 <script>
                     function registrarIngresoModulo(modulo) {
+                        // Validar que el nombre del módulo no esté vacío
+        if (modulo.trim() === '') {
+            console.error('El nombre del módulo es necesario para registrar en la bitácora.');
+            return;
+        }
                         fetch('/PHP/Controladores/bitacora.php', {
                             method: 'POST',
                             headers: {
