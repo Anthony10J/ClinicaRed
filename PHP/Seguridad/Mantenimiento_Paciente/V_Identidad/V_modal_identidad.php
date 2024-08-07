@@ -32,12 +32,6 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_modal_identidad');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
-$nombre_modulo = 'V_modulo_identidad'; // Identificador único para el módulo
-
-header('Content-Type: application/json');
-
-$data = json_decode(file_get_contents('php://input'), true);
-
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
 }
