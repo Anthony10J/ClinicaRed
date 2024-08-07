@@ -184,8 +184,8 @@ include '../Controladores/Conexion/Conexion_be.php';
     border: 0px solid #cccccc;
     border-radius: 10px;
     display: inline-block;
-    position: relative;
-    width: 150px; /* Ajusta este valor según el ancho que desees */
+    position: absolute;
+    width: 100px; /* Ajusta este valor según el ancho que desees */
     height: 25px; 
     margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
      }
