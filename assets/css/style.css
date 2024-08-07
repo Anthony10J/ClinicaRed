@@ -163,7 +163,9 @@ h6 {
 --------------------------------------------------------------*/
 
 
-#filtro {
+
+
+/*#filtro {
 
   font-size: 15px;
     margin-bottom: 40px;
@@ -183,11 +185,13 @@ h6 {
  
   position: absolute; 
   right: 5px; 
-*/
+
 
 }
 
+*/
 
+/*
 
 #qfiltro {
   font-size: 30px;
@@ -200,7 +204,9 @@ h6 {
   border: rgb(29, 61, 56);
    margin-right: 270px; /* Añadir un margen izquierdo al botón para desplazarlo hacia la izquierda */
    
-}
+
+
+
 .pagination {
   margin: 5px;
   margin-right: 0px;
@@ -226,6 +232,32 @@ h6 {
 --------------------------------------------------------------*/
 
 
+/* Estilo para el botón Filtrar */
+#filtro {
+  font-size: 50px;
+  margin-bottom: 40px;
+  margin-right: 10px; /* Espacio entre los botones */
+  padding: 10px 20px; /* Ajuste de relleno para un mejor tamaño de botón */
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color del texto */
+  cursor: pointer; /* Cursor de puntero */
+}
+
+/* Estilo para el botón Quitar filtro */
+#qfiltro {
+  font-size: 15px;
+  margin-bottom: 40px;
+  padding: 10px 20px; /* Ajuste de relleno para un mejor tamaño de botón */
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #6c757d; /* Color de fondo */
+  color: white; /* Color del texto */
+  cursor: pointer; /* Cursor de puntero */
+}
 
 
 
