@@ -109,7 +109,7 @@ include '../Controladores/Conexion/Conexion_be.php';
                 </div>
 
                 <div class="col-md-4">
-                  <div class="form-group d-flex">
+                  <div class="form-group d-flex justify-content-between">
                     
                     <button type="button" id="filtro" class="btn btn-primary mr-2">Filtrar</button> 
                     <button type="button" id="qfiltro" class="btn btn-primary" onclick="location.reload()" >Quitar filtro</button>
