@@ -217,6 +217,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                 paging: true,
                 buttons: [{
                         extend: 'excelHtml5',
+                        <?php if (!$ocultarReportes): ?>
                         text: '<i class="fas fa-file-excel"> Excel </i>',
                         exportOptions: {
                             columns: [0, 1, 2], // Índices de las columnas que quieres exportar
@@ -230,6 +231,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                         download: 'open',
                         text: '<i class="fas fa-file-pdf">  PDF </i>',
                         orientation: 'portrait',
+                        <?php endif; ?>
                         customize: function(doc) {
                             // Calcula la longitud máxima de los datos por columna
                             const maxLengths = [];

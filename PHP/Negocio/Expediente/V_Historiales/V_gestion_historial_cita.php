@@ -210,6 +210,7 @@ if (file_exists($ruta_imagen)) {
             paging: true,
             buttons: [{
                     extend: 'excelHtml5',
+                    <?php if (!$ocultarReportes) : ?>
                     text: '<i class="fas fa-file-excel"> Excel </i>',
                     exportOptions: {
                         columns: [0, 1, 2], // Índices de las columnas que quieres exportar
@@ -219,7 +220,6 @@ if (file_exists($ruta_imagen)) {
                     }
                 },
                 {
-                    <?php if (!$ocultarReportes) : ?>
                         extend: 'pdfHtml5',
                         download: 'open',
                         text: '<i class="fas fa-file-pdf">  PDF </i>',

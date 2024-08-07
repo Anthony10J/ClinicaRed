@@ -330,6 +330,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                     paging: true,
                     buttons: [{
                         extend: 'excelHtml5',
+                        <?php if (!$ocultarReportes): ?>
                         text: '<i class="fas fa-file-excel"> Excel </i>',
                         exportOptions: {
                             columns: [0, 1, 3, 4, 5, 6, 7, 8], // Índices de las columnas que quieres exportar
@@ -339,7 +340,6 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                         }
                     },
                     {
-                        <?php if (!$ocultarReportes): ?>
                         extend: 'pdfHtml5',
                         download: 'open',
                         text: '<i class="fas fa-file-pdf"> PDF </i>',

@@ -118,6 +118,7 @@ if (file_exists($ruta_imagen)) {
             alignment: "center",
             buttons: [{
                     extend: 'excelHtml5',
+                    <?php if (!$ocultarReportes): ?>
                     text: '<i class="fas fa-file-excel"> Excel </i>',
                     exportOptions: {
                         columns: [0, 1, 2, 3], // Índices de las columnas que quieres exportar
@@ -127,13 +128,11 @@ if (file_exists($ruta_imagen)) {
                     }
                 },
                 {
-                    <?php if (!$ocultarActualizacion): ?>
                     extend: 'pdfHtml5',
                     download: 'open',
                     text: '<i class="fas fa-file-pdf">  PDF </i>',
-                    <?php endif; ?>
-
                     orientation: 'portrait',
+                    <?php endif; ?>
                     customize: function(doc) {
 
                         // Calcula la longitud máxima de los datos por columna
