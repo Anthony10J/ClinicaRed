@@ -110,7 +110,8 @@ include '../Controladores/Conexion/Conexion_be.php';
 
                 <div class="col-md-2">
                   <div class="form-group">
-                    <button type="button" id="filtro" class="btn btn-primary">Filtrar</button>
+                    <button type="button" id="filtro" class="btn btn-primary">Filtrar</button>  </div>
+                    <div class="form-group">
                     <button type="button" id="qfiltro" class="btn btn-primary" onclick="location.reload()" >Quitar filtro</button>
                   </div>
                 </div>
