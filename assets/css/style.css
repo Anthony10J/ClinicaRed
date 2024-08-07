@@ -212,7 +212,10 @@ h6 {
   margin-right: 0px;
 }
 
-
+.hello{
+  margin: 50px;
+  margin-right: 100px;
+}
 
 
 #table{
@@ -267,13 +270,13 @@ h6 {
 }
 
 .col-md-4, .col-md-2, .btn-dangerf {
-  flex: 1; /* Distribute available space equally among columns */
+  flex: 11; /* Distribute available space equally among columns */
   text-align: left; /* Center content within each column */
 }
 
 #filtro {
  border: rgb(29, 61, 56);
-  margin-right: 370px; /* Añadir un margen izquierdo al botón para desplazarlo hacia la izquierda */
+  margin-right: 1000px; /* Añadir un margen izquierdo al botón para desplazarlo hacia la izquierda */
 }
 
 #depurar{
