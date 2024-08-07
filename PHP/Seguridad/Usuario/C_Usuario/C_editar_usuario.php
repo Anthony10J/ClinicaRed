@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $direccion = strtoupper($_POST["direccion"]);
     $correo = $_POST["correo"];
     $nombre = strtoupper($_POST["nombre"]);
+    $genero = strtoupper($_POST["genero"]);
     $estado = $_POST["estadoUser"];
     $rol = $_POST["rol"];
     $fechanacimiento = $_POST["fechanacimiento"];
@@ -54,11 +55,11 @@ exit();
 
 
     // Consulta de actualización con marcadores de posición corregidos
-    $actualizarUsuarioQuery = "UPDATE tbl_ms_usuario SET DNI = ?, Usuario = ?, Direccion = ?, Correo = ?, Nombre = ?, Estado_Usuario = ?, 
+    $actualizarUsuarioQuery = "UPDATE tbl_ms_usuario SET DNI = ?, Usuario = ?, Direccion = ?, Correo = ?, Nombre = ?, IdGenero = ?, Estado_Usuario = ?, 
     IdRol = ?, FechaNacimiento = ?, FechaContratacion = ?  WHERE Id_Usuario = ?";
     
     $stmt = mysqli_prepare($conexion, $actualizarUsuarioQuery);
-    mysqli_stmt_bind_param($stmt, "sssssiissi", $dni, $usuario, $direccion, $correo, $nombre, $estado, $rol,
+    mysqli_stmt_bind_param($stmt, "sssssiiissi", $dni, $usuario, $direccion, $correo, $nombre, $genero, $estado, $rol,
         $fechanacimiento, $fechacontratacion, $idUsuario);
 
         if (mysqli_stmt_execute($stmt)) {

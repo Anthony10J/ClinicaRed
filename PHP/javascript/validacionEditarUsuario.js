@@ -658,6 +658,24 @@ formulario_Registro.addEventListener('submit', function (e) {
   if (errorEncontrado) {
     e.preventDefault();
     funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+  } else {
+    e.preventDefault(); // Prevenir el envío del formulario
+
+    // Mostrar la alerta de confirmación
+    Swal.fire({
+        title: "¿Quieres guardar estos datos?",
+        text: "¿Estás seguro que quieres guardar?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Guardar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            formulario_Registro.submit(); // Enviar el formulario si se confirma
+        } 
+    });
   }
 });
 
