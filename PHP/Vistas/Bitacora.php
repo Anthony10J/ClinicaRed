@@ -259,7 +259,7 @@ include '../Controladores/Conexion/Conexion_be.php';
             {
             extend: 'pdfHtml5',
             download: 'open',
-            text: '<i class="fas fa-file-pdf"> Pdf </i>',
+            text: '<button class="fas fa-file-pdf"> PDF </button',
             orientation: 'portrait',
             customize: function (doc) {
                 
