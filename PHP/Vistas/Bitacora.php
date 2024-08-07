@@ -175,6 +175,12 @@ include '../Controladores/Conexion/Conexion_be.php';
         </div>
       </div>
   </main>
+  <style>
+     #qfiltro{
+       font-size: 50px;
+     }
+    
+  </style>
 
   <?php
   include '../../Recursos/Componentes/footer.html';
