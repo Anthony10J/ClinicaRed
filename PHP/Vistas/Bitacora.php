@@ -186,7 +186,7 @@ include '../Controladores/Conexion/Conexion_be.php';
     display: inline-block;
     position: absolute;
     width: 100px; /* Ajusta este valor según el ancho que desees */
-    height: 50px; 
+    height: 40px; 
     margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
      }
     
