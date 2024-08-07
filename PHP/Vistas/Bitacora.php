@@ -177,7 +177,15 @@ include '../Controladores/Conexion/Conexion_be.php';
   </main>
   <style>
      #qfiltro{
-       font-size: 50px;
+      font-size: 15px;
+    margin-bottom: 40px;
+    margin-right: 30px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    display: inline-block;
+    position: relative;
+    margin-left: 10px; /* Ajusta este valor según el espacio que desees entre los botones */
      }
     
   </style>
