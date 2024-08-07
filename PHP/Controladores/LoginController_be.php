@@ -18,8 +18,8 @@ if (!empty($correo) && !empty($clave_encriptada)) {
     $fila_intentos = $resultado_intentos->fetch_assoc();
 
     if ($fila_intentos['Estado_Usuario'] == 3) {
-        $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
-        mysqli_query($conexion, $reiniciar_intentos);
+        // $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
+        // mysqli_query($conexion, $reiniciar_intentos);
         $mensajeError = "Cuenta bloqueada. Contacte al administrador.";
     } else {
         $consultar_Login = "SELECT estU.Descripcion, u.Id_Usuario, u.Correo, u.Contrasena, u.Usuario, u.Nombre, u.IdRol, r.Rol, u.primer_ingreso 
