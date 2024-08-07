@@ -1,18 +1,5 @@
 <?php
-session_start(); // Iniciar la sesión si no está iniciada
-
-// Verificar si la sesión ya está activa
-if (!isset($_SESSION['usuario'])) {
-    echo '
-          <script>
-                 alert("Por favor, debes iniciar sesión.")
-                window.location = "/index.php";
-            </script>
-       ';
-    session_destroy(); // Destruye la sesión
-    die(); // el código se detiene en esta línea 
-}
-
+session_start();
 include '../Controladores/Conexion/Conexion_be.php';
 // include '../../PHP/Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 // $id_rol = $_SESSION['IdRol'];
@@ -26,9 +13,12 @@ include '../Controladores/Conexion/Conexion_be.php';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
   <title>CLÍNICA RED</title>
   <link rel="shortcut icon" href="/EstilosLogin/images/pestana.png" type="image/x-icon">
   <meta content="" name="description">
@@ -37,6 +27,8 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- Favicons -->
   <link href="../../assets/img/red-logo.jpeg" rel="icon">
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+
 
   <!-- Vendor CSS Files -->
   <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +43,7 @@ include '../Controladores/Conexion/Conexion_be.php';
   <link href="../../assets/css/style.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
   <!-- Estilos y librerias para reportes -->
@@ -59,9 +51,10 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- <link rel="stylesheet" href="../CSSReportes/EstilosModal.css">  -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
 
 </head>
+
 <body>
   <?php
   include '../../Recursos/Componentes/header.php';
@@ -77,12 +70,15 @@ include '../Controladores/Conexion/Conexion_be.php';
     <!-- <button type="button" class="btn btn-secondary" style="padding: 3px 50px;" display="inline-block;"><i class="fas fa-file-pdf"></i> PDF</button> -->
     </div>
 
+
     <!-- Inserta la imagen centrada aquí -->
     <div class="text-center mb-4">
     </div>
 
     <?php
+
     include("../Controladores/Conexion/Conexion_be.php");
+
     ?>
     <div class="container mt-4">
       <div class="row">
@@ -96,15 +92,15 @@ include '../Controladores/Conexion/Conexion_be.php';
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for=" star" class="form-label"><b> Desde:</b></label>
-                    <input type="date" name="starn" id="star" class="form-control" required>
+                    <label for="" class="form-label"><b> Desde:</b></label>
+                    <input type="date" name="star" id="star" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="fin" class="form-label"><b>Hasta: </b> </label>
-                    <input type="date" name="finn" id="fin" class="form-control" required>
+                    <label for="" class="form-label"><b>Hasta: </b> </label>
+                    <input type="date" name="fin" id="fin" class="form-control" required>
                   </div>
                 </div>
 
@@ -118,19 +114,18 @@ include '../Controladores/Conexion/Conexion_be.php';
                 </div>
 
               </div>
-            </form><br><br>
+            </form>
 
-            <!-- <button type="button" class="btn btn-danger">
-              <i class="fas fa-trash btn-depurar"></i> Depurar</button> -->
+            <button type="button" class="btn btn-danger">
+              <i class="fas fa-trash btn-depurar"></i> Depurar</button>
             <table class="table " id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Usuario</th>
-                  <th scope="col">Acción</th>
+                  <th scope="col">Accion</th>
                   <th scope="col">Fecha </th>
-                  <th scope="col">Descripción</th>
-                  <th scope="col">Objeto</th>
+                  <th scope="col">Descripcion</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,11 +135,9 @@ include '../Controladores/Conexion/Conexion_be.php';
             b.Fecha,
             u.Usuario AS Usuario,
             b.Accion,
-            b.Descripcion,
-            o.Objeto AS Objeto
+            b.Descripcion
         FROM tbl_bitacora b
-        INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario 
-         INNER JOIN tbl_ms_objetos o ON b.Id_Objeto = o.Id_Objetos ORDER BY b.Fecha DESC";
+        INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario ORDER BY b.fecha DESC";
                 $resultado = mysqli_query($conexion, $sql);
                 // Recorrer los resultados y mostrarlos en la tabla
                 foreach ($resultado as $fila) {
@@ -155,7 +148,6 @@ include '../Controladores/Conexion/Conexion_be.php';
                     <td><?php echo $fila['Accion'] ?></td>
                     <td><?php echo $fila['Fecha'] ?></td>
                     <td><?php echo $fila['Descripcion'] ?></td>
-                    <td><?php echo $fila['Objeto'] ?></td>
                     <!-- Botones Editar y Eliminar -->
                     <!-- Dentro del bucle foreach para mostrar los usuarios -->
 
@@ -224,7 +216,7 @@ include '../Controladores/Conexion/Conexion_be.php';
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> <!-- LIBRERIA PDF -->
   <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> <!-- LIBRERIA HTML -->
   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"> </script> <!-- ICONOS -->
-  <!-- <script src="ruta/a/jspdf.min.js"></script> -->
+  <script src="ruta/a/jspdf.min.js"></script>
 
   <?php
   // Ruta de la imagen
@@ -239,9 +231,11 @@ include '../Controladores/Conexion/Conexion_be.php';
     $ImagenBase64 = base64_encode($contenido_imagen);
   }
   ?>
-  <script>
-    $(document).ready(function() {
-      inicializarTable();
-    });
-  </script>
+
+<script>
+$(document).ready(function () {
+   inicializarTable();
+}); 
+</script>
+
 </html>
