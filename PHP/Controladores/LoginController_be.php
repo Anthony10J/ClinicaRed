@@ -96,8 +96,6 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                 if ($fila_intentos_actualizados['intentos_fallidos'] >= $row['Valor']) {
                     $actualizar_estado = "UPDATE tbl_ms_usuario SET Estado_Usuario = 3 WHERE Correo = '$correo'";
                     mysqli_query($conexion, $actualizar_estado);
-                    $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
-                    mysqli_query($conexion, $reiniciar_intentos);
                 }
             }
 
