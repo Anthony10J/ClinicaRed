@@ -93,7 +93,7 @@ function ExpedienteClinicoEditable()
     echo '<hr>';
 
     // Agregar el botón de envío global
-    echo '<button type="button" class="btn-guardar" onclick="confirmarEnvioEditable()">Actualizar </button>';
+    echo '<button type="button" class="btn-guardar" onclick="confirmarEnvio()">Actualizar </button>';
 
     echo '</form>'; // Cerrar el formulario global
 

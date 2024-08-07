@@ -68,9 +68,6 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
 
 </head>
 
@@ -127,11 +124,6 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                                         <?php if (!$ocultarActualizacion) : ?>
                                             <a href="./V_editar_rol.php?id=<?php echo $fila['Id_Rol'] ?>" id="editarrol-btn" class="bi bi-pencil " title="Editar rol"></a>
                                         <?php endif; ?>
-                                        <?php if (!$ocultarEliminacion): ?>
-                                        <button id="eliminarBtn" class="btn btn-danger btn-sm eliminarBtn trash" data-id-rol="<?php echo $fila['Id_Rol']; ?>">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                        <?php endif; ?>
                                     </td>
                                 </tr>
 
@@ -141,60 +133,8 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                             ?>
                         </tbody>
                     </table>
-                    <script>
-    $(document).ready(function() {
-        // Manejar clic en el botón de eliminar
-        $('.eliminarBtn').on('click', function() {
-            // Obtener el ID del rol desde el atributo data-id-rol
-            var idRol = $(this).data('id-rol');
-
-            // Usar SweetAlert para mostrar una advertencia
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡Eliminar este rol puede ser crítico y no se puede deshacer!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminarlo',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Enviar una solicitud AJAX al servidor para eliminar el rol
-                    $.ajax({
-                        url: '../C_Roles/C_eliminar_rol.php', // Reemplaza con la ruta de tu archivo PHP
-                        type: 'POST',
-                        data: { idRol: idRol },
-                        success: function(response) {
-                            // Verificar la respuesta del servidor
-                            if (response.trim() === 'success') {
-                                // Mostrar mensaje de éxito
-                                Swal.fire(
-                                    'Eliminado',
-                                    'El rol ha sido eliminado.',
-                                    'success'
-                                ).then(() => {
-                                    // Recargar la página para reflejar los cambios
-                                    location.reload();
-                                });
-                            } else {
-                                // Mostrar mensaje de error
-                                Swal.fire(
-                                    'Error',
-                                    'Error al eliminar el rol. Inténtalo de nuevo.',
-                                    'error'
-                                );
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
-
-
                     <button id="permisosbtn" class="bi bi-eye-fill" onclick="abrirVentanaPermisos(<?php echo $fila['Id_Rol'] ?>)">Ver permisos</button>
+
                 </div>
             </div>
         </div>
@@ -377,7 +317,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                             };
                         },
                         exportOptions: {
-                            columns: [0, 1, 2],
+                            columns: [0, 1,2 ],
                             modifier: {
                                 page: 'current'
                             },
