@@ -70,7 +70,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Mantenimiento de Género</h1>
+            <h1>Mantenimiento Género</h1>
          
         </div><!-- End Page Title -->
 

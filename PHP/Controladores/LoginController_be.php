@@ -13,7 +13,7 @@ $clave = $_POST['password'];
 $clave_encriptada = md5($clave);
 
 if (!empty($correo) && !empty($clave_encriptada)) {
-    $consulta_intentos = "SELECT intentos_fallidos, Estado_Usuario, IdRol FROM tbl_ms_usuario WHERE Correo = '$correo'";
+    $consulta_intentos = "SELECT intentos_fallidos, Estado_Usuario FROM tbl_ms_usuario WHERE Correo = '$correo'";
     $resultado_intentos = mysqli_query($conexion, $consulta_intentos);
     $fila_intentos = $resultado_intentos->fetch_assoc();
 
@@ -84,21 +84,18 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                 $mensajeError = "Es necesario completar el captcha para el primer inicio de sesión.";
             }
         } else {
-            // Incrementar intentos fallidos solo si no es SUPERADMINISTRADOR
-            if ($fila_intentos['IdRol'] != 1) {
-                $incrementar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = intentos_fallidos + 1 WHERE Correo = '$correo'";
-                mysqli_query($conexion, $incrementar_intentos);
+            $incrementar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = intentos_fallidos + 1 WHERE Correo = '$correo'";
+            mysqli_query($conexion, $incrementar_intentos);
 
-                $consulta_intentos_actualizados = "SELECT intentos_fallidos FROM tbl_ms_usuario WHERE Correo = '$correo'";
-                $resultado_intentos_actualizados = mysqli_query($conexion, $consulta_intentos_actualizados);
-                $fila_intentos_actualizados = $resultado_intentos_actualizados->fetch_assoc();
+            $consulta_intentos_actualizados = "SELECT intentos_fallidos FROM tbl_ms_usuario WHERE Correo = '$correo'";
+            $resultado_intentos_actualizados = mysqli_query($conexion, $consulta_intentos_actualizados);
+            $fila_intentos_actualizados = $resultado_intentos_actualizados->fetch_assoc();
 
-                if ($fila_intentos_actualizados['intentos_fallidos'] <= $row['Valor']) {
-                    $actualizar_estado = "UPDATE tbl_ms_usuario SET Estado_Usuario = 3 WHERE Correo = '$correo'";
-                    mysqli_query($conexion, $actualizar_estado);
-                    $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
-                    mysqli_query($conexion, $reiniciar_intentos);
-                }
+            if ($fila_intentos_actualizados['intentos_fallidos'] >= $row['Valor']) {
+                $actualizar_estado = "UPDATE tbl_ms_usuario SET Estado_Usuario = 3 WHERE Correo = '$correo'";
+                mysqli_query($conexion, $actualizar_estado);
+                $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
+                mysqli_query($conexion, $reiniciar_intentos);
             }
 
             $mensajeError = "Correo o contraseña incorrectos.";
