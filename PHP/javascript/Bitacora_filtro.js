@@ -105,7 +105,8 @@ $(document).ready(function () {
                             "</tr>";
                         $('#tablaAgenda tbody').append(newRow);
                     });
-
+                        
+                   console.log('Datos agregados, inicializando DataTables...');
                     // Re-inicializar la tabla
                     inicializarTable();
                 }
