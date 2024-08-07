@@ -8,8 +8,8 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 }
 $conexion = mysqli_connect("localhost", "root","", "clinica_red"); 
 
-$start_date = $_POST['start_date'];
-$end_date = $_POST['end_date'];
+$start_date = date("Y-m-d", strtotime($_POST['start_date']));
+$end_date =  date("Y-m-d", strtotime($_POST['end_date']));
 
 
 // Verificar que la fecha final no sea anterior a la fecha inicial
