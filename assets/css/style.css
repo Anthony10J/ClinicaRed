@@ -163,8 +163,17 @@ h6 {
 --------------------------------------------------------------*/
 
 
-#filtro {
+#filtro, #qflitro {
+
   font-size: 15px;
+    margin-bottom: 40px;
+    margin-right: 30px;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    display: inline-block;
+    position: relative;
+  /*font-size: 15px;
   margin-bottom: 40px;
   margin-right: 30px;
   width: 100px;
@@ -174,8 +183,12 @@ h6 {
  
   position: absolute; 
   right: 5px; 
+*/
 
+}
 
+#qfiltro {
+  margin-left: 10px; /* Ajusta este valor según el espacio que desees entre los botones */
 }
 .pagination {
   margin: 5px;
