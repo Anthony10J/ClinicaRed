@@ -245,5 +245,28 @@ include '../Controladores/Conexion/Conexion_be.php';
       inicializarTable();
     });
   </script>
+  
+
+  <script>
+    document.getElementById('filtro').addEventListener('click', function() {
+      const desde = new Date(document.getElementById('desde').value);
+      const hasta = new Date(document.getElementById('hasta').value);
+      const items = document.querySelectorAll('.item');
+
+      items.forEach(item => {
+        const itemDate = new Date(item.getAttribute('data-date'));
+
+        if (itemDate >= desde && itemDate <= hasta) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+
+    document.getElementById('qfiltro').addEventListener('click', function() {
+      // Agrega la acción para el segundo botón aquí
+    });
+  </script>
 
 </html>
