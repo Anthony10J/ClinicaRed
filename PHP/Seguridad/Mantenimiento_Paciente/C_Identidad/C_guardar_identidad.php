@@ -37,6 +37,12 @@ echo "Error: current_user_id es NULL";
 exit();
 }
 
+$n = $fila['Id_Usuario'];
+$a = 'DECARGA DE PDF';
+$d = $_SESSION['usuario'] . ' HA DESCARGADO PDF';
+$o= $id_objeto;
+bitacora($n, $a, $d, $o);
+
 $descripcion = strtoupper($_POST['identidad']);
 
 $sql = "INSERT INTO tbl_tipo_documento (Descripcion) VALUES ('$descripcion')";

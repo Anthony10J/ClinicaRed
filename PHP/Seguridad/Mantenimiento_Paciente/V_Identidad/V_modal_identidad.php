@@ -38,30 +38,10 @@ header('Content-Type: application/json');
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['action']) && isset($data['module']) && isset($_SESSION['usuario']) && isset($_SESSION['id_D'])) {
-    $action= $data['action'];
-    $module = $data['module'];
-    $id_objeto = Obtener_Id_Objeto($module); // Asumimos que el nombre del módulo coincide con el objeto
-
-    $u = $_SESSION['usuario'];
-    $n = $_SESSION['id_D'];
-    $a = 'INGRESO A PANTALLA';
-    $d = $u . ' INGRESÓ A LA PANTALLA DE ' . strtoupper($module) . '.';
-    $o = $id_objeto;
-
-    // Registrar en la bitácora
-    bitacora($n, $a, $d, $o);
-
-    echo json_encode(['status' => 'success', 'message' => 'Registro de bitácora exitoso.']);
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Datos insuficientes para registrar en la bitácora.']);
-}
-
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
         header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
 }
 ?>
-
 
 
 <!DOCTYPE html>
