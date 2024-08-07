@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('#filtro').click(function () {
         var start_date = $('#star').val();
         var end_date = $('#fin').val();
-        cadena = "start_date=" + start_date +
+        var cadena = "start_date=" + start_date +
             "&end_date=" + end_date;
             $('#tablaAgenda').DataTable().destroy();
         $.ajax({
@@ -26,7 +26,10 @@ $(document).ready(function () {
                         $('#tablaAgenda tbody').append(newRow);
                     });
                   
-                    inicializarTable();
+                    //inicializarTable();
+                    $('#tablaAgenda').DataTable({
+                        // Opciones de DataTable si es necesario
+                    });
                 }
             }
         });
