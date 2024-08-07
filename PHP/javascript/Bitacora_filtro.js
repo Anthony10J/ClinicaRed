@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    inicializarTable();
+    
     $('#filtro').click(function () {
         var start_date = $('#star').val();
         var end_date = $('#fin').val();
