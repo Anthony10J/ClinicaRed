@@ -190,7 +190,7 @@ h6 {
 
 
 #qfiltro {
-  font-size: 15px;
+  font-size: 30px;
   margin-bottom: 40px;
   padding: 5px;
   border: 1px solid #cccccc;
@@ -199,7 +199,7 @@ h6 {
   position: relative;
   border: rgb(29, 61, 56);
    margin-right: 270px; /* Añadir un margen izquierdo al botón para desplazarlo hacia la izquierda */
-   margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
+   
  }
 .pagination {
   margin: 5px;
