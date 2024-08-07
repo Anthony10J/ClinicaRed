@@ -187,9 +187,13 @@ h6 {
 
 }
 
+
+
 #qfiltro {
-  margin-left: 10px; /* Ajusta este valor según el espacio que desees entre los botones */
-}
+  border: rgb(29, 61, 56);
+   margin-right: 270px; /* Añadir un margen izquierdo al botón para desplazarlo hacia la izquierda */
+   margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
+ }
 .pagination {
   margin: 5px;
   margin-right: 0px;
