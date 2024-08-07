@@ -93,7 +93,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                 $resultado_intentos_actualizados = mysqli_query($conexion, $consulta_intentos_actualizados);
                 $fila_intentos_actualizados = $resultado_intentos_actualizados->fetch_assoc();
 
-                if ($fila_intentos_actualizados['intentos_fallidos'] >= $row['Valor']) {
+                if ($fila_intentos_actualizados['intentos_fallidos'] <= $row['Valor']) {
                     $actualizar_estado = "UPDATE tbl_ms_usuario SET Estado_Usuario = 3 WHERE Correo = '$correo'";
                     mysqli_query($conexion, $actualizar_estado);
                 }
