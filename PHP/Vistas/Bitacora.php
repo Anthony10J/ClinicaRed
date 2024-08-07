@@ -181,11 +181,11 @@ include '../Controladores/Conexion/Conexion_be.php';
     margin-bottom: 40px;
     margin-right: 30px;
     padding: 5px;
-    border: 1px solid #cccccc;
+    border: 0px solid #cccccc;
     border-radius: 10px;
     display: inline-block;
     position: relative;
-    margin-left: 10px; /* Ajusta este valor según el espacio que desees entre los botones */
+    margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
      }
     
   </style>
