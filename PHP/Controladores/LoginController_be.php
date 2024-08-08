@@ -102,12 +102,12 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     //  enviarOTP($conexion, $correo);
                     header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
 
-                    if ($_SESSION['IdRol'] == 2) {
-                        $mensajeError = "Contacte al administrador para definir el rol de usuario.";
-                    } else {
-                        header("location: ../Vistas/Main.php");
-                        exit();
-                    }
+                    //if ($_SESSION['IdRol'] == 2) {
+                      //  $mensajeError = "Contacte al administrador para definir el rol de usuario.";
+                    //} else {
+                        //header("location: ../Vistas/Main.php");
+                        //exit();
+                    //}
                 }
             } else {
                 $mensajeError = "Es necesario completar el captcha para el primer inicio de sesión.";
