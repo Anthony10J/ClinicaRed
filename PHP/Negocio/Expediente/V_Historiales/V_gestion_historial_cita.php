@@ -129,7 +129,9 @@ if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
                         <td><?php echo $filas[6] ?></td>
                         <!-- <td>?php echo $filas[3] ?></td> -->
                         <td>
-
+                        <div class="botones-container">
+                        <div class="botones-fila">
+                        <div class="boton-item">
                             <form action="../../../../fpdf%20expediente/R_clinico.php" target="_blank" method="POST">
                                 <!-- Agrega un campo oculto para enviar el ID de expediente -->
                                 <input type="hidden" name="id_Cita_Terapia" value="<?php echo $id_Cita_Terapia ?>">
@@ -140,7 +142,8 @@ if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
                                     <button title="Expediente clínico" class="btn btn-primary"><i class="fa-solid fa-file-pdf"></i> PDF</button>
                                 <?php endif; ?>
                             </form>
-
+                        </div>
+                        <div class="boton-item">
                             <form action="../V_Expediente/V_editar_expediente_clinico.php" method="POST">
                                 <!-- Agrega un campo oculto para enviar el ID de expediente -->
                                 <input type="hidden" name="id_Cita_Terapia" value="<?php echo $id_Cita_Terapia ?>">
@@ -151,6 +154,10 @@ if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
                                     <button title="Editar Expediente clínico" class="btn btn-warning editar__expediente"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <?php endif; ?>
                             </form>
+                        </div>
+                        </div>
+                        <div class="botones-fila">
+                        <div class="boton-item">
                             <div class="fila__botones-terapeutico" >
                                 <form action="../../../../fpdf%20expediente/R_terapeutico.php" target="_blank" method="POST">
                                     <!-- Agrega un campo oculto para enviar el ID de expediente -->
@@ -162,7 +169,8 @@ if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
                                         <button title="Expediente terapéutico" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i> PDF</button>
                                     <?php endif; ?>
                                 </form>
-
+                            </div>
+                            <div class="boton-item">
                                 <form action="../V_Expediente/V_editar_expediente_terapeutico.php" method="POST">
                                     <!-- Agrega un campo oculto para enviar el ID de expediente -->
                                     <input type="hidden" name="id_Cita_Terapia" value="<?php echo $id_Cita_Terapia ?>">
@@ -174,6 +182,8 @@ if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
                                     <?php endif; ?>
                                 </form>
                             </div>
+                            </div>
+                        </div>
                         </td>
                     </tr>
                 <?php

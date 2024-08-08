@@ -69,6 +69,8 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -124,6 +126,13 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                                         <?php if (!$ocultarActualizacion) : ?>
                                             <a href="./V_editar_rol.php?id=<?php echo $fila['Id_Rol'] ?>" id="editarrol-btn" class="bi bi-pencil " title="Editar rol"></a>
                                         <?php endif; ?>
+
+                                        <?php if (!$ocultarEliminacion) : ?>
+                                            <button id="eliminarBtn" class="btn btn-danger btn-sm eliminarBtn trash" data-id-rol="<?php echo $fila['Id_Rol']; ?>">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        <?php endif; ?>
+
                                     </td>
                                 </tr>
 
@@ -139,6 +148,59 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
             </div>
         </div>
     </main>
+    <script>
+        $(document).ready(function() {
+            // Manejar clic en el botón de eliminar
+            $('.eliminarBtn').on('click', function() {
+                // Obtener el ID del rol desde el atributo data-id-rol
+                var idRol = $(this).data('id-rol');
+
+                // Usar SweetAlert para mostrar una advertencia
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¡Eliminar este rol puede ser crítico y no se puede deshacer!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminarlo',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Enviar una solicitud AJAX al servidor para eliminar el rol
+                        $.ajax({
+                            url: '../C_Roles/C_eliminar_rol.php', // Reemplaza con la ruta de tu archivo PHP
+                            type: 'POST',
+                            data: {
+                                idRol: idRol
+                            },
+                            success: function(response) {
+                                // Verificar la respuesta del servidor
+                                if (response.trim() === 'success') {
+                                    // Mostrar mensaje de éxito
+                                    Swal.fire(
+                                        'Eliminado',
+                                        'El rol ha sido eliminado.',
+                                        'success'
+                                    ).then(() => {
+                                        // Recargar la página para reflejar los cambios
+                                        location.reload();
+                                    });
+                                } else {
+                                    // Mostrar mensaje de error
+                                    Swal.fire(
+                                        'Error',
+                                        'Error al eliminar el rol. Inténtalo de nuevo.',
+                                        'error'
+                                    );
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 
 
     <script>
@@ -217,113 +279,113 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                 paging: true,
                 buttons: [{
                         extend: 'excelHtml5',
-                        <?php if (!$ocultarReportes): ?>
-                        text: '<i class="fas fa-file-excel"> Excel </i>',
-                        exportOptions: {
-                            columns: [0, 1, 2], // Índices de las columnas que quieres exportar
-                            modifier: {
-                                page: 'current'
-                            },
-                        }
+                        <?php if (!$ocultarReportes) : ?>
+                            text: '<i class="fas fa-file-excel"> Excel </i>',
+                            exportOptions: {
+                                columns: [0, 1, 2], // Índices de las columnas que quieres exportar
+                                modifier: {
+                                    page: 'current'
+                                },
+                            }
                     },
                     {
                         extend: 'pdfHtml5',
                         download: 'open',
                         text: '<i class="fas fa-file-pdf">  PDF </i>',
                         orientation: 'portrait',
-                        <?php endif; ?>
-                        customize: function(doc) {
-                            // Calcula la longitud máxima de los datos por columna
-                            const maxLengths = [];
-                            doc.content.forEach(function(section) {
-                                if (section.table) {
-                                    const tableData = section.table.body;
+                    <?php endif; ?>
+                    customize: function(doc) {
+                        // Calcula la longitud máxima de los datos por columna
+                        const maxLengths = [];
+                        doc.content.forEach(function(section) {
+                            if (section.table) {
+                                const tableData = section.table.body;
 
-                                    // Inicializa la longitud máxima de cada columna
-                                    if (maxLengths.length === 0) {
-                                        for (let i = 0; i < tableData[0].length; i++) {
-                                            maxLengths.push(0);
-                                        }
+                                // Inicializa la longitud máxima de cada columna
+                                if (maxLengths.length === 0) {
+                                    for (let i = 0; i < tableData[0].length; i++) {
+                                        maxLengths.push(0);
                                     }
-
-                                    // Calcula la longitud máxima de los datos por columna
-                                    tableData.forEach(function(row) {
-                                        row.forEach(function(cell, index) {
-                                            const cellLength = cell.text ? cell.text.length : 0;
-                                            if (cellLength > maxLengths[index]) {
-                                                maxLengths[index] = cellLength;
-                                            }
-                                        });
-                                    });
                                 }
-                            });
 
-                            // Establece los anchos de las columnas en función de las longitudes máximas
-                            doc.content.forEach(function(section) {
-                                if (section.table) {
-                                    const totalLength = maxLengths.reduce((sum, length) => sum + length, 0);
-                                    const columnWidths = maxLengths.map(length => (length / totalLength) * 100 + '%');
-
-                                    // Aplica los anchos calculados a la tabla
-                                    section.table.widths = columnWidths;
-                                    section.table.widths = columnWidths;
-                                    section.table.body.forEach(row => {
-                                        row.forEach(cell => {
-                                            cell.alignment = 'center';
-                                        });
+                                // Calcula la longitud máxima de los datos por columna
+                                tableData.forEach(function(row) {
+                                    row.forEach(function(cell, index) {
+                                        const cellLength = cell.text ? cell.text.length : 0;
+                                        if (cellLength > maxLengths[index]) {
+                                            maxLengths[index] = cellLength;
+                                        }
                                     });
-                                }
-                            });
-                            // Agregar un título al reporte
-                            var title = 'Listado de Roles';
-                            // Obtener la fecha y hora actual
-                            var now = new Date();
-                            var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
-                            var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-                            // Agregar el título y la fecha/hora al PDF
-                            doc.content.splice(1, 0, {
-                                text: title,
-                                fontSize: 15,
-                                alignment: 'center'
-                            });
-                            doc.content.splice(2, 0, {
-                                text: 'Fecha: ' + date + '\nHora: ' + horas,
-                                alignment: 'left',
-                                margin: [0, 10, 0, -70], // [left, top, right, bottom]
-                            });
-                            doc.content.splice(3, 0, {
+                                });
+                            }
+                        });
 
-                                margin: [0, -40, 0, 20],
-                                alignment: 'right',
-                                image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
-                                width: 85,
-                                height: 100,
-                            });
+                        // Establece los anchos de las columnas en función de las longitudes máximas
+                        doc.content.forEach(function(section) {
+                            if (section.table) {
+                                const totalLength = maxLengths.reduce((sum, length) => sum + length, 0);
+                                const columnWidths = maxLengths.map(length => (length / totalLength) * 100 + '%');
 
-                            doc["footer"] = function(currentPage, pageCount) {
-                                return {
-                                    margin: 10,
-                                    columns: [{
-                                        fontSize: 10,
-                                        text: [{
-                                            text: "Página " +
-                                                currentPage.toString() +
-                                                " de " +
-                                                pageCount,
-                                            alignment: "center",
-                                            bold: true
-                                        }, ],
+                                // Aplica los anchos calculados a la tabla
+                                section.table.widths = columnWidths;
+                                section.table.widths = columnWidths;
+                                section.table.body.forEach(row => {
+                                    row.forEach(cell => {
+                                        cell.alignment = 'center';
+                                    });
+                                });
+                            }
+                        });
+                        // Agregar un título al reporte
+                        var title = 'Listado de Roles';
+                        // Obtener la fecha y hora actual
+                        var now = new Date();
+                        var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+                        var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+                        // Agregar el título y la fecha/hora al PDF
+                        doc.content.splice(1, 0, {
+                            text: title,
+                            fontSize: 15,
+                            alignment: 'center'
+                        });
+                        doc.content.splice(2, 0, {
+                            text: 'Fecha: ' + date + '\nHora: ' + horas,
+                            alignment: 'left',
+                            margin: [0, 10, 0, -70], // [left, top, right, bottom]
+                        });
+                        doc.content.splice(3, 0, {
+
+                            margin: [0, -40, 0, 20],
+                            alignment: 'right',
+                            image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
+                            width: 85,
+                            height: 100,
+                        });
+
+                        doc["footer"] = function(currentPage, pageCount) {
+                            return {
+                                margin: 10,
+                                columns: [{
+                                    fontSize: 10,
+                                    text: [{
+                                        text: "Página " +
+                                            currentPage.toString() +
+                                            " de " +
+                                            pageCount,
                                         alignment: "center",
+                                        bold: true
                                     }, ],
-                                };
+                                    alignment: "center",
+                                }, ],
                             };
+                        };
+                    },
+                    exportOptions: {
+                        columns: [0, 1, 2],
+                        modifier: {
+                            page: 'current'
                         },
-                        exportOptions: {
-                            columns: [0, 1,2 ],
-                            modifier: {
-                                page: 'current'
-                            },
-                        }
+                    }
                     },
                 ],
                 "lengthMenu": [

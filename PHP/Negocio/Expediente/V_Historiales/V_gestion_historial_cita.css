@@ -6,3 +6,26 @@
 .fila__botones-terapeutico {
     margin-top: auto;
 }
+.botones-container {
+    display: flex;
+    flex-direction: column; /* Dispone los contenedores de fila verticalmente */
+    gap: 10px; /* Espacio entre las filas */
+}
+
+.botones-fila {
+    display: flex;
+    justify-content: center; /* Alinea los botones al centro de la fila */
+    gap: 10px; /* Espacio entre los botones en la misma fila */
+}
+
+.boton-item {
+    display: flex;
+    justify-content: center; /* Centra los botones dentro del item */
+    gap: 10px; /* Espacio entre las filas */
+
+}
+
+.btn {
+    width: auto; /* Ajusta el ancho automático según el contenido */
+    margin: 0; /* Ajusta márgenes si es necesario */
+}

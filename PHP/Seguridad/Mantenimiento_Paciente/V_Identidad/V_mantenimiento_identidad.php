@@ -115,6 +115,7 @@ $(document).ready(function() {
         buttons: [
             {
                 extend: 'excelHtml5',
+                <?php if (!$ocultarActualizacion): ?>
                 text: '<i class="fas fa-file-excel"> Excel </i>',
                 exportOptions: {
                     columns: [0, 1], // Índices de las columnas que quieres exportar
@@ -124,12 +125,11 @@ $(document).ready(function() {
                 }
             },
             {
-                <?php if (!$ocultarActualizacion): ?>
                 extend: 'pdfHtml5',
                 download: 'open',
                 text: '<i class="fas fa-file-pdf">  PDF </i>',
-                <?php endif; ?>
                 orientation: 'portrait',
+                <?php endif; ?>
                 customize: function(doc) {
                     // Calcula la longitud máxima de los datos por columna
                     const maxLengths = [];

@@ -182,6 +182,7 @@ if (!isset($_SESSION['detalle_expediente_ejecutado'])) {
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../C_Expediente/alerta_envio_expediente_clinico.js"></script>
    
     <!-- Template Main JS File -->
     <script src="../../../../assets/js/main.js"></script>

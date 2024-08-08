@@ -10,7 +10,7 @@ include("../../../Controladores/Conexion/Conexion_be.php");
 // include("../../../../Imagenes/base64.php");
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 $id_rol = $_SESSION['IdRol'];
-$id_objeto = Obtener_Id_Objeto('V_modal_identidad');
+$id_objeto = Obtener_Id_Objeto('V_modal_estado_cita');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
 $ocultarInsercion = false;
@@ -114,6 +114,7 @@ if (file_exists($ruta_imagen)) {
             paging: true,
             buttons: [{
                     extend: 'excelHtml5',
+                    <?php if (!$ocultarActualizacion): ?>
                     text: '<i class="fas fa-file-excel"> Excel </i>',
                     exportOptions: {
                         columns: [0, 1], // Índices de las columnas que quieres exportar
@@ -123,12 +124,11 @@ if (file_exists($ruta_imagen)) {
                     }
                 },
                 {
-                    <?php if (!$ocultarActualizacion): ?>
                     extend: 'pdfHtml5',
                     download: 'open',
                     text: '<i class="fas fa-file-pdf">  PDF </i>',
-                    <?php endif; ?>
                     orientation: 'portrait',
+                    <?php endif; ?>
                     customize: function(doc) {
 
                         // Calcula la longitud máxima de los datos por columna

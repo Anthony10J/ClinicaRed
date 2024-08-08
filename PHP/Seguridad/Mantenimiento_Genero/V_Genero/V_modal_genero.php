@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 }
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 $id_rol = $_SESSION['IdRol'];
-$id_objeto = Obtener_Id_Objeto('V_modal_identidad');
+$id_objeto = Obtener_Id_Objeto('V_modal_genero');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
