@@ -117,7 +117,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $fecha = date("Y-m-d H:i:s");
                     $n = $fila_intentos['Id_Usuario'] ;//  usar un identificador si lo hay o dejar 0
                     $a = 'INTENTO FALLIDO DE INICIO DE SESIÓN';
-                    $d = 'El usuario con correo ' . $correo . ' INTENTÓ INICIAR SESIÓN CON UNA CONTRASENA INCORRECTA';
+                    $d = 'EL USUARIO CON ' . $correo . ' INTENTÓ INICIAR SESIÓN CON UNA CONTRASENA INCORRECTA';
                     $o = 5;
                     bitacora($n, $a, $d, $o);
     
