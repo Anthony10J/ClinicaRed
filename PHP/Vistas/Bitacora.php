@@ -245,6 +245,7 @@ include '../Controladores/Conexion/Conexion_be.php';
 <script>
     // REPORTE DE TIPOS DE IDENTIFICACIÓN
 $(document).ready(function() {
+  inicializarTable();
     $('#tablaIdentidadLoad').DataTable({
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
