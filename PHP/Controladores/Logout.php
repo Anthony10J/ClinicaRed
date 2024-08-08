@@ -1,3 +1,4 @@
+<?php 
 include('../Controladores/Conexion/Conexion_be.php');
 include('../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php');
 // Verificar si la sesión ya está activa
@@ -28,3 +29,4 @@ $o= $id_objeto;
 session_destroy();
 header("location: /index.php");
 bitacora($n,$a,$d, $o); 
+?>
