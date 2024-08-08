@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 include '../../../Controladores/Conexion/Conexion_be.php';
 include ('../../../../Recursos/SweetAlerts.php');
 include '../../../../Imagenes/base64.php';
-include '../..//Roles_permisos/permisos/Obtener_Id_Objeto.php';
+include '../../Roles_permisos/permisos/Obtener_Id_Objeto.php';
 $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_usuario');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);

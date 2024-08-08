@@ -3,29 +3,22 @@ session_start(); // Iniciar la sesión si no está iniciada
 
 // Verificar si la sesión ya está activa
 if (!isset($_SESSION['usuario'])) {
-    echo '
+  echo '
           <script>
                  alert("Por favor, debes iniciar sesión.")
                 window.location = "/index.php";
             </script>
        ';
-    session_destroy(); // Destruye la sesión
-    die(); // el código se detiene en esta línea 
+  session_destroy(); // Destruye la sesión
+  die(); // el código se detiene en esta línea 
 }
 
 include '../Controladores/Conexion/Conexion_be.php';
-// include '../../PHP/Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
-// $id_rol = $_SESSION['IdRol'];
-// $id_objeto = Obtener_Id_Objeto('Bitacora.php');
-// $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
-// var_dump($Permisos_Objeto);
-// if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
-//         header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
-// }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -49,10 +42,14 @@ include '../Controladores/Conexion/Conexion_be.php';
 
   <!-- Template Main CSS File -->
   <link href="../../assets/css/style.css" rel="stylesheet">
+  <link href="./bitacora.css" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script> -->
 
   <!-- Estilos y librerias para reportes -->
   <link rel="stylesheet" href="../CSSReportes/botones.css">
@@ -62,6 +59,7 @@ include '../Controladores/Conexion/Conexion_be.php';
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
 </head>
+
 <body>
   <?php
   include '../../Recursos/Componentes/header.php';
@@ -92,7 +90,8 @@ include '../Controladores/Conexion/Conexion_be.php';
             <form action="" method="POST" accept-charset="utf-8" id="filtro-form">
 
               <!-- Desde a Hasta en una sola línea -->
-              <div class="row">
+
+              <!-- <div class="row">
 
                 <div class="col-md-4">
                   <div class="form-group">
@@ -106,23 +105,26 @@ include '../Controladores/Conexion/Conexion_be.php';
                     <label for="" class="form-label"><b>Hasta: </b> </label>
                     <input type="date" name="fin" id="fin" class="form-control" required>
                   </div>
-                </div>
-
-                
-                <div class="col-md-4">
-                  <div class="form-group d-flex justify-content-between">
-                    
-                    <button type="button" id="filtro" class="btn btn-primary mr-2">Filtrar</button> 
-                    <button type="button" id="qfiltro" class="btn btn-primary " onclick="location.reload()" >Quitar filtro</button>
-                    
-                  </div>
-                </div>
-
+                </div> -->
+              <div class="filter-container">
+                <table class="inputs">
+                  <tbody>
+                    <tr>
+                      <td><label for="min">Desde:</label></td>
+                      <td><input type="date" id="min" name="min" class="date-input"></td>
+                      <td><label for="max">Hasta:</label></td>
+                      <td><input type="date" id="max" name="max" class="date-input"></td>
+                      <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+
             </form><br><br>
 
             <!-- <button type="button" class="btn btn-danger">
               <i class="fas fa-trash btn-depurar"></i> Depurar</button> -->
+
             <table class="table " id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
                 <tr>
@@ -178,20 +180,25 @@ include '../Controladores/Conexion/Conexion_be.php';
   </main>
 
   <style>
-     #qfiltro{
-      font-size: 15px;
-    margin-bottom: 40px;
-    margin-right: 30px;
-    padding: 5px;
-    border: 0px solid #cccccc;
-    border-radius: 10px;
-    display: inline-block;
-    position: absolute;
-    width: 100px; /* Ajusta este valor según el ancho que desees */
-    height: 32px; 
-    margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
-     }
-    
+    #qfiltro {
+      /* font-size: 15px; */
+      /* margin-bottom: 40px; */
+      /* margin-right: 30px; */
+      /* padding: 5px; */
+      /* border: 0px solid #cccccc; */
+      border-radius: 10px;
+      /* display: inline-block; */
+      /* position: absolute; */
+      width: 100px;
+      /* Ajusta este valor según el ancho que desees */
+      /* height: 32px; */
+      /* margin-left: 100px; */
+      /* Ajusta este valor según el espacio que desees entre los botones */
+    }
+
+    table.inputs td {
+      padding: 5px;
+    }
   </style>
 
   <?php
@@ -241,11 +248,184 @@ include '../Controladores/Conexion/Conexion_be.php';
     $ImagenBase64 = base64_encode($contenido_imagen);
   }
   ?>
-
+  <!-- 
   <script>
     $(document).ready(function() {
       inicializarTable();
     });
+  </script> -->
+
+
+  <script type="text/javascript">
+    // REPORTE DE USUARIOS 
+    $(document).ready(function() {
+      // Agregar filtro de fechas
+      $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+          // Obtener los valores de los campos de fecha mínima y máxima
+          var min = new Date($('#min').val());
+          var max = new Date($('#max').val());
+
+          // Obtener la fecha del registro actual de la tabla, ignorando la hora
+          var date = new Date(data[3].split(" ")[0]); // Ajustar el índice según la columna de fecha
+
+          // Convertir a medianoche (00:00:00) para comparar solo la fecha
+          min.setHours(0, 0, 0, 0);
+          max.setHours(0, 0, 0, 0);
+          date.setHours(0, 0, 0, 0);
+
+          if (
+            (isNaN(min.getTime()) && isNaN(max.getTime())) ||
+            (isNaN(min.getTime()) && date <= max) ||
+            (min <= date && isNaN(max.getTime())) ||
+            (min <= date && date <= max)
+          ) {
+            return true;
+          }
+          return false;
+        }
+      );
+
+      // Redibujar la tabla cuando cambien las fechas
+      $('#min, #max').on('change', function() {
+        table.draw();
+      });
+
+      // Inicializar DataTable
+      var table = $('#tablaAgenda').DataTable({
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+        },
+        dom: 'lBfrtip',
+        paging: true,
+        buttons: [{
+            extend: 'excelHtml5',
+            <?php if (!$ocultarReportes) : ?>
+              text: '<i class="fas fa-file-excel"> Excel </i>',
+              exportOptions: {
+                columns: [0, 1, 3, 4, 5], // Índices de las columnas que quieres exportar
+                modifier: {
+                  page: 'current'
+                },
+              }
+          },
+          {
+            extend: 'pdfHtml5',
+            download: 'open',
+            text: '<i class="fas fa-file-pdf"> PDF </i>',
+            title: 'CLINICA RED',
+            orientation: 'landscape',
+          <?php endif; ?>
+          customize: function(doc) {
+            // Calcula la longitud máxima de los datos por columna
+            const maxLengths = [];
+            doc.content.forEach(function(section) {
+              if (section.table) {
+                const tableData = section.table.body;
+
+                // Inicializa la longitud máxima de cada columna
+                if (maxLengths.length === 0) {
+                  for (let i = 0; i < tableData[0].length; i++) {
+                    maxLengths.push(0);
+                  }
+                }
+
+                // Calcula la longitud máxima de los datos por columna
+                tableData.forEach(function(row) {
+                  row.forEach(function(cell, index) {
+                    const cellLength = cell.text ? cell.text.length : 0;
+                    if (cellLength > maxLengths[index]) {
+                      maxLengths[index] = cellLength;
+                    }
+                  });
+                });
+              }
+            });
+
+            // Establece los anchos de las columnas en función de las longitudes máximas
+            doc.content.forEach(function(section) {
+              if (section.table) {
+                const totalLength = maxLengths.reduce((sum, length) => sum + length, 0);
+                const columnWidths = maxLengths.map(length => (length / totalLength) * 100 + '%');
+
+                // Aplica los anchos calculados a la tabla
+                section.table.widths = columnWidths;
+                section.table.body.forEach(row => {
+                  row.forEach(cell => {
+                    cell.alignment = 'center';
+                  });
+                });
+              }
+            });
+
+            // Agregar un título al reporte
+            var title = 'Reporte de Bitácora';
+            // Obtener la fecha y hora actual
+            var now = new Date();
+            var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+            var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+            // Agregar el título y la fecha/hora al PDF
+            doc.content.splice(1, 0, {
+              text: title,
+              fontSize: 15,
+              alignment: 'center'
+            });
+            doc.content.splice(2, 0, {
+              text: 'Fecha: ' + date + '\nHora: ' + horas,
+              alignment: 'left',
+              margin: [0, 10, 0, -70], // [left, top, right, bottom]
+            });
+            doc.content.splice(3, 0, {
+              margin: [0, -40, 0, 20],
+              alignment: 'right',
+              image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
+              width: 85,
+              height: 100,
+            });
+
+            doc["footer"] = function(currentPage, pageCount) {
+              return {
+                margin: 10,
+                columns: [{
+                  fontSize: 10,
+                  text: [{
+                    text: "Página " +
+                      currentPage.toString() +
+                      " de " +
+                      pageCount,
+                    alignment: "center",
+                    bold: true
+                  }, ],
+                  alignment: "center",
+                }, ],
+              };
+            };
+          },
+          exportOptions: {
+            columns: [0, 1, 3, 4, 5],
+            modifier: {
+              page: 'current'
+            },
+          }
+          },
+        ],
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "Todos"]
+        ],
+        "columnDefs": [{
+          "targets": 0,
+          "data": null,
+          "defaultContent": "",
+          "title": "N°", // Título de la columna
+          "render": function(data, type, row, meta) {
+            // Renderiza el número de fila
+            return meta.row + 1;
+          }
+        }]
+      });
+    });
   </script>
+
 
 </html>

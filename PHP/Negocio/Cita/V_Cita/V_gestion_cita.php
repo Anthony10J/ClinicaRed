@@ -195,7 +195,7 @@ if (file_exists($ruta_imagen)) {
 
                     extend: 'excelHtml5',
                     <?php if (!$ocultarReportes) : ?>
-                    // text: '<i class="fas fa-file-excel"> Excel </i>',
+                    text: '<i class="fas fa-file-excel"> Excel </i>',
                     exportOptions: {
                         columns: [0, 1, 2, 3, 4, 5, 6], // Índices de las columnas que quieres exportar
                         modifier: {
