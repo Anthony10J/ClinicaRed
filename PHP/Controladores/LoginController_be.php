@@ -96,8 +96,8 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    $o= $id_objeto;
-                    //bitacora($n, $a, $d, $o);
+                    $o= 7;
+                    bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
 
                     if ($_SESSION['IdRol'] == 2) {
