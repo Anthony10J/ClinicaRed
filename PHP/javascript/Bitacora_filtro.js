@@ -26,7 +26,7 @@ $(document).ready(function () {
                         $('#tablaAgenda tbody').append(newRow);
                     });
                   
-                    inicializarTable();
+                   // inicializarTable();
                 }
             }
         });
@@ -34,7 +34,7 @@ $(document).ready(function () {
 });
 
 
-
+function inicializarTable() {
    
       $('#tablaAgenda').DataTable({
             language: {
@@ -162,4 +162,4 @@ $(document).ready(function () {
             }
             }]
         });      
-  
+  }
