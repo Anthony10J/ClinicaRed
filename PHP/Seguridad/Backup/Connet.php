@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 include '../../Controladores/Conexion/Conexion_be.php';
 error_reporting(E_PARSE);

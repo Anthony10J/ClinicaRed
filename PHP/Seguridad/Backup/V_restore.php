@@ -12,7 +12,6 @@ if (!isset($_SESSION["usuario"])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,53 +25,49 @@ if (!isset($_SESSION["usuario"])) {
     <link href="../../../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="../../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="../../../assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
     <!-- Template Main CSS File -->
     <link href="../../../assets/css/style.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
     <!-- Alertas -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
 
+</head>
 <body>
-    <?php
+<?php
     include '../../../Recursos/Componentes/header.php';
     include '../../../Recursos/Componentes/SideBar.html';
-    ?>
+?>
     <div class="container1">
         <h1>Restaurar Datos</h1>
         <form id="restoreForm" action="./restore.php" method="POST">
             <div class="form-group">
                 <label for="backup">Selecciona un punto de restauración:</label>
                 <select id="backup" name="restorePoint">
-
-                    <option value="" disabled="" selected=""></option>
+                    <option value="" disabled="" selected="">Seleccione un archivo</option>
                     <?php
-                    include_once './Connet.php';
-                    $ruta = BACKUP_PATH;
-                    if (is_dir($ruta)) {
-                        if ($aux = opendir($ruta)) {
-                            while (($archivo = readdir($aux)) !== false) {
-                                if ($archivo != "." && $archivo != "..") {
-                                    $nombrearchivo = str_replace(".sql", "", $archivo);
-                                    $nombrearchivo = str_replace("-", ":", $nombrearchivo);
-                                    $ruta_completa = $ruta . $archivo;
-                                    if (is_dir($ruta_completa)) {
-                                    } else {
-                                        echo '<option value="' . $ruta_completa . '">' . $nombrearchivo . '</option>';
+                        include_once './Connet.php';
+                        $ruta = BACKUP_PATH;
+                        if (is_dir($ruta)) {
+                            if ($aux = opendir($ruta)) {
+                                while (($archivo = readdir($aux)) !== false) {
+                                    if ($archivo != "." && $archivo != "..") {
+                                        $nombrearchivo = str_replace(".sql", "", $archivo);
+                                        $nombrearchivo = str_replace("-", ":", $nombrearchivo);
+                                        $ruta_completa = $ruta . $archivo;
+                                        if (!is_dir($ruta_completa)) {
+                                            echo '<option value="' . $ruta_completa . '">' . $nombrearchivo . '</option>';
+                                        }
                                     }
                                 }
+                                closedir($aux);
                             }
-                            closedir($aux);
+                        } else {
+                            echo $ruta . " No es ruta válida";
                         }
-                    } else {
-                        echo $ruta . " No es ruta válida";
-                    }
                     ?>
                 </select>
             </div>
@@ -92,23 +87,24 @@ if (!isset($_SESSION["usuario"])) {
     <script src="../../../assets/vendor/tinymce/tinymce.min.js"></script>
     <script src="../../../assets/vendor/php-email-form/validate.js"></script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-
     <!-- Template Main JS File -->
     <script src="../../../assets/js/main.js"></script>
-    <script>
-        document.getElementById('restoreForm').addEventListener('submit', function(event) {
-            var backupSelect = document.getElementById('backup');
-            if (backupSelect.value === '') {
-                event.preventDefault(); // Evita que el formulario se envíe
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Por favor selecciona la Base de datos a restaurar',
-                    icon: 'error',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
-        });
-    </script>
-</body>
+    
 
+   <script>
+    document.getElementById('restoreForm').addEventListener('submit', function(event) {
+        var backupSelect = document.getElementById('backup');
+        if (backupSelect.value === '') {
+            event.preventDefault();  // Evita que el formulario se envíe
+            Swal.fire({
+                title: 'Error',
+                text: 'Por favor selecciona la Base de datos a restaurar',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+</script>
+
+</body>
 </html>

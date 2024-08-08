@@ -196,117 +196,117 @@ if (!isset($_SESSION["usuario"])) {
 
                             extend: 'excelHtml5',
                             <?php if (!$ocultarReportes) : ?>
-                                // text: '<i class="fas fa-file-excel"> Excel </i>',
-                                exportOptions: {
-                                    columns: [0, 1], // Índices de las columnas que quieres exportar
-                                    modifier: {
-                                        page: 'current'
-                                    },
-                                }
+                            // text: '<i class="fas fa-file-excel"> Excel </i>',
+                            exportOptions: {
+                                columns: [0, 1], // Índices de las columnas que quieres exportar
+                                modifier: {
+                                    page: 'current'
+                                },
+                            }
                         },
                         {
                             download: 'open',
 
-                            extend: 'pdfHtml5',
-                            text: '<i class="fas fa-file-pdf">  PDF </i>',
-                            title: 'CLINICA RED',
+                                extend: 'pdfHtml5',
+                                text: '<i class="fas fa-file-pdf">  PDF </i>',
+                                title: 'CLINICA RED',
+                            <?php endif; ?>
 
                             orientation: 'portrait',
-                        <?php endif; ?>
-                        customize: function(doc) {
+                            customize: function(doc) {
 
-                            // Calcula la longitud máxima de los datos por columna
-                            const maxLengths = [];
-                            doc.content.forEach(function(section) {
-                                if (section.table) {
-                                    const tableData = section.table.body;
+                                // Calcula la longitud máxima de los datos por columna
+                                const maxLengths = [];
+                                doc.content.forEach(function(section) {
+                                    if (section.table) {
+                                        const tableData = section.table.body;
 
-                                    // Inicializa la longitud máxima de cada columna
-                                    if (maxLengths.length === 0) {
-                                        for (let i = 0; i < tableData[0].length; i++) {
-                                            maxLengths.push(0);
-                                        }
-                                    }
-
-                                    // Calcula la longitud máxima de los datos por columna
-                                    tableData.forEach(function(row) {
-                                        row.forEach(function(cell, index) {
-                                            const cellLength = cell.text ? cell.text.length : 0;
-                                            if (cellLength > maxLengths[index]) {
-                                                maxLengths[index] = cellLength;
+                                        // Inicializa la longitud máxima de cada columna
+                                        if (maxLengths.length === 0) {
+                                            for (let i = 0; i < tableData[0].length; i++) {
+                                                maxLengths.push(0);
                                             }
+                                        }
+
+                                        // Calcula la longitud máxima de los datos por columna
+                                        tableData.forEach(function(row) {
+                                            row.forEach(function(cell, index) {
+                                                const cellLength = cell.text ? cell.text.length : 0;
+                                                if (cellLength > maxLengths[index]) {
+                                                    maxLengths[index] = cellLength;
+                                                }
+                                            });
                                         });
-                                    });
-                                }
-                            });
+                                    }
+                                });
 
-                            // Establece los anchos de las columnas en función de las longitudes máximas
-                            doc.content.forEach(function(section) {
-                                if (section.table) {
-                                    const totalLength = maxLengths.reduce((sum, length) => sum + length, 0);
-                                    const columnWidths = maxLengths.map(length => (length / totalLength) * 100 + '%');
+                                // Establece los anchos de las columnas en función de las longitudes máximas
+                                doc.content.forEach(function(section) {
+                                    if (section.table) {
+                                        const totalLength = maxLengths.reduce((sum, length) => sum + length, 0);
+                                        const columnWidths = maxLengths.map(length => (length / totalLength) * 100 + '%');
 
-                                    // Aplica los anchos calculados a la tabla
-                                    section.table.widths = columnWidths;
-                                    section.table.widths = columnWidths;
-                                    section.table.body.forEach(row => {
-                                        row.forEach(cell => {
-                                            cell.alignment = 'center';
+                                        // Aplica los anchos calculados a la tabla
+                                        section.table.widths = columnWidths;
+                                        section.table.widths = columnWidths;
+                                        section.table.body.forEach(row => {
+                                            row.forEach(cell => {
+                                                cell.alignment = 'center';
+                                            });
                                         });
-                                    });
-                                }
-                            });
+                                    }
+                                });
 
-                            // Agregar un título al reporte
-                            var title = 'Reporte de Backup';
-                            // Obtener la fecha y hora actual
-                            var now = new Date();
-                            var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
-                            var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-                            // Agregar el título y la fecha/hora al PDF
-                            doc.content.splice(1, 0, {
-                                text: title,
-                                fontSize: 15,
-                                alignment: 'center'
-                            });
-                            doc.content.splice(2, 0, {
-                                text: 'Fecha: ' + date + '\nHora: ' + horas,
-                                alignment: 'left',
-                                margin: [0, 10, 0, -70], // [left, top, right, bottom]
-                            });
-                            doc.content.splice(3, 0, {
+                                // Agregar un título al reporte
+                                var title = 'Reporte de Backup';
+                                // Obtener la fecha y hora actual
+                                var now = new Date();
+                                var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+                                var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+                                // Agregar el título y la fecha/hora al PDF
+                                doc.content.splice(1, 0, {
+                                    text: title,
+                                    fontSize: 15,
+                                    alignment: 'center'
+                                });
+                                doc.content.splice(2, 0, {
+                                    text: 'Fecha: ' + date + '\nHora: ' + horas,
+                                    alignment: 'left',
+                                    margin: [0, 10, 0, -70], // [left, top, right, bottom]
+                                });
+                                doc.content.splice(3, 0, {
 
-                                margin: [0, -40, 0, 20],
-                                alignment: 'right',
-                                image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
-                                width: 85,
-                                height: 100,
-                            });
+                                    margin: [0, -40, 0, 20],
+                                    alignment: 'right',
+                                    image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
+                                    width: 85,
+                                    height: 100,
+                                });
 
-                            doc["footer"] = function(currentPage, pageCount) {
-                                return {
-                                    margin: 10,
-                                    columns: [{
-                                        fontSize: 10,
-                                        text: [{
-                                            text: "Página " +
-                                                currentPage.toString() +
-                                                " de " +
-                                                pageCount,
+                                doc["footer"] = function(currentPage, pageCount) {
+                                    return {
+                                        margin: 10,
+                                        columns: [{
+                                            fontSize: 10,
+                                            text: [{
+                                                text: "Página " +
+                                                    currentPage.toString() +
+                                                    " de " +
+                                                    pageCount,
+                                                alignment: "center",
+                                                bold: true
+                                            }, ],
                                             alignment: "center",
-                                            bold: true
                                         }, ],
-                                        alignment: "center",
-                                    }, ],
+                                    };
                                 };
-                            };
-                        },
-                        exportOptions: {
-                            columns: [0, 1],
-                            modifier: {
-                                page: 'current'
                             },
-                        }
+                            exportOptions: {
+                                columns: [0, 1],
+                                modifier: {
+                                    page: 'current'
+                                },
+                            }
                         },
                     ],
                     "lengthMenu": [
