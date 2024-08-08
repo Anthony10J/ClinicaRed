@@ -97,7 +97,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
                     $o= $id_objeto;
-                    bitacora($n, $a, $d, $o);
+                    //bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
 
                     if ($_SESSION['IdRol'] == 2) {
@@ -131,6 +131,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
 }
 
 if (!empty($mensajeError)) {
-    header("location: ../Vistas/Main.php");
+    header("location: /index.php?error=" . urlencode($mensajeError));
+    exit();
 }
 ?>
