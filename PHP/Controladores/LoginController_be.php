@@ -100,6 +100,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $o= $id_objeto;
                     bitacora($n, $a, $d,$o);
                     //  enviarOTP($conexion, $correo);
+                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
 
                     if ($_SESSION['IdRol'] == 2) {
                         $mensajeError = "Contacte al administrador para definir el rol de usuario.";
