@@ -1,11 +1,16 @@
 $(document).ready(function () {
-    
     $('#filtro').click(function () {
         var start_date = $('#star').val();
         var end_date = $('#fin').val();
-        var cadena = "start_date=" + start_date +
-            "&end_date=" + end_date;
-            $('#tablaAgenda').DataTable().destroy();
+
+        if (!start_date || !end_date) {
+            alert("Por favor, ingrese ambas fechas.");
+            return;
+        }
+
+        var cadena = "start_date=" + start_date + "&end_date=" + end_date;
+        $('#tablaAgenda').DataTable().destroy();
+
         $.ajax({
             url: '../Controladores/Filtro_Bitacora.php',
             type: 'post',
@@ -30,13 +35,15 @@ $(document).ready(function () {
                     });
                   
                     inicializarTable();
-                  
                 }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error en la solicitud AJAX:', textStatus, errorThrown);
+                console.log('Respuesta del servidor:', jqXHR.responseText);
             }
         });
     });
 });
-
 
 function inicializarTable() {
    
