@@ -1,6 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
+
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente

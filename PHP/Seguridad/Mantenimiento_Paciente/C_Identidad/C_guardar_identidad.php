@@ -42,8 +42,8 @@ exit();
 // Parámetros de la acción
 // Parámetros de la acción
 $accion = 'DESCARGA';
-$nombre_pdf = isset($_POST['archivo']) ? basename($_POST['archivo']) : 'documento.pdf';
-$descripcion_bitacora = 'SE HA DESCARGADO REPORTE DE IDENTIDAD DE LOS PACIENTETS ' . $nombre_pdf;
+//$nombre_pdf = isset($_POST['archivo']) ? basename($_POST['archivo']) : 'documento.pdf';
+$descripcion_bitacora = 'SE HA DESCARGADO REPORTE TIPOS DE IDENTIDAD DE LOS PACIENTES ' . $nombre_pdf;
 
 
 // Insertar el registro en la bitácora
