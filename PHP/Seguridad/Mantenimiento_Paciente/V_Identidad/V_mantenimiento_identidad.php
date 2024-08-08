@@ -103,7 +103,7 @@ if (file_exists($ruta_imagen)) {
     $ImagenBase64 = base64_encode($contenido_imagen);
 }
 ?>
-// REPORTE
+
 <script>
 $(document).ready(function() {
     $('#tablaIdentidadLoad').DataTable({

@@ -26,7 +26,7 @@ $clave_encriptada = md5($clave);
 
 
 if (!empty($correo) && !empty($clave_encriptada)) {
-    $consulta_intentos = "SELECT intentos_fallidos, Estado_Usuario FROM tbl_ms_usuario WHERE Correo = '$correo'";
+    $consulta_intentos = "SELECT intentos_fallidos, Estado_Usuario, Id_Usuario FROM tbl_ms_usuario WHERE Correo = '$correo'";
     $resultado_intentos = mysqli_query($conexion, $consulta_intentos);
     $fila_intentos = $resultado_intentos->fetch_assoc();
 
@@ -113,7 +113,15 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                 mysqli_query($conexion, $reiniciar_intentos);
             }
 
-            $mensajeError = "Correo o contraseña incorrectos.";
+                    //Registrar intento fallido en la bitácora
+                    $fecha = date("Y-m-d H:i:s");
+                    $n = $fila_intentos['Id_Usuario'] ;//  usar un identificador si lo hay o dejar 0
+                    $a = 'INTENTO FALLIDO DE INICIO DE SESIÓN';
+                    $d = 'El usuario con correo ' . $correo . ' INTENTÓ INICIAR SESIÓN CON UNA CONTRASENA INCORRECTA';
+                    $o = 5;
+                    bitacora($n, $a, $d, $o);
+    
+                   $mensajeError = "Correo o contraseña incorrectos.";
         }
     }
 }
