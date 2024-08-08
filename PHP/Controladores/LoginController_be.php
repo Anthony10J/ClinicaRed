@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 session_start();
 
+$conexion = mysqli_connect("localhost", "u452119581_RED","T3chTit4n$2024", "u452119581_clinica_red");
 include('../Controladores/Conexion/Conexion_be.php');
 include('../../Recursos/SweetAlerts.php');
 include('../../Seguridad/Roles.php');
