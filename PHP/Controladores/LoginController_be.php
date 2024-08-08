@@ -9,7 +9,6 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-$conexion = mysqli_connect("localhost", "u452119581_RED","T3chTit4n$2024", "u452119581_clinica_red");
 include('../Controladores/Conexion/Conexion_be.php');
 include('../../Recursos/SweetAlerts.php');
 include('../../Seguridad/Roles.php');
@@ -98,16 +97,15 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
                     $o= $id_objeto;
-                    bitacora($n, $a, $d,$o);
+                    bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
-                    header("location: ../Vistas/Main.php"); // Redirecciona al usuario a la página principal
 
-                    //if ($_SESSION['IdRol'] == 2) {
-                      //  $mensajeError = "Contacte al administrador para definir el rol de usuario.";
-                    //} else {
-                        //header("location: ../Vistas/Main.php");
-                        //exit();
-                    //}
+                    if ($_SESSION['IdRol'] == 2) {
+                        $mensajeError = "Contacte al administrador para definir el rol de usuario.";
+                    } else {
+                        header("location: ../Vistas/Main.php");
+                        exit();
+                    }
                 }
             } else {
                 $mensajeError = "Es necesario completar el captcha para el primer inicio de sesión.";
@@ -133,7 +131,6 @@ if (!empty($correo) && !empty($clave_encriptada)) {
 }
 
 if (!empty($mensajeError)) {
-    header("location: /index.php?error=" . urlencode($mensajeError));
-    exit();
+    header("location: ../Vistas/Main.php");
 }
 ?>
