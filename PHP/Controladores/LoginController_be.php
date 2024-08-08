@@ -1,6 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
+
 session_start();
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente
@@ -85,7 +84,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $n = $fila['Id_Usuario'];
                     $a = 'INICIO DE SESIÓN';
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    $o= 7;
+                    $o= 5;
                     bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
 

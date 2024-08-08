@@ -1,4 +1,5 @@
 <?php
+include('../Controladores/Conexion/Conexion_be.php');
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente
@@ -7,11 +8,14 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 include('./bitacora.php');
-$u=$_SESSION['usuario'];
-$n= $_SESSION['id_D'];
-$a='CIERRE DE SESIÓN';
-$d= $_SESSION['usuario'].' FINALIZÓ SESIÓN.';
+echo "ID Objeto: " . $id_objeto;
+$fecha = date("Y-m-d H:i:s");
+$n = $fila['Id_Usuario'];
+$a = 'INICIO DE SESIÓN';
+$d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
+$o= 5;
+
 session_destroy();
 header("location: /index.php");
-//bitacora($n,$a,$d); 
+bitacora($n, $a, $d, $o);
 
