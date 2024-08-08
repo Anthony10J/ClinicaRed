@@ -34,7 +34,7 @@ $(document).ready(function () {
 });
 
 
-function inicializarTable() {
+
    
       $('#tablaAgenda').DataTable({
             language: {
@@ -162,4 +162,4 @@ function inicializarTable() {
             }
             }]
         });      
-  }
+  
