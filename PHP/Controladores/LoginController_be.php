@@ -116,7 +116,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     //Registrar intento fallido en la bitácora
                     $fecha = date("Y-m-d H:i:s");
                     $n = $fila_intentos['Id_Usuario'] ;//  usar un identificador si lo hay o dejar 0
-                    $a = 'INTENTO FALLIDO DE INICIO DE SESIÓN';
+                    $a = 'INTENTO FALLIDO';
                     $d = 'EL USUARIO CON CORREO ' . $correo . ' INTENTÓ INICIAR SESIÓN CON UNA CONTRASENA INCORRECTA';
                     $o = 5;
                     bitacora($n, $a, $d, $o);
