@@ -22,6 +22,8 @@ $(document).ready(function () {
                             "<td>" + item.Accion + "</td>" +
                             "<td>" + item.Fecha + "</td>" +
                             "<td>" + item.Descripcion + "</td>" +
+                            "<td>" + item.Objeto + "</td>" +
+
                             "</tr>";
                         $('#tablaAgenda tbody').append(newRow);
                     });
