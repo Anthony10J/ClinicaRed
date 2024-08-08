@@ -8,14 +8,13 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 include('./bitacora.php');
-echo "ID Objeto: " . $id_objeto;
 $fecha = date("Y-m-d H:i:s");
 $n = $fila['Id_Usuario'];
 $a = 'INICIO DE SESIÓN';
 $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
 $o= 5;
-
+bitacora($n, $a, $d, $o);
 session_destroy();
 header("location: /index.php");
-bitacora($n, $a, $d, $o);
+
 
