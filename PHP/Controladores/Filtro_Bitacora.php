@@ -21,7 +21,7 @@ if (strtotime($end_date) < strtotime($start_date)) {
 $query = "SELECT b.Id_Bitacora, b.Fecha, u.Id_Usuario AS Usuario, b.Accion, b.Descripcion, b.Id_Objeto
 FROM tbl_bitacora b
 INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario
-INNER JOIN tbl_ms_objetos o ON b.Id_objeto = o.Id_Objetos
+INNER JOIN tbl_ms_objetos o ON b.Id_Objeto = o.Id_Objetos
 WHERE DATE (b.Fecha) BETWEEN '$start_date' AND '$end_date' 
 ORDER BY b.fecha DESC";
 
