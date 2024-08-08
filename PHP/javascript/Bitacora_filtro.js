@@ -28,7 +28,7 @@ $(document).ready(function () {
                         $('#tablaAgenda tbody').append(newRow);
                     });
                   
-                    
+                    inicializarTable();
                 }
             }
         });
