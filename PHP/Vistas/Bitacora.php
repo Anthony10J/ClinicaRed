@@ -1,5 +1,23 @@
+
 <?php
-session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+session_start(); // Iniciar la sesión si no está iniciada
+
+// Verificar si la sesión ya está activa
+if (!isset($_SESSION['usuario'])) {
+    echo '
+          <script>
+                 alert("Por favor, debes iniciar sesión.")
+                window.location = "/index.php";
+            </script>
+       ';
+    session_destroy(); // Destruye la sesión
+    die(); // el código se detiene en esta línea 
+}
+
+
 include '../Controladores/Conexion/Conexion_be.php';
 // include '../../PHP/Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 // $id_rol = $_SESSION['IdRol'];
@@ -11,14 +29,12 @@ include '../Controladores/Conexion/Conexion_be.php';
 // }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>CLÍNICA RED</title>
   <link rel="shortcut icon" href="/EstilosLogin/images/pestana.png" type="image/x-icon">
   <meta content="" name="description">
@@ -27,8 +43,6 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- Favicons -->
   <link href="../../assets/img/red-logo.jpeg" rel="icon">
   <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-
 
   <!-- Vendor CSS Files -->
   <link href="../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,20 +55,20 @@ include '../Controladores/Conexion/Conexion_be.php';
 
   <!-- Template Main CSS File -->
   <link href="../../assets/css/style.css" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
 
   <!-- Estilos y librerias para reportes -->
   <link rel="stylesheet" href="../CSSReportes/botones.css">
-  <!-- <link rel="stylesheet" href="../CSSReportes/EstilosModal.css">  -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
-
 </head>
-
 <body>
   <?php
   include '../../Recursos/Componentes/header.php';
@@ -62,84 +76,72 @@ include '../Controladores/Conexion/Conexion_be.php';
   ?>
 
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Mantenimiento de Bitácora</h1>
-    </div><!-- End Page Title -->
-
-    <!-- <button type="button" class="btn btn-secondary" style="padding: 3px 50px;" display="inline-block;"><i class="fas fa-file-pdf"></i> PDF</button> -->
     </div>
 
-
-    <!-- Inserta la imagen centrada aquí -->
     <div class="text-center mb-4">
     </div>
 
     <?php
-
     include("../Controladores/Conexion/Conexion_be.php");
-
     ?>
+
     <div class="container mt-4">
       <div class="row">
         <div class="col-10">
           <div class="card-body">
-
             <form action="" method="POST" accept-charset="utf-8" id="filtro-form">
-
-              <!-- Desde a Hasta en una sola línea -->
               <div class="row">
-
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="" class="form-label"><b> Desde:</b></label>
-                    <input type="date" name="star" id="star" class="form-control" required>
+                    <label for="star" class="form-label"><b> Desde:</b></label>
+                    <input type="date" name="starn" id="star" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="" class="form-label"><b>Hasta: </b> </label>
-                    <input type="date" name="fin" id="fin" class="form-control" required>
+                    <label for="fin" class="form-label"><b>Hasta:</b></label>
+                    <input type="date" name="finn" id="fin" class="form-control" required>
                   </div>
                 </div>
 
                 <div class="col-md-4">
                   <div class="form-group d-flex justify-content-between">
-                    
-                    <button type="button" id="filtro" class="btn btn-primary mr-2">Filtrar</button> 
-                    <button type="button" id="qfiltro" class="btn btn-primary hello " onclick="location.reload()" >Quitar filtro</button>
-                    
+                    <button type="button" id="filtro" class="btn btn-primary mr-2">Filtrar</button>
+                    <button type="button" id="qfiltro" class="btn btn-primary " onclick="location.reload()">Quitar filtro</button>
                   </div>
                 </div>
-
               </div>
-            </form>
+            </form><br><br>
 
-            <button type="button" class="btn btn-danger">
-              <i class="fas fa-trash btn-depurar"></i> Depurar</button>
-            <table class="table " id="tablaAgenda">
+            <table class="table" id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Usuario</th>
-                  <th scope="col">Accion</th>
-                  <th scope="col">Fecha </th>
-                  <th scope="col">Descripcion</th>
+                  <th scope="col">Acción</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Objeto</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 $sql = "SELECT
-            b.Id_Bitacora,
-            b.Fecha,
-            u.Usuario AS Usuario,
-            b.Accion,
-            b.Descripcion
-        FROM tbl_bitacora b
-        INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario ORDER BY b.fecha DESC";
+                    b.Id_Bitacora,
+                    b.Fecha,
+                    u.Usuario AS Usuario,
+                    b.Accion,
+                    b.Descripcion,
+                    o.Objeto AS Objeto
+                FROM tbl_bitacora b
+                INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario 
+                INNER JOIN tbl_ms_objetos o ON b.Id_Objeto = o.Id_Objetos
+                ORDER BY b.Fecha DESC";
                 $resultado = mysqli_query($conexion, $sql);
-                // Recorrer los resultados y mostrarlos en la tabla
+
                 foreach ($resultado as $fila) {
                 ?>
                   <tr>
@@ -148,94 +150,32 @@ include '../Controladores/Conexion/Conexion_be.php';
                     <td><?php echo $fila['Accion'] ?></td>
                     <td><?php echo $fila['Fecha'] ?></td>
                     <td><?php echo $fila['Descripcion'] ?></td>
-                    <!-- Botones Editar y Eliminar -->
-                    <!-- Dentro del bucle foreach para mostrar los usuarios -->
-
+                    <td><?php echo $fila['Objeto'] ?></td>
                   </tr>
-                <?php
-                }
-                ?>
+                <?php } ?>
               </tbody>
             </table>
-
-            <style>
-              #tablaAgenda td:first-child {
-                text-align: right;
-              }
-            </style>
           </div>
         </div>
       </div>
+    </div>
   </main>
-  <style>
-     #qfiltro{
-      font-size: 15px;
-    margin-bottom: 40px;
-    margin-right: 30px;
-    padding: 5px;
-    border: 0px solid #cccccc;
-    border-radius: 10px;
-    display: inline-block;
-    position: absolute;
-    width: 100px; /* Ajusta este valor según el ancho que desees */
-    height: 32px; 
-    margin-left: 100px; /* Ajusta este valor según el espacio que desees entre los botones */
-     }
-    
-  </style>
 
-  <?php
-  include '../../Recursos/Componentes/footer.html';
-  ?>
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- Footer -->
+  <?php include '../../Recursos/Componentes/footer.html'; ?>
 
   <!-- Vendor JS Files -->
-  <script src="../javascript/Bitacora_filtro.js"></script>
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../../assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="../../assets/vendor/echarts/echarts.min.js"></script>
-  <script src="../../assets/vendor/quill/quill.min.js"></script>
-  <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../assets/vendor/php-email-form/validate.js"></script>
+  <script src="../../assets/vendor/quill/quill.min.js"></script>
+  <script src="../../assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../../assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../../assets/vendor/chart.js/chart.min.js"></script>
+  <script src="../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../../assets/vendor/echarts/echarts.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="../../assets/js/main.js"></script>
-
-  <!-- ----------------CODIGO PARA GENERAR REPORTES------------------>
-  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> <!-- ESTILOS DE LA TABLA -->
-  <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> <!-- MOSTRAR BOTONES DE REPORTE -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> LIBRERIA DE EXCEL  -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> <!-- IMPRIME PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> <!-- LIBRERIA PDF -->
-  <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> <!-- LIBRERIA HTML -->
-  <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"> </script> <!-- ICONOS -->
-  <script src="ruta/a/jspdf.min.js"></script>
-
-  <?php
-  // Ruta de la imagen
-  $ruta_imagen = '../../Imagenes/logo3.jpeg';
-
-  // Verificar si el archivo existe
-  if (file_exists($ruta_imagen)) {
-    // Leer el contenido de la imagen
-    $contenido_imagen = file_get_contents($ruta_imagen);
-
-    // Codificar la imagen en base64
-    $ImagenBase64 = base64_encode($contenido_imagen);
-  }
-  ?>
-
-<script>
-$(document).ready(function () {
-   inicializarTable();
-}); 
-</script>
-
+  <script src="../JavaScript/Bitacora_filtro.js"></script>
+</body>
 </html>

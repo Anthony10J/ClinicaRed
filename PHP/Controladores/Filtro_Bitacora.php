@@ -1,15 +1,29 @@
 <?php
-session_start();
-$conexion = mysqli_connect("localhost", "root","", "clinica_red"); 
+// Verificar si la sesión ya está activa
+if (session_status() === PHP_SESSION_ACTIVE) {
+    // La sesión ya está iniciada, no necesitas iniciarla nuevamente
+} else {
+    // La sesión aún no está iniciada, entonces la inicias
+    session_start();
+}
+$conexion = mysqli_connect("localhost", "u452119581_RED","T3chTit4n$2024", "u452119581_clinica_red"); 
 
-$start_date = $_POST['start_date'];
-$end_date = $_POST['end_date'];
+$start_date = date("Y-m-d", strtotime($_POST['start_date']));
+$end_date =  date("Y-m-d", strtotime($_POST['end_date']));
 
 
-$query = "SELECT b.Id_Bitacora, b.Fecha, u.Id_Usuario AS Usuario, b.Accion, b.Descripcion
+// Verificar que la fecha final no sea anterior a la fecha inicial
+if (strtotime($end_date) < strtotime($start_date)) {
+    echo json_encode(array("error" => "La fecha final no puede ser anterior a la fecha inicial"));
+    exit();
+}
+
+$query = "SELECT b.Id_Bitacora, b.Fecha, u.Id_Usuario AS Usuario, b.Accion, b.Descripcion, b.Id_Objeto
 FROM tbl_bitacora b
 INNER JOIN tbl_ms_usuario u ON b.Id_Usuario = u.Id_Usuario
-          WHERE DATE (b.Fecha) BETWEEN '$start_date' AND '$end_date' ORDER BY b.fecha DESC";
+INNER JOIN tbl_ms_objetos o ON b.Id_objeto = o.Id_Objetos
+WHERE DATE (b.Fecha) BETWEEN '$start_date' AND '$end_date' 
+ORDER BY b.fecha DESC";
 
 if (strtotime($end_date) < strtotime($start_date)) {
     echo json_encode(array("error" => "La fecha final no puede ser anterior a la fecha inicial"));
@@ -37,5 +51,3 @@ if ($result = mysqli_query($conexion, $query)) {
   mysqli_close($conexion);
   
   ?>
-   
-
