@@ -1,4 +1,5 @@
 <?php
+// Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión ya está iniciada, no necesitas iniciarla nuevamente
 } else {
@@ -6,6 +7,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 include('../../../Controladores/Conexion/Conexion_be.php');
+
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 
 // obtener el objeto
@@ -37,11 +39,21 @@ echo "Error: current_user_id es NULL";
 exit();
 }
 
-$n = $fila['Id_Usuario'];
-$a = 'DECARGA DE PDF';
-$d = $_SESSION['usuario'] . ' HA DESCARGADO PDF';
-$o= $id_objeto;
-bitacora($n, $a, $d, $o);
+// Parámetros de la acción
+// Parámetros de la acción
+$accion = 'DESCARGA';
+$nombre_pdf = isset($_POST['archivo']) ? basename($_POST['archivo']) : 'documento.pdf';
+$descripcion_bitacora = 'SE HA DESCARGADO REPORTE DE IDENTIDAD DE LOS PACIENTETS ' . $nombre_pdf;
+
+
+// Insertar el registro en la bitácora
+$sql = "INSERT INTO tbl_bitacora (Fecha, Id_Usuario, Accion, Descripcion, Id_Objeto)
+        VALUES (NOW(), '$current_user_id', '$accion', '$descripcion_bitacora', '$id_objeto')";
+
+$conexion->query($sql);
+$conexion->close();
+
+
 
 $descripcion = strtoupper($_POST['identidad']);
 

@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     session_start();
 }
 include("../../../Controladores/Conexion/Conexion_be.php");
+include("../../C_Identidad/C_guardar_identidad.php");
 // include("../../../../Imagenes/base64.php");
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 $id_rol = $_SESSION['IdRol'];
@@ -102,9 +103,8 @@ if (file_exists($ruta_imagen)) {
     $ImagenBase64 = base64_encode($contenido_imagen);
 }
 ?>
-
+// REPORTE
 <script>
-    // REPORTE DE TIPOS DE IDENTIFICACIÓN
 $(document).ready(function() {
     $('#tablaIdentidadLoad').DataTable({
         language: {
@@ -115,7 +115,6 @@ $(document).ready(function() {
         buttons: [
             {
                 extend: 'excelHtml5',
-                <?php if (!$ocultarActualizacion): ?>
                 text: '<i class="fas fa-file-excel"> Excel </i>',
                 exportOptions: {
                     columns: [0, 1], // Índices de las columnas que quieres exportar
@@ -125,11 +124,12 @@ $(document).ready(function() {
                 }
             },
             {
+                <?php if (!$ocultarActualizacion): ?>
                 extend: 'pdfHtml5',
                 download: 'open',
                 text: '<i class="fas fa-file-pdf">  PDF </i>',
-                orientation: 'portrait',
                 <?php endif; ?>
+                orientation: 'portrait',
                 customize: function(doc) {
                     // Calcula la longitud máxima de los datos por columna
                     const maxLengths = [];
