@@ -12,6 +12,7 @@ $(document).ready(function () {
             data: cadena,
             dataType: 'json',
             success: function (response) {
+                console.log('Datos recibidos:', response); // Imprime los datos recibidos
                 $('#tablaAgenda tbody').empty();
                 if (response.length === 0) {
                     alert("No se encontraron resultados");
