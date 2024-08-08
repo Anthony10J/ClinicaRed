@@ -91,13 +91,13 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $reiniciar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = 0 WHERE Correo = '$correo'";
                     mysqli_query($conexion, $reiniciar_intentos);
 
-                    echo "ID Objeto: " . $id_objeto;
-                    $fecha = date("Y-m-d H:i:s");
-                    $n = $fila['Id_Usuario'];
-                    $a = 'INICIO DE SESIÓN';
-                    $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
-                    $o= 7;
-                    bitacora($n, $a, $d, $o);
+                   // echo "ID Objeto: " . $id_objeto;
+                    //$fecha = date("Y-m-d H:i:s");
+                    //$n = $fila['Id_Usuario'];
+                    //$a = 'INICIO DE SESIÓN';
+                    //$d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
+                    //$o= 7;
+                    //bitacora($n, $a, $d, $o);
                     //  enviarOTP($conexion, $correo);
 
                     if ($_SESSION['IdRol'] == 2) {
