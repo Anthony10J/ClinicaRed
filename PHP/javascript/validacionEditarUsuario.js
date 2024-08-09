@@ -1,6 +1,6 @@
 import * as funciones from "./validacionGeneral.js";
 
-const inputs = document.querySelectorAll('#editFormUser  input');
+const inputs = document.querySelectorAll('#editFormUser');
 const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
@@ -116,6 +116,7 @@ let validarInputUsuario = (e) => {
         estadoER: false,
         estadoMC: false,
         estadoUE: false,
+        
     };
 
     estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, 'usuario', 'Por favor, ingresa tu nombre de usuario');
@@ -617,84 +618,128 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // -----------------------------------
 
-const formulario_Registro = document.getElementById('editFormUser');
-const botonEnviar = formulario_Registro.querySelector('button[type="submit"]');
-const camposFormulario = formulario_Registro.querySelectorAll('input, select');
+// const formulario_Registro = document.getElementById('editFormUser');
+// const botonEnviar = formulario_Registro.querySelector('button[type="submit"]');
+// const camposFormulario = formulario_Registro.querySelectorAll('input, select');
 
-const validarInput = (input) => {
-  let resultadoValidacion;
-  switch (input.name) {
-    case "correo2":
-      resultadoValidacion = validarInputCorreo({ target: input }, input.name);
-      break;
-    case "password2":
-    case "password3":
-      resultadoValidacion = validarInputPassword({ target: input }, input.name);
-      break;
-    case "usuario":
-      resultadoValidacion = validarInputUsuario({ target: input });
-      break;
-    case "nombre":
-      resultadoValidacion = validarInputNombre({ target: input });
-      break;
-    case "dni":
-      resultadoValidacion = validarInputDNI({ target: input });
-      break;
-    case "direccion":
-      resultadoValidacion = validarInputDireccion({ target: input });
-      break;
-  }
-  return resultadoValidacion;
-};
+// const validarInput = (input) => {
+//   let resultadoValidacion;
+//   switch (input.name) {
+//     case "correo2":
+//       resultadoValidacion = validarInputCorreo({ target: input }, input.name);
+//       break;
+//     case "password2":
+//     case "password3":
+//       resultadoValidacion = validarInputPassword({ target: input }, input.name);
+//       break;
+//     case "usuario":
+//       resultadoValidacion = validarInputUsuario({ target: input });
+//       break;
+//     case "nombre":
+//       resultadoValidacion = validarInputNombre({ target: input });
+//       break;
+//     case "dni":
+//       resultadoValidacion = validarInputDNI({ target: input });
+//       break;
+//     case "direccion":
+//       resultadoValidacion = validarInputDireccion({ target: input });
+//       break;
+//   }
+//   return resultadoValidacion;
+// };
 
-formulario_Registro.addEventListener('submit', function (e) {
-  let errorEncontrado = false;
+// formulario_Registro.addEventListener('submit', function (e) {
+//   let errorEncontrado = false;
 
-  // Validar todos los inputs
-  camposFormulario.forEach((input) => {
-    const resultadoValidacion = validarInput(input);
-    if (resultadoValidacion && (!resultadoValidacion.estadoER || (resultadoValidacion.estadoCC !== undefined && !resultadoValidacion.estadoCC))) {
-      errorEncontrado = true;
-    }
-  });
+//   // Validar todos los inputs
+//   camposFormulario.forEach((input) => {
+//     const resultadoValidacion = validarInput(input);
+//     if (resultadoValidacion && (!resultadoValidacion.estadoER || resultadoValidacion.estadoCV || resultadoValidacion.estadoCC)) {
+//       errorEncontrado = true;
+//     }
+//   });
 
-  if (errorEncontrado) {
-    e.preventDefault();
-    funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
-  } else {
-    e.preventDefault(); // Prevenir el envío del formulario
+//   if (errorEncontrado) {
+//     e.preventDefault();
+//     funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+//   } else {
+//     e.preventDefault(); // Prevenir el envío del formulario
 
-    // Mostrar la alerta de confirmación
-    Swal.fire({
-        title: "¿Quieres guardar estos datos?",
-        text: "¿Estás seguro que quieres guardar?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, Guardar",
-        cancelButtonText: "Cancelar"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            formulario_Registro.submit(); // Enviar el formulario si se confirma
-        } 
+//     // Mostrar la alerta de confirmación
+//     Swal.fire({
+//         title: "¿Quieres guardar estos datos?",
+//         text: "¿Estás seguro que quieres guardar?",
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonColor: "#3085d6",
+//         cancelButtonColor: "#d33",
+//         confirmButtonText: "Sí, Guardar",
+//         cancelButtonText: "Cancelar"
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             formulario_Registro.submit(); // Enviar el formulario si se confirma
+//         } 
+//     });
+//   }
+// });
+
+// camposFormulario.forEach(function(campo) {
+//   campo.addEventListener('input', function() {
+//     const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
+//     if (algunCampoConValor) {
+//       botonEnviar.removeAttribute('disabled');
+//     } else {
+//       botonEnviar.setAttribute('disabled', 'disabled');
+//     }
+//   });
+// });
+
+//////////
+
+const botonGuardar = document.getElementById('Btnregistrar');
+botonGuardar.addEventListener('click', function (e) {
+    // Validar la fecha de nacimiento
+    const fechaEsValida = validarFechaNacimiento();
+
+    // Validar otros campos requeridos
+    const camposRequeridos = document.querySelectorAll("[required]");
+    let hayCamposVacios = false;
+
+    camposRequeridos.forEach(function (campo) {
+        if (campo.value.trim() === '') {
+            hayCamposVacios = true;
+            mostrarErrorCampo(campo);
+        }
     });
-  }
-});
 
-camposFormulario.forEach(function(campo) {
-  campo.addEventListener('input', function() {
-    const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
-    if (algunCampoConValor) {
-      botonEnviar.removeAttribute('disabled');
-    } else {
-      botonEnviar.setAttribute('disabled', 'disabled');
+    if (hayCamposVacios || !fechaEsValida) {
+        e.preventDefault();
+        funciones.MostrarAlerta('', '¡ERROR!', 'Por favor, completa todos los campos requeridos antes de enviar el formulario.');
     }
-  });
 });
 
-  
+const formulario_Registro = document.getElementById('editFormUser');
+formulario_Registro.addEventListener('submit', function (e) {
+    const error_Formulario_Registro = document.querySelectorAll(".formulario__grupo-incorrecto");
+    const error_Formulario = document.querySelectorAll(".formulario__input-error-activo");
 
-
-
-
+    // Comprueba si hay errores de validación
+    if (error_Formulario_Registro.length > 0 || error_Formulario.length > 0) {
+        e.preventDefault();
+        funciones.MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+    } else {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Confirmación',
+            text: '¿Estás seguro que deseas guardar los datos?',
+            icon: 'question', // Ícono de pregunta
+            showCancelButton: true, // Mostrar botón de cancelación
+            confirmButtonText: 'Guardar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                formulario_Registro.submit(); // Enviar el formulario si se confirma
+            } 
+        });
+    }
+});

@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         <div class="formulario__grupo" id="grupo__dni">
                                             <label for="dni" class="formulario__label">DNI</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="formulario__input" class="form-control" name="dni" id="dni" placeholder="DNI" autocomplete="off" value="<?php echo htmlspecialchars($usuario['DNI']); ?>">
+                                                <input type="text" maxlength="13" pattern="[0-9]{13}" class="formulario__input" class="form-control" name="dni" id="dni" placeholder="DNI" autocomplete="off" value="<?php echo htmlspecialchars($usuario['DNI']); ?>"required>
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         <div class="formulario__grupo" id="grupo__nombre">
                                             <label for="nombre" class="formulario__label">Nombre Completo</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" name="nombre" id="nombre" autocomplete="off" style="text-transform: uppercase" placeholder="Nombre completo" maxlength="80" value="<?php echo htmlspecialchars($usuario['Nombre']); ?>">
+                                                <input type="text" class="formulario__input" class="form-control" name="nombre" id="nombre" autocomplete="off" style="text-transform: uppercase" placeholder="Nombre completo" maxlength="80" value="<?php echo htmlspecialchars($usuario['Nombre']); ?>" required>
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         <div class="formulario__grupo" id="grupo__correo2">
                                             <label for="correo2" class="formulario__label">Correo Electrónico</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="email" class="formulario__input" class="form-control" name="correo" id="correo" autocomplete="off" placeholder="Correo Electrónico" maxlength="40" value="<?php echo htmlspecialchars($usuario['Correo']); ?>">
+                                                <input type="email" class="formulario__input" class="form-control" name="correo" id="correo" autocomplete="off" placeholder="Correo Electrónico" maxlength="40" value="<?php echo htmlspecialchars($usuario['Correo']); ?>" required>
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         <div class="formulario__grupo" id="grupo__usuario">
                                             <label for="usuario" class="formulario__label">Usuario</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase" autocomplete="off" name="usuario" id="usuario" placeholder="Usuario" maxlength="15" value="<?php echo htmlspecialchars($usuario['Usuario']); ?>">
+                                                <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase" autocomplete="off" name="usuario" id="usuario" placeholder="Usuario" maxlength="15" value="<?php echo htmlspecialchars($usuario['Usuario']); ?>"required>
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -148,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                     <td>
                                         <div class="formulario__grupo" id="grupo__direccion">
                                             <div class="formulario__grupo-input">
-                                                <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80" value="<?php echo htmlspecialchars($usuario['Direccion']); ?>">
+                                                <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80" value="<?php echo htmlspecialchars($usuario['Direccion']); ?>"required>
                                             </div>
                                             <p class="formulario__input-error"></p>
                                         </div>
@@ -158,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         <div class="gender-options">
                                             <!-- <label for="genero" class="formulario__label">Género</label> -->
                                             <div></div>
-                                            <select type="int" class="formulario__input" autocomplete="off" name="genero" id="genero" placeholder="Genero" class="combobox" value="<?php echo htmlspecialchars($usuario['IdGenero']); ?>">
+                                            <select type="int" class="formulario__input" autocomplete="off" name="genero" id="genero" placeholder="Genero" class="combobox" value="<?php echo htmlspecialchars($usuario['IdGenero']); ?>"required>
                                                 <!-- <option value="0" selected>Seleccione un Género</option> -->
                                                 <?php
                                                 // Conexión a la base de datos
@@ -189,15 +189,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
                                             <label for="Fechanacimiento">Fecha de Nacimiento:</label>
-                                            <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" class="form-control" class="fecha-nacimiento-input" value="<?php echo htmlspecialchars($usuario['FechaNacimiento']); ?>">
+                                            <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" class="form-control" class="fecha-nacimiento-input" value="<?php echo htmlspecialchars($usuario['FechaNacimiento']); ?>"required>
                                             <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
+                                        
                                     </td>
                                     <!-- GRUPO FECHA CONTRATACION -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__fecha">
                                             <label for="Fechavencimiento">Fecha de Contratación:</label>
-                                            <input type="date" class="formulario__input" name="fechacontratacion" id="fechacontratacion" autocomplete="off" class="form-control" value="<?php echo htmlspecialchars($usuario['FechaContratacion']); ?>">
+                                            <input type="date" class="formulario__input" name="fechacontratacion" id="fechacontratacion" autocomplete="off" class="form-control" value="<?php echo htmlspecialchars($usuario['FechaContratacion']); ?>"required>
                                             <p id="mensajeFechaContratacion" class="mensaje_error" style="color: #bb2929;"></p>
                                         </div>
                                     </td>
@@ -206,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                     <!-- GRUPO ROL -->
                                     <td>
                                         <div class="gender-options">
-                                            <select type="int" class="formulario__input" autocomplete="off" name="rol" id="rol" placeholder="rol" class="combobox" value="<?php echo htmlspecialchars($usuario['IdRol']); ?>">
+                                            <select type="int" class="formulario__input" autocomplete="off" name="rol" id="rol" placeholder="rol" class="combobox" value="<?php echo htmlspecialchars($usuario['IdRol']); ?>"required>
                                                 <?php
                                                 // Conexión a la base de datos
 
@@ -233,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                     <td>
                                         <div class="gender-options">
                                             <!-- <div></div> -->
-                                            <select type="int" class="formulario__input" autocomplete="off" name="estadoUser" id="estadoUser" placeholder="estadoUser" class="combobox" value="<?php echo htmlspecialchars($usuario['Estado_Usuario']); ?>">
+                                            <select type="int" class="formulario__input" autocomplete="off" name="estadoUser" id="estadoUser" placeholder="estadoUser" class="combobox" value="<?php echo htmlspecialchars($usuario['Estado_Usuario']); ?>"required>
                                                 <?php
                                                 // Conexión a la base de datos
 

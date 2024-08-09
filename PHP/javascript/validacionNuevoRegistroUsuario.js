@@ -103,7 +103,7 @@ let validarInputPassword = (e, campo) => {
         ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, `${campo}`,
             'Solo se permiten mayúsculas, minúsculas, números y caracter especial')) : "";
 
-    estadoValidacion.estadoCV
+    estadoValidacion.estadoER
         ? (estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior')) : "";
 
     return estadoValidacion;
@@ -656,10 +656,15 @@ formulario_Registro.addEventListener('submit', function (e) {
       errorEncontrado = true;
     }
   });
+  const password2 = document.querySelector('input[name="password2"]');
+  const password3 = document.querySelector('input[name="password3"]');
+  if (password2 && password3 && password2.value !== password3.value) {
+      errorEncontrado = true;
+    //   funciones.MostrarAlerta('error', '¡ERROR!', 'Las contraseñas no coinciden. Por favor, verifica.');
+  }
 
   if (errorEncontrado) {
-    e.preventDefault();
-    funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
+      e.preventDefault(); // Previene el envío del formulario
   }
 });
 
@@ -670,6 +675,7 @@ camposFormulario.forEach(function(campo) {
       botonEnviar.removeAttribute('disabled');
     } else {
       botonEnviar.setAttribute('disabled', 'disabled');
+      
     }
   });
 });
