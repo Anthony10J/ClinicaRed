@@ -16,7 +16,7 @@ include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 
 
 // obtener el objeto
-$id_objeto = Obtener_Id_Objeto('V_roles');
+$id_objeto = Obtener_Id_Objeto('V_modal_genero');
 if ($id_objeto === null) {
     echo "Error: id_objeto es NULL";
     exit();
