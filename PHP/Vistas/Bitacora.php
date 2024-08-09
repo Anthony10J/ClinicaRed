@@ -115,8 +115,6 @@ include '../Controladores/Conexion/Conexion_be.php';
                       <td><label for="max">Hasta:</label></td>
                       <td><input type="date" id="max" name="max" class="date-input"></td>
                       <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
-                      <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td>
-
                     </tr>
                   </tbody>
                 </table>
@@ -124,6 +122,8 @@ include '../Controladores/Conexion/Conexion_be.php';
 
             </form><br><br>
 
+            <!-- <button type="button" class="btn btn-danger">
+              <i class="fas fa-trash btn-depurar"></i> Depurar</button> -->
 
             <table class="table " id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
@@ -166,76 +166,6 @@ include '../Controladores/Conexion/Conexion_be.php';
                 <?php
                 }
                 ?>
-<script>
-// ... (resto de tu código)
-$(document).ready(function() {
-    $('#deleteButton').click(function() {
-        // Obtener los valores de las fechas
-        var min = $('#min').val();
-        var max = $('#max').val();
-
-        // Validar que las fechas no estén vacías
-        if (!min || !max) {
-            alert('Por favor, selecciona un rango de fechas válido.');
-            return; // Salir de la función si las fechas no son válidas
-        }
-
-        // Confirmar la eliminación
-        if (confirm('¿Estás seguro de que deseas eliminar los registros entre ' + min + ' y ' + max + '?')) {
-            $.ajax({
-                url: 'Bitacora.php', // Archivo PHP para procesar la eliminación
-                type: 'POST',
-                data: { min: min, max: max },
-                success: function(response) {
-                    // Actualizar la tabla después de la eliminación
-                    table.ajax.reload();
-                    alert(response); // Mostrar un mensaje de éxito o error
-                },
-                error: function(xhr, status, error) {
-                    alert('Error al eliminar los registros: ' + error);
-                }
-            });
-        }
-    });
-});
-
-</script>
-<?php
-// ... (resto del código)
-
-// Verifica si el formulario se ha enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POST['max'])) {
-    $min = $_POST['min'];
-    $max = $_POST['max'];
-
-    // Confirmar eliminación
-    if (confirm('¿Estás seguro de que deseas eliminar los registros entre ' . $min . ' y ' . $max . '?')) {
-        // Consulta SQL para eliminar registros
-        $sql = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
-
-        if (mysqli_query($conexion, $sql)) {
-            echo "<script>alert('Registros eliminados correctamente');</script>";
-        } else {
-            echo "<script>alert('Error al eliminar registros: " . mysqli_error($conexion) . "');</script>";
-        }
-    }
-}
-
-// Función para confirmar eliminación
-function confirm($message) {
-    if (isset($_POST['confirm'])) {
-        return true;
-    } else {
-        echo "<script>
-            if (confirm('$message')) {
-                document.getElementById('filtro-form').submit();
-            }
-        </script>";
-        return false;
-    }
-}
-?>
-
               </tbody>
             </table>
 
@@ -324,7 +254,6 @@ function confirm($message) {
       inicializarTable();
     });
   </script> -->
-
 
 
   <script type="text/javascript">
