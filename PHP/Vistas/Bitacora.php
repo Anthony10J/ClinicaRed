@@ -131,6 +131,8 @@ include '../Controladores/Conexion/Conexion_be.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POST['max'])) {
     $min = $_POST['min'];
     $max = $_POST['max'];
+    echo "Min Date: $min <br>";
+    echo "Max Date: $max <br>";
 
     // Consulta para eliminar registros entre las fechas seleccionadas
     $sql = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
