@@ -116,6 +116,28 @@ include '../Controladores/Conexion/Conexion_be.php';
                       <td><input type="date" id="max" name="max" class="date-input"></td>
                       <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
                      <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td>
+                     <script>
+        $(document).ready(function() {
+            $('#deleteButton').click(function() {
+                var min = $('#min').val();
+                var max = $('#max').val();
+
+                $.ajax({
+                    url: './Eliminar_bitacora.php',
+                    type: 'POST',
+                    data: { min: min, max: max },
+                    success: function(response) {
+                        // Actualizar la tabla o mostrar un mensaje de éxito
+                        console.log(response);
+                    },
+                    error: function() {
+                        // Mostrar un mensaje de error
+                        console.error("Error al eliminar registros");
+                    }
+                });
+            });
+        });
+    </script>
 
                     </tr>
                   </tbody>
