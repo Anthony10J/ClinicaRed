@@ -81,7 +81,7 @@ if ($result) {
             fclose($handle);
             echo '
             <script>
-                MostrarAlerta("success", "Éxito", "El respaldo fue creado exitosamente.", "./V_respaldo.php");
+                MostrarAlerta("success", "Éxito", "El respaldo fue creado exitosamente.", "../Backup/respaldo/respaldo.php");
             </script>';
         } else {
             echo 'Ocurrió un error inesperado al crear la copia de seguridad';
