@@ -1,4 +1,11 @@
 <?php
+// Verificar si la sesión ya está activa
+if (session_status() === PHP_SESSION_ACTIVE) {
+    // La sesión ya está iniciada, no necesitas iniciarla nuevamente
+} else {
+    // La sesión aún no está iniciada, entonces la inicias
+    session_start();
+}
 include('../../../Controladores/Conexion/Conexion_be.php');
 // Verificar si el ID del rol está presente en la solicitud POST
 
@@ -33,6 +40,7 @@ if ($conexion->query("SET @current_user_id = '$current_user_id'") === FALSE) {
 echo "Error: current_user_id es NULL";
 exit();
 }
+
 if (isset($_POST['idRol'])) {
     $idRol = $_POST['idRol'];
 
