@@ -129,8 +129,10 @@ include '../Controladores/Conexion/Conexion_be.php';
 
 // Verifica si el formulario se ha enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POST['max'])) {
-    $min = $_POST['min'];
-    $max = $_POST['max'];
+
+    $min = date('Y-m-d', strtotime($_POST['min']));
+    $max = date('Y-m-d', strtotime($_POST['max']));
+
     echo "Min Date: $min <br>";
     echo "Max Date: $max <br>";
 
