@@ -220,8 +220,8 @@ include '../Controladores/Conexion/Conexion_be.php';
     }
 
     #deleteButton{
-      height: 32px;
-      position: absolute;
+      height: 45px;
+      
     }
 
     table.inputs td {
