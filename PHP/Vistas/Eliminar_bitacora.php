@@ -1,4 +1,3 @@
-
 <?php
 // Verificar si la sesión ya está activa
 if (session_status() === PHP_SESSION_ACTIVE) {
@@ -26,15 +25,8 @@ $result = mysqli_query($conexion, $sql_check);
 $row = mysqli_fetch_assoc($result);
 
 if ($row['total'] > 0) {
-    // Si hay registros, proceder a eliminarlos
-    $sql_delete = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
-    if (mysqli_query($conexion, $sql_delete)) {
-        echo "Registros eliminados correctamente.";
-    } else {
-        echo "Error al eliminar registros.";
-    }
+    echo "confirm"; // Enviar señal para confirmación de eliminación
 } else {
-    // Si no hay registros, informar al usuario
     echo "No hay registros para borrar en el rango de fechas proporcionado.";
 }
 
