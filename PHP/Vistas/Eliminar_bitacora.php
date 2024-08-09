@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     // La sesión aún no está iniciada, entonces la inicias
     session_start();
 }
-include('../../../Controladores/Conexion/Conexion_be.php');
+include("../Controladores/Conexion/Conexion_be.php");
 
 // Obtener los datos enviados por AJAX
 $min = $_POST['min'];
