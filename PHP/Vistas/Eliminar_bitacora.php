@@ -25,7 +25,7 @@ $result = mysqli_query($conexion, $sql_check);
 $row = mysqli_fetch_assoc($result);
 
 if ($row['total'] > 0) {
-    echo "confirm"; // Enviar señal para confirmación de eliminación
+    echo "Registro eliminado con exito"; // Enviar señal para confirmación de eliminación
 } else {
     echo "No hay registros para borrar en el rango de fechas proporcionado.";
 }

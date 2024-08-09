@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $n=$_SESSION['id_D'];          //obtiene valor de la variable session
                 $a='HABILITAR';
                 $d='PACIENTE CON ID '.$idPaciente .' HA SIDO INHABILITADO';
-                bitacora($n, $a, $d);
+                //bitacora($n, $a, $d);
                 echo "El paciente ha sido inhabilitado exitosamente";
             } else {
                 echo "Error al inhabilitar al paciente: " . mysqli_error($conexion);
