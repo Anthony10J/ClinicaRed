@@ -212,7 +212,7 @@ include '../Controladores/Conexion/Conexion_be.php';
       border-radius: 10px;
       /* display: inline-block; */
       /* position: absolute; */
-      width: 100px;
+      width: auto;
       /* Ajusta este valor según el ancho que desees */
       /* height: 32px; */
       /* margin-left: 100px; */
@@ -221,7 +221,7 @@ include '../Controladores/Conexion/Conexion_be.php';
 
     #deleteButton{
       height: 35px;
-      padding: 30px 0;
+      width: auto;
       
     }
 
