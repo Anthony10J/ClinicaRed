@@ -219,6 +219,11 @@ include '../Controladores/Conexion/Conexion_be.php';
       /* Ajusta este valor según el espacio que desees entre los botones */
     }
 
+    #deleteButton{
+      height: 32px;
+      position: absolute;
+    }
+
     table.inputs td {
       padding: 5px;
     }
