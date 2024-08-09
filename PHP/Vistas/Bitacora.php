@@ -278,6 +278,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POS
     });
   </script> -->
 
+  <?php
+// ... (resto del código)
+
+// Verifica si el formulario se ha enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POST['max'])) {
+    $min = $_POST['min'];
+    $max = $_POST['max'];
+
+    // Confirmar eliminación
+    if (confirm('¿Estás seguro de que deseas eliminar los registros entre ' . $min . ' y ' . $max . '?')) {
+        // Consulta SQL para eliminar registros
+        $sql = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
+
+        if (mysqli_query($conexion, $sql)) {
+            echo "<script>alert('Registros eliminados correctamente');</script>";
+        } else {
+            echo "<script>alert('Error al eliminar registros: " . mysqli_error($conexion) . "');</script>";
+        }
+    }
+}
+
+// Función para confirmar eliminación
+function confirm($message) {
+    if (isset($_POST['confirm'])) {
+        return true;
+    } else {
+        echo "<script>
+            if (confirm('$message')) {
+                document.getElementById('filtro-form').submit();
+            }
+        </script>";
+        return false;
+    }
+}
+?>
+
 
   <script type="text/javascript">
     // REPORTE DE USUARIOS 
