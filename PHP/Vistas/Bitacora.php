@@ -124,29 +124,6 @@ include '../Controladores/Conexion/Conexion_be.php';
 
             </form><br><br>
 
-            <?php
-
-
-// Verifica si el formulario se ha enviado
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POST['max'])) {
-
-    $min = date('Y-m-d', strtotime($_POST['min']));
-    $max = date('Y-m-d', strtotime($_POST['max']));
-
-    echo "Min Date: $min <br>";
-    echo "Max Date: $max <br>";
-
-    // Consulta para eliminar registros entre las fechas seleccionadas
-    $sql = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
-
-    if (mysqli_query($conexion, $sql)) {
-        echo "<script>alert('Registros eliminados correctamente');</script>";
-    } else {
-        echo "<script>alert('Error al eliminar registros');</script>";
-    }
-}
-?>
-
 
             <table class="table " id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
@@ -189,6 +166,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['min']) && isset($_POS
                 <?php
                 }
                 ?>
+<script>
+// ... (resto de tu código)
+
+$(document).ready(function() {
+    // ... (resto del código de la tabla)
+
+    $('#deleteButton').click(function() {
+        // Obtener los valores de las fechas
+        var min = $('#min').val();
+        var max = $('#max').val();
+
+        // Confirmar la eliminación
+        if (confirm('¿Estás seguro de que deseas eliminar los registros entre ' + min + ' y ' + max + '?')) {
+            $.ajax({
+                url: 'eliminar_registros.php', // Archivo PHP para procesar la eliminación
+                type: 'POST',
+                data: { min: min, max: max },
+                success: function(response) {
+                    // Actualizar la tabla después de la eliminación
+                    table.ajax.reload();
+                    alert(response); // Mostrar un mensaje de éxito o error
+                },
+                error: function(xhr, status, error) {
+                    alert('Error al eliminar los registros: ' + error);
+                }
+            });
+        }
+    });
+});
+</script>
+<?php
+
+
+// Obtener los datos enviados por AJAX
+$min = $_POST['min'];
+$max = $_POST['max'];
+
+// Consulta SQL para eliminar registros
+$sql = "DELETE FROM tbl_bitacora WHERE Fecha BETWEEN '$min' AND '$max'";
+
+if (mysqli_query($conexion, $sql)) {
+    echo "Registros eliminados correctamente";
+} else {
+    echo "Error al eliminar registros";
+}
+?>
+
+
               </tbody>
             </table>
 
