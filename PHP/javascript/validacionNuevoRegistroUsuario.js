@@ -5,9 +5,9 @@ const icon = document.querySelectorAll('.ver_password');
 
 const expresiones = {
   usuario: /^[a-zA-Z]{3,15}$/, // Letras, numeros, guion y guion_bajo
-  nombre: /^[a-zA-ZÀ-ÿ\s]{3,40}$/, // Letras y espacios, pueden llevar acentos.
+  nombre: /^[a-zA-ZÀ-ÿ\s]{3,80}$/, // Letras y espacios, pueden llevar acentos.
   correo: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  direccion: /^[a-zA-Z0-9,.-_#+\s]{1,80}$/,
+  direccion: /^[a-zA-ZÁ-Z0-9\s,.-]{1,80}$/,
   // telefono: /^\d{8,12}$/, // 7 a 14 numeros.
   // direccion: /^[a-zA-Z0-9À-ÿ\s]{5,80}$/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, // Validar sin espacios una minúscula, una mayúscula, un número y un caracter especial.
@@ -152,7 +152,7 @@ let validarInputDNI = (e) => {
     estadoValidacion.estadoER
         ? (estadoValidacion.estadoCC = funciones.validarCerosConsecutivos(expresiones.dni, e.target, "dni", 'DNI no válido')) : "";
     estadoValidacion.estadoCC
-        ? (estadoValidacion.estadoCM = funciones.validarCampoMinimo (e.target, "dni", "Por favor ingresa correctamente el DNI")): "";
+        ? (estadoValidacion.estadoCM = funciones.validarCampoMinimo (e.target, "dni", "No cumple la cantidad mínima de caracteres")): "";
     return estadoValidacion;
 };
 
@@ -194,7 +194,7 @@ let validarInputDireccion = (e) => {
     estadoValidacion.estadoUE
       ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.direccion, e.target, 'direccion', 'Caracter no válido')) : "";
   
-    estadoValidacion.estadoUE
+    estadoValidacion.estadoER
       ? (estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, 'direccion', 'No debe colocar el mismo caracter +2 veces seguidas')) : "";
   
       return estadoValidacion;

@@ -163,6 +163,7 @@
                                     <!-- GRUPO DIRECCION -->
                                     <td>
                                         <div class="formulario__grupo" id="grupo__direccion">
+                                        <label for="usuario" class="formulario__label">Dirección</label>
                                             <div class="formulario__grupo-input">
                                                 <input type="text" class="formulario__input" class="form-control" name="direccion" id="direccion" autocomplete="off" style="text-transform: uppercase" placeholder="Dirección" maxlength="80" >
                                             </div>

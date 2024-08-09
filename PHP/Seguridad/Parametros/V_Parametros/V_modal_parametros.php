@@ -193,7 +193,7 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
 </body>
 
 </html>
-./
+
 <script>
     $(document).ready(function() {
         $('#tablaParametros').load('./V_mantenimiento_parametros.php');

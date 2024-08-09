@@ -6,64 +6,75 @@ function validarCamposVacios(tratamiento) {
     return true;
 }
 function verificarTratamiento() {
-    // Obtén el valor del campo de entrada
-    var tratamiento = $('#tratamiento').val();
-    
-    // Espera 300 ms antes de realizar la solicitud AJAX
-    setTimeout(() => {
-        if (tratamiento !== '') {
-            $.ajax({
-                type: 'POST',
-                url: '../C_Tratamientos/C_buscar_tratamiento.php', // Ruta al script PHP
-                data: {
-                    tratamiento: tratamiento // Asegúrate de enviar el valor correcto
-                },
-                dataType: 'json', // Asegúrate de que la respuesta sea JSON
-                success: function(response) {
-                    // Verifica la respuesta y muestra u oculta el mensaje de error según corresponda
-                    if (response.existe) {
-                        // Si el parámetro ya existe, muestra el mensaje de error
-                        $('#mensaje_error').text('El tratamiento ya existe.').addClass('error').show();
-                        // alertify.error("El parámetro ya existe.");
-                        return false;
-                    } else {
-                        // Si el tratamiento no existe, oculta el mensaje de error
-                        $('#mensaje_error').text('').removeClass('error').hide();
+    return new Promise((resolve, reject) => {
+        // Obtén el valor del campo de entrada
+        var tratamiento = $('#tratamiento').val();
+
+        // Espera 300 ms antes de realizar la solicitud AJAX
+        setTimeout(() => {
+            if (tratamiento !== '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '../C_Tratamientos/C_buscar_tratamiento.php', // Ruta al script PHP
+                    data: { tratamiento: tratamiento }, // Asegúrate de enviar el valor correcto
+                    dataType: 'json', // Asegúrate de que la respuesta sea JSON
+                    success: function(response) {
+                        if (response.existe) {
+                            $('#mensaje_error').text('El tratamiento ya existe.').addClass('error').show();
+                            resolve(false);
+                        } else {
+                            $('#mensaje_error').text('').removeClass('error').hide();
+                            resolve(true);
+                        }
+                    },
+                    error: function() {
+                        alertify.error('Error al buscar el tratamiento.');
+                        reject('error');
                     }
-                },
-                error: function() {
-                    alertify.error('Error al buscar el tratamiento.');
-                    // Puedes mostrar un mensaje de error en la interfaz de usuario si es necesario
-                }
-            });
-        } else {
-            // Si el campo está vacío, oculta el mensaje de error
-            $('#mensaje_error').text('').removeClass('error').hide();
-        }
-    }, ); // Retraso de 300 ms antes de la solicitud
+                });
+            } else {
+                $('#mensaje_error').text('').removeClass('error').hide();
+                resolve(true);
+            }
+        }, 300); // Retraso de 300 ms antes de la solicitud
+    });
 }
+
 
 $(document).ready(function() {
     // Agregar el evento focusout a la función verificarParametro
     $('#tratamiento').on('focusout', verificarTratamiento);
 });
 
-function insertarTipoTratamiento(tratamiento) {
+async function insertarTipoTratamiento(tratamiento) {
+    // Validar campos vacíos
     if (!validarCamposVacios(tratamiento)) {
         return;
     }
 
-    // Verifica si el parámetro ya existe utilizando la función verificarParametro()
-    // Asumiendo que verificarParametro() retorna true si el parámetro existe y false si no existe.
-    verificarTratamiento();
-
-    // Si se muestra un mensaje de error, detén la ejecución de insertarParametro
-    if ($('#mensaje_error').is(':visible')) {
-        // El mensaje de error es visible, significa que el parámetro ya existe
-        // Por lo tanto, no procedemos con la inserción
+    // Validar que el campo solo contenga letras y espacios
+    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
+    if (!soloLetrasYEspacios.test(tratamiento.trim())) {
+        alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
         return;
     }
 
+    // Validar que no haya más de dos espacios consecutivos
+    var dosEspaciosConsecutivos = /\s{3,}/;
+    if (dosEspaciosConsecutivos.test(tratamiento)) {
+        alertify.error("El campo no puede contener más de dos espacios consecutivos.");
+        return;
+    }
+
+    // Esperar a que la verificación del tratamiento termine
+    const tratamientoValido = await verificarTratamiento();
+
+    // Si el tratamiento ya existe (mensaje de error es visible), detén la ejecución
+    if (!tratamientoValido) {
+        return;
+    }
+
+    // Realizar la inserción del tratamiento si todas las validaciones son correctas
     cadena = "tratamiento=" + tratamiento;
     $.ajax({
         type: 'POST',
@@ -82,6 +93,8 @@ function insertarTipoTratamiento(tratamiento) {
         }
     });
 }
+
+
 
 // function cargarDatosLectura(datos) {
 //     extraerDatos = datos.split('||');
@@ -105,22 +118,39 @@ function cargarDatos(datos) {
 }
 
 function actualizarTipoTratamiento() {
-    idTipoTerapia = $('#idTipoTerapia').val();
-    tratamiento_E = $('#tratamiento_E').val();
+    var idTipoTerapia = $('#idTipoTerapia').val();
+    var tratamiento_E = $('#tratamiento_E').val();
 
-    cadena = "idTipoTerapia=" + idTipoTerapia + 
-             "&tratamiento_E=" + tratamiento_E;
+    // Validar que el campo no esté vacío
+    if (tratamiento_E.trim() === '') {
+        alertify.error('El campo no puede guardarse vacío.');
+        return false;
+    }
 
-             if(tratamiento_E.trim() === ''){
-                alertify.error('El campo no puede guardarse vacío.');
-                return false;
-            }
+    // Validar que el campo solo contenga letras, espacios, barras y guiones
+    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
+    if (!soloLetrasYEspacios.test(tratamiento_E.trim())) {
+        alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
+        return false;
+    }
+
+    // Validar que no haya más de dos espacios consecutivos
+    var dosEspaciosConsecutivos = /\s{3,}/;
+    if (dosEspaciosConsecutivos.test(tratamiento_E)) {
+        alertify.error("El campo no puede contener más de dos espacios consecutivos.");
+        return false;
+    }
+
+    // Crear la cadena de datos para la solicitud AJAX
+    var cadena = "idTipoTerapia=" + idTipoTerapia + 
+                 "&tratamiento_E=" + tratamiento_E;
+
+    // Realizar la solicitud AJAX para actualizar el tratamiento
     $.ajax({
         type: 'POST',
         url: '../C_Tratamientos/C_editar_terapia.php',
         data: cadena,
         success: function (respuesta) {
-            console.log(respuesta)
             if (respuesta == 1) {
                 $('#tablaTipoTratamiento').load('../V_ETerapeutico/V_mantenimiento_tratamiento.php');
                 alertify.success("Tratamiento actualizado correctamente.");

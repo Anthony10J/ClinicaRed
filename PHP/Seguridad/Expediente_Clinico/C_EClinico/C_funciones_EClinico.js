@@ -54,7 +54,19 @@ function insertarTipoEvaluacionR(evaluacionR) {
     if (!validarCamposVacios(evaluacionR)) {
         return;
     }
-
+      // Validar que el campo solo contenga letras y espacios
+      var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
+      if (!soloLetrasYEspacios.test(evaluacionR.trim())) {
+          alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
+          return;
+      }
+  
+      // Validar que no haya más de dos espacios consecutivos
+      var dosEspaciosConsecutivos = /\s{3,}/;
+      if (dosEspaciosConsecutivos.test(evaluacionR)) {
+          alertify.error("El campo no puede contener más de dos espacios consecutivos.");
+          return;
+      }
     // Verifica si el parámetro ya existe utilizando la función verificarParametro()
     // Asumiendo que verificarParametro() retorna true si el parámetro existe y false si no existe.
     verificarEvaluacion().then(existe => {

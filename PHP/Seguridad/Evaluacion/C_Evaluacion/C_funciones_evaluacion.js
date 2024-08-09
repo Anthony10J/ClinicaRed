@@ -101,11 +101,11 @@ function actualizarEvaluacion() {
     }
 
     // Validar que solo contenga letras y espacios
-    var letraEspacioRegex = /^[a-zA-Z\s]+$/;
-    if (!letraEspacioRegex.test(descripcionE)) {
-        alertify.error("El campo solo puede contener letras y espacios.");
-        return;
-    }
+    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
+      if (!soloLetrasYEspacios.test(descripcionE.trim())) {
+          alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
+          return;
+      }
 
     // Contar el número de espacios
     var espacioCount = (descripcionE.match(/\s/g) || []).length;

@@ -28,7 +28,7 @@ define("SERVER", "localhost");
 define("BD", "u452119581_clinica_red");
 
 //Contraseña de myqsl
-define("PASS", "T3chTit4n$2024");
+define("PASS", 'T3chTit4n$2024');
 
 //Carpeta donde se almacenaran las copias de seguridad
 // define("BACKUP_PATH", "../../../Base de Datos/Respaldos Backup");

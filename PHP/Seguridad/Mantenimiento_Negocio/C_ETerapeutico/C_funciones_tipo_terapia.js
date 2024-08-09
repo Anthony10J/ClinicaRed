@@ -40,9 +40,9 @@ function insertarTipoTerapia() {
         return;
     }
 
-    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
     if (!soloLetrasYEspacios.test(terapia.trim())) {
-        alertify.error("El campo solo puede contener letras.");
+        alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
         return;
     }
 
@@ -99,9 +99,9 @@ function actualizarTipoTerapia() {
         return;
     }
 
-    var letraEspacioRegex = /^[a-zA-Z\s]+$/;
-    if (!letraEspacioRegex.test(terapiaE)) {
-        alertify.error("El campo solo puede contener letras y espacios.");
+    var soloLetrasYEspacios = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\/\-]+$/;
+    if (!soloLetrasYEspacios.test(terapiaE.trim())) {
+        alertify.error("El campo solo puede contener letras, espacios, barras y guiones.");
         return;
     }
 
