@@ -6,8 +6,8 @@ const icon = document.querySelectorAll('.ver_password');
 const expresiones = {
   usuario: /^[a-zA-Z]{1,15}$/, 
   nombre: /^[a-zA-ZÀ-ÿ\s]{3,40}$/, 
-  correo: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-  direccion: /^[a-zA-Z0-9,.-_#+\s]{1,80}$/,
+  correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  direccion: /^[a-zA-ZÀ-ÿ0-9\s,.-]+$/,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/, 
   dni: /^(?!00)(?!.*0{5}$)[0-9]{1,13}$/,
   dniN:/^[0-9]{1,13}$/
@@ -155,14 +155,22 @@ let validarInputDireccion = (e) => {
     estadoER: false,
     estadoMC: false,
     estadoUE: false,
+    estadoCM: false,
   };
   estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, 'direccion', 'Por favor, ingresa tu dirección');
-  if (estadoValidacion.estadoCV) {
-    estadoValidacion.estadoUE = funciones.validarEspacios(/\s\s/g, e.target, 'direccion', 'Debe limitarse a un espacio');
-    estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.direccion, e.target, 'direccion', 'Caracter no válido');
-    estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, 'direccion', 'No debe colocar el mismo caracter más de 2 veces seguidas');
-  }
-  return estadoValidacion;
+
+  estadoValidacion.estadoCV
+  ? (estadoValidacion.estadoUE = funciones.validarEspacios(/\s\s/g, e.target, 'direccion', 'Debe limitarse a un espacio')) : "";
+
+  estadoValidacion.estadoUE
+    ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.direccion, e.target, 'direccion', 'Caracter no válido')) : "";
+
+  estadoValidacion.estadoER
+    ? (estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, 'direccion', 'No debe colocar el mismo caracter +2 veces seguidas')) : "";
+    estadoValidacion.estadoMC
+    ? (estadoValidacion.estadoCM = funciones.validarCampoMaximo (e.target, "direccion", "No cumple la cantidad mínima de caracteres")): "";
+     
+    return estadoValidacion;
 };
 
 

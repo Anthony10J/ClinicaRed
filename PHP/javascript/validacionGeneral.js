@@ -270,3 +270,21 @@ export const validarCampoMinimo = (input, campo, mensajeError) => {
     }
     return campos[campo];
 }
+
+export const validarCampoMaximo = (input, campo, mensajeError) => {
+    let elemento = document.getElementById(`grupo__${campo}`);
+
+    if (input.value.trim().length < 5) {
+        elemento.classList.add('formulario__grupo-incorrecto');
+        elemento.classList.remove('formulario__grupo-correcto');
+        document.querySelector(`#grupo__${campo} .formulario__input-error`).textContent = mensajeError;
+        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+        campos[campo] = false;
+    } else {
+        elemento.classList.remove('formulario__grupo-incorrecto');
+        elemento.classList.add('formulario__grupo-correcto');
+        document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+        campos[campo] = true;
+    }
+    return campos[campo];
+}
