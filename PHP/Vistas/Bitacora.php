@@ -168,19 +168,22 @@ include '../Controladores/Conexion/Conexion_be.php';
                 ?>
 <script>
 // ... (resto de tu código)
-
 $(document).ready(function() {
-    // ... (resto del código de la tabla)
-
     $('#deleteButton').click(function() {
         // Obtener los valores de las fechas
         var min = $('#min').val();
         var max = $('#max').val();
 
+        // Validar que las fechas no estén vacías
+        if (!min || !max) {
+            alert('Por favor, selecciona un rango de fechas válido.');
+            return; // Salir de la función si las fechas no son válidas
+        }
+
         // Confirmar la eliminación
         if (confirm('¿Estás seguro de que deseas eliminar los registros entre ' + min + ' y ' + max + '?')) {
             $.ajax({
-                url: 'eliminar_registros.php', // Archivo PHP para procesar la eliminación
+                url: 'Bitacora.php', // Archivo PHP para procesar la eliminación
                 type: 'POST',
                 data: { min: min, max: max },
                 success: function(response) {
@@ -195,6 +198,7 @@ $(document).ready(function() {
         }
     });
 });
+
 </script>
 <?php
 
