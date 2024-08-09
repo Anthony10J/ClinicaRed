@@ -220,8 +220,9 @@ include '../Controladores/Conexion/Conexion_be.php';
     }
 
     #deleteButton{
-      height: 35px;
+      height: 30px;
       width: auto;
+      border-radius: 10px;
       
     }
 
