@@ -117,27 +117,41 @@ include '../Controladores/Conexion/Conexion_be.php';
                       <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
                      <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td>
                      <script>
-        $(document).ready(function() {
-            $('#deleteButton').click(function() {
-                var min = $('#min').val();
-                var max = $('#max').val();
+    $(document).ready(function() {
+        $('#deleteButton').click(function() {
+            var min = $('#min').val();
+            var max = $('#max').val();
 
-                $.ajax({
-                    url: './Eliminar_bitacora.php',
-                    type: 'POST',
-                    data: { min: min, max: max },
-                    success: function(response) {
-                        // Actualizar la tabla o mostrar un mensaje de éxito
-                        console.log(response);
-                    },
-                    error: function() {
-                        // Mostrar un mensaje de error
-                        console.error("Error al eliminar registros");
-                    }
-                });
+            // Validación para asegurarse de que no estén vacíos
+            if (min === '' || max === '') {
+                alert("Por favor, ingresa un rango de fechas.");
+                return; // Detiene la ejecución si los campos están vacíos
+            }
+
+            // Confirmación antes de proceder
+            var confirmDelete = confirm("¿Estás seguro de que deseas eliminar los registros entre " + min + " y " + max + "?");
+            if (!confirmDelete) {
+                return; // Detiene la ejecución si el usuario cancela
+            }
+
+            // Si todo es correcto, realizar la petición AJAX
+            $.ajax({
+                url: './Eliminar_bitacora.php',
+                type: 'POST',
+                data: { min: min, max: max },
+                success: function(response) {
+                    // Mostrar un mensaje de éxito
+                    alert(response);
+                },
+                error: function() {
+                    // Mostrar un mensaje de error
+                    console.error("Error al eliminar registros");
+                }
             });
         });
-    </script>
+    });
+</script>
+
 
                     </tr>
                   </tbody>
