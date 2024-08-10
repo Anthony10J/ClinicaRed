@@ -41,17 +41,17 @@ exit();
 
 // Parámetros de la acción
 // Parámetros de la acción
-$accion = 'DESCARGA';
+// $accion = 'DESCARGA';
 //$nombre_pdf = isset($_POST['archivo']) ? basename($_POST['archivo']) : 'documento.pdf';
-$descripcion_bitacora = 'SE HA DESCARGADO REPORTE TIPOS DE IDENTIDAD DE LOS PACIENTES ' . $nombre_pdf;
+// $descripcion_bitacora = 'SE HA DESCARGADO REPORTE TIPOS DE IDENTIDAD DE LOS PACIENTES ' . $nombre_pdf;
 
 
-// Insertar el registro en la bitácora
-$sql = "INSERT INTO tbl_bitacora (Fecha, Id_Usuario, Accion, Descripcion, Id_Objeto)
-        VALUES (NOW(), '$current_user_id', '$accion', '$descripcion_bitacora', '$id_objeto')";
+// // Insertar el registro en la bitácora
+// $sql = "INSERT INTO tbl_bitacora (Fecha, Id_Usuario, Accion, Descripcion, Id_Objeto)
+//         VALUES (NOW(), '$current_user_id', '$accion', '$descripcion_bitacora', '$id_objeto')";
 
-$conexion->query($sql);
-$conexion->close();
+// $conexion->query($sql);
+// $conexion->close();
 
 
 

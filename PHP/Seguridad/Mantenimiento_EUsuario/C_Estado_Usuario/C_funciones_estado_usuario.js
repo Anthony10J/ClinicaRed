@@ -107,8 +107,7 @@ function actualizarEstadoUsuario() {
     Id_Estado = $('#Id_Estado').val();
     Estado_Usuario_E = $('#Estado_Usuario_E').val();
 
-    cadena = "Id_Estado=" + Id_Estado +
-        "&Estado_Usuario_E=" + Estado_Usuario_E;
+  
 
     if (Estado_Usuario_E.trim() === '') {
         alertify.error("Los campos no pueden estar vacíos.");
@@ -129,7 +128,7 @@ function actualizarEstadoUsuario() {
         return;
     }
 
-    var cadena = "Estado_Usuario_E=" + Estado_Usuario_E + "&Estado_Usuario_E=" + Estado_Usuario_E;
+    var cadena = "Id_Estado=" + Id_Estado + "&Estado_Usuario_E=" + Estado_Usuario_E;
 
     $.ajax({
         type: 'POST',
@@ -140,7 +139,9 @@ function actualizarEstadoUsuario() {
                 $('#tablaEstadoUsuario').load('../V_Estado_Usuario/V_mantenimiento_estado_usuario.php');
                 alertify.success("Estado de usuario actualizado correctamente.");
                 $('#modalEditarEstadoUsuario').modal('hide'); // Cerrar el modal
-
+                setTimeout(function() {
+                    window.location.reload();
+                }, 800);
             } else {
                 alertify.error("Fallo al actualizar el estado de usuario.");
             }

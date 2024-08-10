@@ -265,43 +265,16 @@ formulario2.addEventListener("submit", function (event) {
 // -----------------------------------
 const formulario_Registro = document.getElementById('registerForm');
 const botonEnviar = formulario_Registro.querySelector('button[type="submit"]');
-
-formulario_Registro.addEventListener('submit', function (e) {
-  let errorEncontrado = false;
-  
-  inputs.forEach((input) => {
-    if (input.name === 'password2' || input.name === 'password3') {
-      const resultadoValidacion = validarInputPassword({ target: input }, input.name);
-      if (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || !resultadoValidacion.estadoCC) {
-        errorEncontrado = true;
-      }
-    }
-  });
-
-  if (errorEncontrado) {
-    e.preventDefault();
-    funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
-  }
-});
-
 const camposFormulario = formulario_Registro.querySelectorAll('input, select');
 
-camposFormulario.forEach(function(campo) {
-  campo.addEventListener('input', function() {
-    const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
-    if (algunCampoConValor) {
-      botonEnviar.removeAttribute('disabled');
-    } else {
-      botonEnviar.setAttribute('disabled', 'disabled');
-    }
-  });
-});
-formulario_Registro.addEventListener('submit', function (e) {
+// Función para validar el formulario
+function validarFormulario() {
   let errorEncontrado = false;
 
   // Validar todos los inputs
-  inputs.forEach((input) => {
+  camposFormulario.forEach((input) => {
     let resultadoValidacion;
+
     switch (input.name) {
       case "correo2":
         resultadoValidacion = validarInputCorreo({ target: input }, input.name);
@@ -330,8 +303,28 @@ formulario_Registro.addEventListener('submit', function (e) {
     }
   });
 
+  return errorEncontrado;
+}
+
+// Listener para habilitar/deshabilitar el botón enviar
+camposFormulario.forEach(function(campo) {
+  campo.addEventListener('input', function() {
+    const algunCampoConValor = Array.from(camposFormulario).some(campo => campo.value.trim() !== '');
+    if (algunCampoConValor) {
+      botonEnviar.removeAttribute('disabled');
+    } else {
+      botonEnviar.setAttribute('disabled', 'disabled');
+    }
+  });
+});
+
+// Listener para el envío del formulario
+formulario_Registro.addEventListener('submit', function (e) {
+  const errorEncontrado = validarFormulario();
+
   if (errorEncontrado) {
     e.preventDefault();
     funciones.MostrarAlerta('error', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
   }
 });
+
