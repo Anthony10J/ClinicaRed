@@ -44,11 +44,13 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
                                 if ($resultado_query) { // Validar que se insertó correctamente el registro
                                     $query2=  "SELECT * FROM tbl_ms_usuario WHERE Usuario LIKE '$usuario'";
                                     $n= mysqli_query($conexion, $query2);
-                                    $fila = $n->fetch_assoc();
-                                    $n2= $fila['Id_Usuario'];
-                                    $a='AUTOREGISTRO';
-                                    $d= 'USUARIO '.$fila['Usuario'].' SE HA REGISTRADO.';
-                                   // bitacora($n2,$a,$d, $o);
+                                    echo "ID Objeto: " . $id_objeto;
+                                    $fecha = date("Y-m-d H:i:s");
+                                    $n = $fila['Id_Usuario'];
+                                    $a = 'INICIO DE SESIÓN';
+                                    $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
+                                    $o= 5;
+                                    bitacora($n, $a, $d, $o);
                                     echo '
                                         <script>
                                             MostrarAlerta("success", "¡GENIAL!", "Usuario almacenado correctamente.", "/index.php");
