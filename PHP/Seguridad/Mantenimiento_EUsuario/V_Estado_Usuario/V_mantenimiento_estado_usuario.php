@@ -39,7 +39,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
             <!-- <br><h2>Mantenimiento de Parámetros</h2> -->
             <?php if (!$ocultarInsercion): ?>
             <button style="width: 20%;" class="btn btn-primary btn-agregar" data-toggle="modal" data-target="#modalNuevoEstadoUsuario">
-                <i class="fa-solid fa-plus"></i> Agregar Estado Usuario</button>
+                <i class="fa-solid fa-plus"></i> Agregar Estado </button>
                 <?php endif; ?>
 
             <thead class="encabezado bg-light table-info">
