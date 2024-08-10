@@ -18,19 +18,18 @@ $clave_encriptada = md5($clave);
 
 
 
-   // obtener el objeto
-//    $id_objeto = Obtener_Id_Objeto('V_Paciente');
-//    if ($id_objeto === null) {
-//        echo "Error: id_objeto es NULL";
-//        exit();
-//    }
+// obtener el objeto
+$id_objeto = Obtener_Id_Objeto('V_usuario');
+if ($id_objeto === null) {
+    echo "Error: id_objeto es NULL";
+    exit();
+}
 
-//    $id_objeto = $conexion->real_escape_string($id_objeto);
-//    if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
-//        echo "Error setting id_objeto variable: " . $conexion->error;
-//        exit();
-//    }
-
+$id_objeto = $conexion->real_escape_string($id_objeto);
+if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
+    echo "Error setting id_objeto variable: " . $conexion->error;
+    exit();
+}
 
 
 
@@ -69,7 +68,7 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
                                     $a='AUTOREGISTRO';
                                     $d= 'USUARIO '.$fila['Usuario'].' SE HA REGISTRADO.';
                                     $o=  $id_objeto;
-                                    // bitacora($n2,$a,$d,$o);
+                                    bitacora($n2,$a,$d,$o);
                                     echo '
                                         <script>
                                             MostrarAlerta("success", "¡GENIAL!", "Usuario almacenado correctamente.", "/index.php");
