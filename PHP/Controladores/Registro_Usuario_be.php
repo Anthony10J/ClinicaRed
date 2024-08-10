@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 include './Conexion/Conexion_be.php';
 include './bitacora.php';
 include('../../Recursos/SweetAlerts.php');
@@ -50,7 +53,7 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
                                     $a = 'INICIO DE SESIÓN';
                                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
                                     $o= 5;
-                                    bitacora($n, $a, $d, $o);
+                                    //bitacora($n, $a, $d, $o);
                                     echo '
                                         <script>
                                             MostrarAlerta("success", "¡GENIAL!", "Usuario almacenado correctamente.", "/index.php");
