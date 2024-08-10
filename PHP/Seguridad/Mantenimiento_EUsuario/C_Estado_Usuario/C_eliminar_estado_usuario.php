@@ -13,7 +13,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
 
 // obtener el objeto
-$id_objeto = Obtener_Id_Objeto('V_modal_evaluacion');
+$id_objeto = Obtener_Id_Objeto('V_modal_estado_usuario');
 if ($id_objeto === null) {
     echo "Error: id_objeto es NULL";
     exit();
