@@ -61,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Vincula los parámetros y ejecuta la consulta
             mysqli_stmt_bind_param($stmt, "ii", $estado, $idPaciente);
             if (mysqli_stmt_execute($stmt)) {
-                $n=$_SESSION['id_D'];          //obtiene valor de la variable session
-                $a='HABILITAR';
-                $d='PACIENTE CON EL ID '. $idPaciente .' HA SIDO HABILITADO';
-                bitacora($n, $a, $d);
+                // $n=$_SESSION['id_D'];          //obtiene valor de la variable session
+                // $a='HABILITAR';
+                // $d='PACIENTE CON EL ID '. $idPaciente .' HA SIDO HABILITADO';
+                // bitacora($n, $a, $d);
                 echo "El paciente ha sido habilitado exitosamente";
             } else {
                 echo "Error al habilitar al paciente: " . mysqli_error($conexion);

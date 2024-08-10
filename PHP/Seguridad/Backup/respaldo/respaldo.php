@@ -1,16 +1,9 @@
 <?php 
-session_start(); // Iniciar la sesión si no está iniciada
-
-// Verificar si la sesión ya está activa
-if (!isset($_SESSION['usuario'])) {
-  echo '
-          <script>
-                 alert("Por favor, debes iniciar sesión.")
-                window.location = "/index.php";
-            </script>
-       ';
-  session_destroy(); // Destruye la sesión
-  die(); // el código se detiene en esta línea 
+if (session_status() === PHP_SESSION_ACTIVE) {
+    // La sesión ya está iniciada, no necesitas iniciarla nuevamente
+} else {
+    // La sesión aún no está iniciada, entonces la inicias
+    session_start();
 }
 
 include '../../../Controladores/Conexion/Conexion_be.php';

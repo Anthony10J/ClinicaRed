@@ -35,7 +35,7 @@ function actualizarCita() {
         "&subespecialidad_E=" + subespecialidad_E +
         "&fechaCita_E=" + fechaCita_E +
         "&horaCita_E=" + horaCita_E;
-        
+        console.log(cadena); 
         $.ajax({
             type: 'POST',
             url: '../C_Cita/C_editar_cita.php',

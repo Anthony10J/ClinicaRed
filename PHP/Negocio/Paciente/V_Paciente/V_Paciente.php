@@ -214,7 +214,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                                         }).then(() => {
                                             setTimeout(function () {
                                                 window.location.href = "./V_Paciente.php";
-                                            }, 2000);
+                                            }, 200);
                                         });
                                     },
                                     error: function (error) {
