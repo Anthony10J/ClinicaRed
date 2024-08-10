@@ -10,6 +10,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 include '../../../Controladores/Conexion/Conexion_be.php';
 include('../../../Controladores/bitacora.php');
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
+include '../../../../Recursos/SweetAlerts.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $idPaciente = $_POST['idPaciente'];
@@ -62,9 +63,11 @@ if (isset($_SESSION['id_D'])) {
     if (mysqli_stmt_execute($stmt)) {
          // Mensaje de éxito
          // $mensajeExito = "¡Los cambios se han guardado exitosamente!";
-                 
-        // Redireccionar a la página principal o mostrar un mensaje de éxito
-        header("Location: ../V_Paciente/V_Paciente.php");
+         echo '
+         <script>
+             MostrarAlerta("success", "¡GENIAL!", "Usuario editado correctamente.", "../V_Paciente/V_Paciente.php");
+         </script>
+     ';
         $n=$_SESSION['id_D'];          //obtiene valor de la variable sesion
         $a='EDITAR';
         $d='PACIENTE CON EL ID '. $idPaciente.' HA SIDO EDITADO ';

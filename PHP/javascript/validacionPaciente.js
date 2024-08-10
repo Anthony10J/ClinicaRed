@@ -4,7 +4,8 @@ const inputs = document.querySelectorAll('#registerFormPaciente');
 
 const expresiones = {
     usuario: /^[a-zA-Z]{1,15}$/, // Letras, numeros, guion y guion_bajo
-    nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+    nombre: /^[a-zA-ZÀ-ÿ\s]{3,40}$/, // Letras y espacios, pueden llevar acentos.
+    ocupacion: /^[a-zA-ZÀ-ÿ\s]+$/,
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     direccion: /^[a-zA-ZÀ-ÿ0-9\s,.-]+$/,
     // telefono: /^\d{8,12}$/, // 7 a 14 numeros.
@@ -49,17 +50,20 @@ let validarInputOcupacion = (e, campo) => {
         estadoER: false,
         estadoMC: false,
         estadoUE: false,
+        estadoCM: false,
     };
     estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, `${campo}`, 'Por favor, ingresa tu ocupación');
 
     estadoValidacion.estadoCV
-        ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.nombre, e.target, `${campo}`, 'Solo se permiten letras')) : "";
+        ? (estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.ocupacion, e.target, `${campo}`, 'Solo se permiten letras')) : "";
 
     estadoValidacion.estadoER
         ? (estadoValidacion.estadoUE = funciones.validarEspacios(/\s\s/g, e.target, `${campo}`, 'Debe limitarse a un espacio')) : "";
 
     estadoValidacion.estadoUE
         ? (estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, `${campo}`, 'No debe colocar el mismo caracter +2 veces seguidas')) : "";
+    estadoValidacion.estadoMC
+    ? (estadoValidacion.estadoCM = funciones.validarCampoMaximo (e.target, `${campo}`, "No cumple la cantidad mínima de caracteres")): "";
 
     return estadoValidacion;
 };
@@ -71,6 +75,7 @@ let validarInputDNI = (e) => {
         estadoER: false,
         estadoCC: false,
         estadoVDNI: false,
+        estadoCM: false,
         // estadoConsulta: false,
         // estadoConsultaCorreo2: false,
     };
@@ -82,6 +87,8 @@ let validarInputDNI = (e) => {
 
     estadoValidacion.estadoER
         ? (estadoValidacion.estadoCC = funciones.validarCerosConsecutivos(expresiones.dni, e.target, "numero_de_documento", 'No válido')) : "";
+    estadoValidacion.estadoCC
+    ? (estadoValidacion.estadoCM = funciones.validarCampoMinimo( e.target, "numero_de_documento", 'No cumple la cantidad mínima de caracteres')) : "";
 
     return estadoValidacion;
 };
@@ -104,7 +111,6 @@ let validarInputNombre = (e) => {
 
     estadoValidacion.estadoUE
         ? (estadoValidacion.estadoMC = funciones.validarMismoCaracter(e.target, 'nombre', 'No debe colocar el mismo caracter +2 veces seguidas')) : "";
-
     return estadoValidacion;
 };
 
@@ -170,7 +176,7 @@ document.getElementById("fechanacimiento").addEventListener("change", validarFec
 
 ///////// GENERO 
 const validarGenero = () => {
-    const generoInput = document.getElementById('mensajeGenero1');
+    const generoInput = document.getElementById('mensajeGenero2');
     const generoValue = generoInput.value;
 
     // Verificar si se ha seleccionado un género válido
@@ -191,7 +197,7 @@ const validarGenero = () => {
     }
 }
 
-const generoInput = document.getElementById('mensajeGenero1');
+const generoInput = document.getElementById('mensajeGenero2');
 generoInput.addEventListener("change", validarGenero);
 
 const formulario2 = document.getElementById('registerFormPaciente');
@@ -208,7 +214,7 @@ formulario2.addEventListener("submit", function (event) {
 
 //////TIPO DOCUMENTO
 const validarTipoDocumento = () => {
-    const documentoInput = document.getElementById('mensajeDocumento1');
+    const documentoInput = document.getElementById('mensajeDocumento2');
     const documentoValue = documentoInput.value;
 
     // Verificar si se ha seleccionado un género válido
@@ -229,7 +235,7 @@ const validarTipoDocumento = () => {
     }
 }
 
-const DocInput = document.getElementById('mensajeDocumento1');
+const DocInput = document.getElementById('mensajeDocumento2');
 DocInput.addEventListener("change", validarTipoDocumento);
 
 const formulario3 = document.getElementById('registerFormPaciente');
@@ -300,6 +306,7 @@ formulario_Registro.addEventListener('submit', function (e) {
         e.preventDefault();
         funciones.MostrarAlerta('', '¡ERROR!', 'Hay errores en el formulario. Por favor, corrígelos antes de enviarlo.');
     } else {
+        e.preventDefault();
         Swal.fire({
             title: 'Confirmación',
             text: '¿Estás seguro que deseas guardar los datos?',
@@ -307,6 +314,10 @@ formulario_Registro.addEventListener('submit', function (e) {
             showCancelButton: true, // Mostrar botón de cancelación
             confirmButtonText: 'Guardar',
             cancelButtonText: 'Cancelar'
-    });
+        }).then((result) => {
+            if (result.isConfirmed) {
+                formulario_Registro.submit(); // Enviar el formulario si se confirma
+            } 
+        });
 }
  });

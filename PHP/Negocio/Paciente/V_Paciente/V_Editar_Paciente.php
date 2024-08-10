@@ -204,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
                                         </div>
                                     </td>
                                     <td>
-                                        <button id="Btncancelar" onclick="confirmarCancelar()" class="btn btn-danger" type="button">Cancelar</button>
+                                    <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -218,6 +218,34 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
     <?php
     include '../../../../Recursos/Componentes/footer.html';
     ?>
+     <script>
+        var Btncancelar = document.getElementById('Btncancelar');
+        Btncancelar.addEventListener('click', confirmarCancelar);
+
+         function confirmarCancelar() {
+            Swal.fire({
+                title: "Quieres Cancelar esta Acción?",
+                text: "Estas seguro que quieres Cancelar?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Cancelado",
+                        text: "No se Guardaron registros",
+                        icon: "success",
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location = "./V_Paciente.php";
+                    }, 1300);
+                }
+            });
+        }
+    </script>
     <script>
         function confirmarCancelar() {
             // Mostrar un cuadro de diálogo de confirmación
@@ -253,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <script src="../../../../EstilosLogin/js/script.js"></script>
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script type="module" src="../../../javascript/validacionPaciente.js"></script>
 </body>

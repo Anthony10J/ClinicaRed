@@ -144,7 +144,7 @@ include '../Controladores/Conexion/Conexion_be.php';
                       <td><label for="max">Hasta:</label></td>
                       <td><input type="date" id="max" name="max" class="date-input"></td>
                       <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
-                     <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td>
+                     <!-- <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td> -->
                      <script>
          $(document).ready(function() {
          $('#deleteButton').click(function() {

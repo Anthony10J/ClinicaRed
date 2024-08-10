@@ -85,6 +85,7 @@ let validarInputPassword = (e, campo) => {
   return estadoValidacion;
 };
 
+
 let validarInputUsuario = (e) => {
   let estadoValidacion = {
     estadoCV: false,
@@ -217,7 +218,7 @@ const validarGenero = () => {
 
   const generoValido = generoValue !== '0';
 
-  const mensajeGenero = document.getElementById("mensajeGenero");
+  const mensajeGenero = document.getElementById("mensajeGenero2");
 
   if (!generoValido) {
     mensajeGenero.innerText = 'Seleccione una opción válida';
@@ -228,15 +229,16 @@ const validarGenero = () => {
   }
 }
 
-document.getElementById('mensajeGenero1').addEventListener("change", validarGenero);
 
 formulario.addEventListener("submit", function (event) {
   const generoValido = validarGenero();
-
+  
   if (!generoValido) {
     event.preventDefault();
   }
 });
+
+document.getElementById('mensajeGenero1').addEventListener("change", validarGenero);
 
 
 
@@ -276,7 +278,7 @@ function validarFormulario() {
     }
 
     // Si alguna validación falla, marcar errorEncontrado como true
-    if (resultadoValidacion && (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || (resultadoValidacion.estadoCC !== undefined && !resultadoValidacion.estadoCC))) {
+    if (resultadoValidacion && (!resultadoValidacion.estadoCV || !resultadoValidacion.estadoER || (resultadoValidacion.estadoUE !== undefined && !resultadoValidacion.estadoMC))) {
       errorEncontrado = true;
     }
   });
