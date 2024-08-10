@@ -66,7 +66,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
     <link href="../../../../assets/css/style.css" rel="stylesheet">
 
     <!-- Estilos y librerias para reportes -->
-    <link rel="stylesheet" href="./pacientes.css">
+    <link rel="stylesheet" href="./tabla.css">
     <link rel="stylesheet" href="../../../CSSReportes/botones.css">
     <link rel="stylesheet" href="../../../CSSReportes/EstilosModal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
