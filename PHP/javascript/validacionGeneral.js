@@ -49,7 +49,7 @@ export const validarMismoCaracter = (input, campo, mensajeError) => {
 }
 export const validarExpresionRegular = (expresion, input, campo, mensajeError) => {
     // let elemento = document.getElementById(`grupo__${campo}`);
-    //console.log(expresion.test(input.value))
+    console.log(expresion.test(input.value))
     if (expresion.test(input.value)) {
 
         document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
