@@ -48,7 +48,7 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
                                     $n2= $fila['Id_Usuario'];
                                     $a='AUTOREGISTRO';
                                     $d= 'USUARIO '.$fila['Usuario'].' SE HA REGISTRADO.';
-                                    bitacora($n2,$a,$d);
+                                    bitacora($n2,$a,$d, $o);
                                     echo '
                                         <script>
                                             MostrarAlerta("success", "¡GENIAL!", "Usuario almacenado correctamente.", "/index.php");
