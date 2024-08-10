@@ -168,12 +168,6 @@
 }
 
 /*Logo del Login */
-.logo {
-    display: block;
-    margin: -40px auto 10px auto; 
-    width: 140px; /* Ajusta el ancho de acuerdo a tu diseño */
-    
-}
 
 .combobox {
     height: 30px;
@@ -193,3 +187,25 @@
 .mayuscula {
     text-transform: uppercase;
 }
+
+table {
+	table-layout: auto;
+	width: 100%;
+ }
+ 
+ th, td {
+	padding: 8px;
+	text-align: left;
+	max-width: 350px; /* Ajusta el valor según sea necesario */
+	word-wrap: break-word; /* Para dividir palabras largas */
+	overflow-wrap: break-word; /* Funciona en la mayoría de los navegadores */
+ }
+ 
+ /* Opcionalmente, ocultar las columnas con la clase "ocultar" */
+ .ocultar {
+	display: none; /* Solo si quieres ocultarlas completamente */
+ }
+
+ .btn-danger {
+	margin-top: 5px;
+ }

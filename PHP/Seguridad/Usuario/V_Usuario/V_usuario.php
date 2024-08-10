@@ -66,6 +66,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
     <link href="../../../../assets/css/style.css" rel="stylesheet">
 
     <!-- Estilos y librerias para reportes -->
+    <link rel="stylesheet" href="./Usuario.css">
     <link rel="stylesheet" href="../../../CSSReportes/botones.css">
     <link rel="stylesheet" href="../../../CSSReportes/EstilosModal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -80,125 +81,115 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
     include '../../../../Recursos/Componentes/header.php';
     include '../../../../Recursos/Componentes/SideBar.html';
     ?>
+<main id="main" class="main">
 
-    <main id="main" class="main">
+<div class="pagetitle">
+    <h1>Mantenimiento de Usuarios </h1>
+</div>
 
-        <div class="pagetitle ">
-            <h1>Mantenimiento de Usuarios </h1>
+<br>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-10">
+            <form action="./V_nuevo_usuario.php" method="post"><br>
+                <?php if (!$ocultarInsercion): ?>
+                    <button id="agregarusuario" class="btn btn-primary" data-toggle="modal"
+                        data-target="#modalNuevoParametro"><i class="fa-solid fa-plus "></i> Agregar Usuario
+                    </button>
+                <?php endif; ?>
+            </form>
+            <table id="tablaAgenda" class="table">
+                <thead class="encabezado bg-light table-info">
+                    <tr>
+                        <th scope="col">Id Usuario</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Género</th>
+                        <th scope="col" class="ocultar">Fecha Nacimiento</th>
+                        <th scope="col" class="ocultar">Fecha Contratación</th>
+                        <th scope="col" class="ocultar">Fecha Creación</th>
+                        <!-- <th scope="col" class="ocultar">Fecha Vencimiento</th>
+                        <th scope="col">Creado Por</th> -->
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $sql = "SELECT
+                       u.Id_Usuario,
+                       u.DNI,
+                       u.Usuario,
+                       u.Correo,
+                       u.Nombre,
+                       u.Direccion,
+                       e.Descripcion AS Estado,
+                       r.Rol AS Rol,
+                       g.Descripcion AS Genero,
+                       u.Creado_Por, 
+                       u.Fecha_Creacion,
+                       u.Fecha_Vencimiento,
+                       u.FechaNacimiento,
+                       u.FechaContratacion
+                   FROM tbl_ms_usuario u
+                   INNER JOIN tbl_ms_roles r ON u.IdRol = r.Id_Rol
+                   INNER JOIN tbl_genero g ON u.IdGenero = g.IdGenero
+                   INNER JOIN tbl_estado_usuario e ON u.Estado_Usuario = e.Id_Estado
+                   WHERE e.Descripcion = 'Activo' AND r.Rol != 'SUPERADMINISTRADOR' order by u.Id_Usuario asc;";
 
+                    $resultado = mysqli_query($conexion, $sql);
+                    $correlativo = 1;
+                    foreach ($resultado as $fila) {
+                    ?>
+                        <tr>
+                            <td><?php echo $correlativo ?></td>
+                            <td><?php echo $fila['DNI'] ?></td>
+                            <td><?php echo $fila['Usuario'] ?></td>
+                            <td><?php echo $fila['Correo'] ?></td>
+                            <td><?php echo $fila['Nombre'] ?></td>
+                            <td><?php echo $fila['Direccion'] ?></td>
+                            <td><?php echo $fila['Rol'] ?></td>
+                            <td><?php echo $fila['Genero'] ?></td>
+                            <td class="ocultar"><?php echo $fila['FechaNacimiento'] ?></td>
+                            <td class="ocultar"><?php echo $fila['FechaContratacion']; ?></td>
+                            <td class="ocultar"><?php echo $fila['Fecha_Creacion'] ?></td>
+                            <!-- <td class="ocultar"><?php echo $fila['Fecha_Vencimiento'] ?></td> -->
+                            <!-- <td><?php echo $fila['Creado_Por'] ?></td> -->
+                            <td>
+                                <?php if (!$ocultarActualizacion): ?>
+                                    <a href="./V_editar_usuario.php?id=<?php echo $fila['Id_Usuario']; ?>"
+                                        class="btn btn-warning btn-sm pencil">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                <?php endif; ?>
+                                <?php if (!$ocultarEliminacion): ?>
+                                    <button class="btn btn-danger btn-sm eliminarBtn trash"
+                                        data-id="<?php echo $fila['Id_Usuario']; ?>">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php
+                    $correlativo++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+            <button id="verMasBtn" class="btn btn-primary">Ver más</button>
+            <button id="verMenosBtn" class="btn btn-">Ver menos</button>
+            <?php if (!$ocultarEliminacion): ?>
+                <button id="verInactivosBtn" class="btn btn-warning"
+                    onclick="redirigirAUsuariosInactivos()">Usuarios inactivos</button>
+            <?php endif; ?>
         </div>
+    </div>
+</div>
+</main>
 
-        <br>
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-10">
-                    <form action="./V_nuevo_usuario.php" method="post"><br>
-                        <!-- <button id="agregarusuario" class="btn btn-primary float-start">Agregar Usuario</button> -->
-                        <?php if (!$ocultarInsercion): ?>
-                            <button id="agregarusuario" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modalNuevoParametro"><i class="fa-solid fa-plus "></i> Agregar Usuario
-                            </button>
-                        <?php endif; ?>
-                    </form>
-                    <table id="tablaAgenda" class="table">
-                        <thead class="encabezado bg-light table-info">
-                            <tr>
-                                <th scope="col">Id Usuario</th>
-                                <th scope="col">DNI</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Dirección</th>
-                                <!-- <th scope="col">Estado</th> -->
-                                <th scope="col">Rol</th>
-                                <th scope="col">Género</th>
-                                <th scope="col" class="ocultar">Fecha Nacimiento</th>
-                                <th scope="col" class="ocultar">Fecha Contratación</th>
-                                <th scope="col" class="ocultar">Fecha Creación</th>
-                                <th scope="col" class="ocultar">Fecha Vencimiento</th>
-                                <th scope="col">Creado Por</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            <?php
-                            $sql = "SELECT
-           u.Id_Usuario,
-           u.DNI,
-           u.Usuario,
-           u.Correo,
-           u.Nombre,
-           u.Direccion,
-           e.Descripcion AS Estado,
-           r.Rol AS Rol,
-           g.Descripcion AS Genero,
-           u.Creado_Por, 
-           u.Fecha_Creacion,
-           u.Fecha_Vencimiento,
-           u.FechaNacimiento,
-           u.FechaContratacion
-       FROM tbl_ms_usuario u
-       INNER JOIN tbl_ms_roles r ON u.IdRol = r.Id_Rol
-       INNER JOIN tbl_genero g ON u.IdGenero = g.IdGenero
-       INNER JOIN tbl_estado_usuario e ON u.Estado_Usuario = e.Id_Estado
-       WHERE e.Descripcion = 'Activo' AND r.Rol != 'SUPERADMINISTRADOR' order by u.Id_Usuario asc;";
-
-                            $resultado = mysqli_query($conexion, $sql);
-                            $correlativo = 1;
-                            // Recorrer los resultados y mostrarlos en la tabla
-                            foreach ($resultado as $fila) {
-                                ?>
-                                <tr>
-                                    <td><?php echo $correlativo ?></td>
-                                    <td><?php echo $fila['DNI'] ?></td>
-                                    <td><?php echo $fila['Usuario'] ?></td>
-                                    <td><?php echo $fila['Correo'] ?></td>
-                                    <td><?php echo $fila['Nombre'] ?></td>
-                                    <td><?php echo $fila['Direccion'] ?></td>
-                                    <!-- <td>?php echo $fila['Estado'] ?></td> -->
-                                    <td><?php echo $fila['Rol'] ?></td>
-                                    <td><?php echo $fila['Genero'] ?></td>
-                                    <td class="ocultar"><?php echo $fila['FechaNacimiento'] ?></td>
-                                    <td class="ocultar"><?php echo $fila['FechaContratacion']; ?></td>
-                                    <td class="ocultar"><?php echo $fila['Fecha_Creacion'] ?></td>
-                                    <td class="ocultar"><?php echo $fila['Fecha_Vencimiento'] ?></td>
-
-                                    <td><?php echo $fila['Creado_Por'] ?></td>
-
-                                    <!-- Botones Editar y Eliminar -->
-                                    <!-- Dentro del bucle foreach para mostrar los usuarios -->
-                                    <td>
-                                        <?php if (!$ocultarActualizacion): ?>
-                                            <a href="./V_editar_usuario.php?id=<?php echo $fila['Id_Usuario']; ?>"
-                                                class="btn btn-warning btn-sm pencil">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                        <?php endif; ?>
-                                        <?php if (!$ocultarEliminacion): ?>
-                                            <button class="btn btn-danger btn-sm eliminarBtn trash"
-                                                data-id="<?php echo $fila['Id_Usuario']; ?>">
-                                                <i class="bi bi-trash"></i>
-                                                <!--Script para manejar clic en botón Eliminar-->
-                                            </button>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php
-                                 $correlativo++;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                    <button id="verMasBtn" class="btn btn-primary">Ver más</button>
-                    <button id="verMenosBtn" class="btn btn-">Ver menos</button>
-                    <?php if (!$ocultarEliminacion): ?>
-                        <button id="verInactivosBtn" class="btn btn-warning"
-                            onclick="redirigirAUsuariosInactivos()">Usuarios inactivos</button>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
         <script>
             $(document).ready(function () {
                 // Manejar clic en botón Eliminar
@@ -281,17 +272,17 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
                 class="bi bi-arrow-up-short"></i></a>
 
         <!-- Vendor JS Files -->
-        <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/assets/vendor/chart.js/chart.umd.js"></script>
-        <script src="/assets/vendor/echarts/echarts.min.js"></script>
-        <script src="/assets/vendor/quill/quill.min.js"></script>
-        <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-        <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-        <script src="/assets/vendor/php-email-form/validate.js"></script>
+        <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+        <script src="../../../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="../../../../assets/vendor/chart.js/chart.umd.js"></script>
+        <script src="../../../../assets/vendor/echarts/echarts.min.js"></script>
+        <script src="../../../../assets/vendor/quill/quill.min.js"></script>
+        <script src="../../../../assets/vendor/simple-datatables/simple-datatables.js"></script>
+        <script src="../../../../assets/vendor/tinymce/tinymce.min.js"></script>
+        <script src="../../../../assets/vendor/php-email-form/validate.js"></script>
 
         <!-- Template Main JS File -->
-        <script src="/assets/js/main.js"></script>
+        <script src="../../../../assets/js/main.js"></script>
 
         <!-- ----------------CODIGO PARA GENERAR REPORTES------------------>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

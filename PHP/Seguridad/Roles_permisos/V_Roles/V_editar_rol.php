@@ -13,13 +13,13 @@ $id_rol = $_SESSION['IdRol'];
 $id_objeto = Obtener_Id_Objeto('V_roles');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
-if ($Permisos_Objeto["Permiso_Consultar"] !== "1"){
-        header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");   
+if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
+    header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");
 }
 // Aquí puedes agregar una verificación de sesión o cualquier otro método de autenticación
 
 // Obtener el ID del rol a editar desde la URL
-if(isset($_GET['id']) && !empty($_GET['id'])) {
+if (isset($_GET['id']) && !empty($_GET['id'])) {
     $idRol = $_GET['id'];
 
     // Consulta para obtener la información del rol
@@ -67,6 +67,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script type="module" src="../../../javascript/roles.js"></script>
 
 </head>
 
@@ -102,41 +103,106 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
     </main> -->
     <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Rol</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h2 class= "titulo"> Editar Rol</h2>
-        <form action="../C_Roles/C_editar_rol.php" method="post">
-            <div class="form-group">
-                <label for="roleName">Nombre del Rol</label>
-                <input type="hidden" name="id_rol" value="<?php echo $rol['Id_Rol']; ?>">
-                <input type="text" class="form-control" readonly id="rol" name="rol" value="<?php echo $rol['Rol']; ?>">
-            </div>
-            <div class="form-group">
-                <label for="roleDescription">Descripción del Rol</label>
-                <textarea class="form-control" style="text-transform: uppercase;" id="descripcion" name="descripcion" rows="3"><?php echo $rol['Descripcion']; ?></textarea>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn">ACTUALIZAR</button>
-                <button type="button" class="btn cancel" onclick="window.history.back();">Cancelar</button>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
-<link rel="stylesheet" href="editar.css">
+    <html lang="en">
 
-   
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editar Rol</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h2 class="titulo"> Editar Rol</h2>
+            <form action="../C_Roles/C_editar_rol.php" method="post" id="registerRol">
+                <div class="formulario__grupo" id="grupo__rol">
+                    <label for="rol" class="formulario__label">ROL:</label>
+                    <div class="formulario__grupo-input">
+                        <label for="rol" class="form-label"></label>
+                        <input type="hidden" name="id_rol" value="<?php echo $rol['Id_Rol']; ?>">
+                        <input type="text" class="formulario__input" class="form-control" readonly id="rol" name="rol" value="<?php echo $rol['Rol']; ?>" maxlength="30" required>
+                    </div>
+                    <p class="formulario__input-error"></p>
+                </div>
+                <div class="formulario__grupo" id="grupo__descripcionrol">
+                    <label for="descripcionrol" class="formulario__label">DESCRIPCIÓN:</label>
+                    <div class="formulario__grupo-input">
+                        <label for="descripcionRol" class="form-label"></label>
+                        <input type="text " class="formulario__input" class="form-control" style="text-transform: uppercase;" id="descripcionrol" name="descripcionrol"
+                            value="<?php echo $rol['Descripcion']; ?>" placeholder="DESCRIPCIÓN" maxlength="100" required>
+                    </div>
+                    <p class="formulario__input-error"></p>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn" id="Btnregistrarrol">ACTUALIZAR</button>
+                    <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        <!-- Agregar la librería de SweetAlert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+        var Btncancelar = document.getElementById('Btncancelar');
+        Btncancelar.addEventListener('click', confirmarCancelar);
+
+        function confirmarCancelar() {
+            Swal.fire({
+                title: "¿Quieres Cancelar esta Acción?",
+                text: "¿Estás seguro que quieres Cancelar?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Cancelado",
+                        text: "No se Guardaron Registros",
+                        icon: "success",
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location = "./V_roles.php";
+                    }, 1300);
+                }
+            });
+        }
+    </script>
+        <script>
+            document.getElementById('editRoleForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Evitar el envío inmediato del formulario
+
+                // Mostrar la alerta de confirmación
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Deseas actualizar este rol?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, actualizar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, se envía el formulario
+                        this.submit();
+                    }
+                });
+            });
+        </script>
+    </body>
+
+    </html>
+    <link rel="stylesheet" href="editar.css">
+
+
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-     <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
     <script src="../../../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../../../assets/vendor/chart.js/chart.umd.js"></script>
     <script src="../../../../assets/vendor/echarts/echarts.min.js"></script>
