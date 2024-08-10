@@ -18,18 +18,19 @@ $clave_encriptada = md5($clave);
 
 
 
-// obtener el objeto
-$id_objeto = Obtener_Id_Objeto('V_usuario');
-if ($id_objeto === null) {
-    echo "Error: id_objeto es NULL";
-    exit();
-}
+   // obtener el objeto
+//    $id_objeto = Obtener_Id_Objeto('V_Paciente');
+//    if ($id_objeto === null) {
+//        echo "Error: id_objeto es NULL";
+//        exit();
+//    }
 
-$id_objeto = $conexion->real_escape_string($id_objeto);
-if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
-    echo "Error setting id_objeto variable: " . $conexion->error;
-    exit();
-}
+//    $id_objeto = $conexion->real_escape_string($id_objeto);
+//    if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
+//        echo "Error setting id_objeto variable: " . $conexion->error;
+//        exit();
+//    }
+
 
 
 
@@ -68,7 +69,7 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
                                     $a='AUTOREGISTRO';
                                     $d= 'USUARIO '.$fila['Usuario'].' SE HA REGISTRADO.';
                                     $o=  $id_objeto;
-                                    bitacora($n2,$a,$d,$o);
+                                    // bitacora($n2,$a,$d,$o);
                                     echo '
                                         <script>
                                             MostrarAlerta("success", "¡GENIAL!", "Usuario almacenado correctamente.", "/index.php");
@@ -137,22 +138,5 @@ if (!empty($dni) && !empty($usuario) && !empty($nombre) && !empty($correo)
     ';
     exit();
 }
-// Comprobar si la inserción fue exitosa
-// if ($conexion->affected_rows > 0) {
-//     // Obtener el ID del nuevo usuario
-//     $id_nuevo_usuario = $conexion->insert_id;
-
-//     // Registrar la acción en la bitácora
-//     $sql_bitacora = "INSERT INTO tbl_bitacora (Fecha, Id_Usuario, Accion, Descripcion, Id_Objeto)
-//                      VALUES (NOW(), 'AUTO-REGISTRO', 'INSERTAR', CONCAT('SE REGISTRÓ EL USUARIO: ', '$usuario', ' CON EL NOMBRE ', '$nombre'), NULL)";
-    
-//     if ($conexion->query($sql_bitacora) === TRUE) {
-//         echo "Usuario registrado y acción de auto-registro registrada en la bitácora con éxito.";
-//     } else {
-//         echo "Error al registrar la acción de auto-registro en la bitácora: " . $conexion->error;
-//     }
-// } else {
-//     echo "Error al registrar el usuario: " . $conexion->error;
-// }
 mysqli_close($conexion);
 ?>
