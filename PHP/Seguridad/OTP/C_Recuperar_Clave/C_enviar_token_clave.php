@@ -6,10 +6,11 @@ function enviarOTP2($conexion, $correo2) {
     
     // Iniciar sesión si no está iniciada
 $otp2 = generarCodigoOTP2(); // Generar OTP
+$otp2_encriptado = md5($otp2);
 // Almacenar OTP en la sesión
-$_SESSION['otp2'] = $otp2;
+$_SESSION['otp2'] = $otp2_encriptado;
 // Actualizar código OTP y fecha de expiración en la base de datos
-$update_codigo_otp2 = "UPDATE tbl_ms_usuario SET CodigoOTP = '$otp2', FechaExpiracionOTP = DATE_ADD(NOW(), INTERVAL 5 MINUTE) WHERE Correo = '$correo2'";
+$update_codigo_otp2 = "UPDATE tbl_ms_usuario SET CodigoOTP = '$otp2_encriptado', FechaExpiracionOTP = DATE_ADD(NOW(), INTERVAL 5 MINUTE) WHERE Correo = '$correo2'";
 $resultado_update2 = mysqli_query($conexion, $update_codigo_otp2);  
 if ($resultado_update2) {
       // Enviar correo electrónico con el OTP

@@ -10,7 +10,7 @@ require_once 'GenerarOTP.php';
 // Verificar si se ha enviado el formulario con el código OTP
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['codigo_otp'])) {
     // Obtener el código OTP enviado por el usuario
-    $codigo_otp_ingresado = $_POST['codigo_otp'];
+    $codigo_otp_ingresado = md5($_POST['codigo_otp']);
 
     // Obtener el código OTP almacenado en la sesión
     $codigo_otp_correcto = $_SESSION['otp'];

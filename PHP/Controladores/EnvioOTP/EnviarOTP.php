@@ -5,9 +5,10 @@ function enviarOTP($conexion, $correo) {
     
 $otp = generarCodigoOTP(); // Generar OTP
 // Almacenar OTP en la sesión
-$_SESSION['otp'] = $otp;
+$otp_encriptado = md5($otp);
+$_SESSION['otp'] = $otp_encriptado;
 // Actualizar código OTP y fecha de expiración en la base de datos
-$update_codigo_otp = "UPDATE tbl_ms_usuario SET CodigoOTP = '$otp', FechaExpiracionOTP = DATE_ADD(NOW(), INTERVAL 5 MINUTE) WHERE Correo = '$correo'";
+$update_codigo_otp = "UPDATE tbl_ms_usuario SET CodigoOTP = '$otp_encriptado', FechaExpiracionOTP = DATE_ADD(NOW(), INTERVAL 5 MINUTE) WHERE Correo = '$correo'";
 $resultado_update = mysqli_query($conexion, $update_codigo_otp);  
 if ($resultado_update) {
     header("location: ../Vistas/Pin.php"); // Redirigir a la página de verificación de pin

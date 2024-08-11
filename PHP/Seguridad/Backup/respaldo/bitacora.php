@@ -28,7 +28,7 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
 
 <!DOCTYPE html>
 <?php
-session_start(); // Iniciar la sesión si no está iniciada
+// session_start(); // Iniciar la sesión si no está iniciada
 
 // Verificar si la sesión ya está activa
 if (!isset($_SESSION['usuario'])) {
