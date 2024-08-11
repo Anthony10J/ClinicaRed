@@ -59,7 +59,7 @@ if (
 
                             $query = "INSERT INTO tbl_ms_usuario(DNI, Usuario, Correo, Nombre, Direccion, FechaNacimiento, FechaContratacion, Estado_Usuario, 
                                                                     Contrasena, IdRol, IdGenero, primer_ingreso, Creado_Por, Fecha_Creacion, Numero_Inicio_Sesion) 
-                                          VALUES ('$dni', '$usuario', '$correo', '$nombre', '$direccion', '$fechanacimiento', NOW(), 2, '$clave_encriptada', 2, '$genero', 
+                                          VALUES ('$dni', '$usuario', '$correo', '$nombre', '$direccion', '$fechanacimiento', NOW(), 1, '$clave_encriptada', 2, '$genero', 
                                           0, 'AUTOREGISTRO', NOW(), 0)";
 
                             $resultado_query = mysqli_query($conexion, $query);
