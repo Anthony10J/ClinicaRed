@@ -99,7 +99,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                 $mensajeError = "Es necesario completar el captcha para el primer inicio de sesión.";
             }
         } else {
-            $incrementar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = intentos_fallidos + 1 WHERE Correo = '$correo'";
+            $incrementar_intentos = "UPDATE tbl_ms_usuario SET intentos_fallidos = intentos_fallidos + 1 WHERE Correo = '$correo' and IdRol <> 1";
             mysqli_query($conexion, $incrementar_intentos);
 
             $consulta_intentos_actualizados = "SELECT intentos_fallidos FROM tbl_ms_usuario WHERE Correo = '$correo'";
