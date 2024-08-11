@@ -13,28 +13,28 @@ $IdRol = $_SESSION['IdRol'];
 
 
 /////////////// Validar si se ha verificado el OTP y si el usuario está autenticado
-// if (!isset($_SESSION['autenticado']) || !isset($_SESSION["correo"])) {
-//   echo '
-//   <script>
-//       alert("Por favor, debes iniciar sesión.")
-//       window.location = "/index.php";
-//   </script>
-// ';
-// session_destroy(); // Destruye la sesión
-// die(); 
-// }
+if (!isset($_SESSION['autenticado']) || !isset($_SESSION["correo"])) {
+  echo '
+  <script>
+      alert("Por favor, debes iniciar sesión.")
+      window.location = "/index.php";
+  </script>
+';
+session_destroy(); // Destruye la sesión
+die(); 
+}
 
 // // // // // Ingresa al main sin el OTP
-if (!isset($_SESSION["correo"])) {
-    echo '
-          <script>
-                 alert("Por favor, debes iniciar sesión.")
-                window.location = "/index.php";
-            </script>
-       ';
-    session_destroy(); // Destruye la sesión
-    die(); // el código se detiene en esta línea 
-}
+// if (!isset($_SESSION["correo"])) {
+//     echo '
+//           <script>
+//                  alert("Por favor, debes iniciar sesión.")
+//                 window.location = "/index.php";
+//             </script>
+//        ';
+//     session_destroy(); // Destruye la sesión
+//     die(); // el código se detiene en esta línea 
+// }
 
 // include '../../PHP/Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 // $id_rol = $_SESSION['IdRol'];
@@ -53,7 +53,6 @@ if (!isset($_SESSION["correo"])) {
 // if ($Permisos_Objeto["Permiso_Clinico"] !== "1") {
 //     $ocultarClinico = true;
 // }
-
 ?>
 
 <!DOCTYPE html>
