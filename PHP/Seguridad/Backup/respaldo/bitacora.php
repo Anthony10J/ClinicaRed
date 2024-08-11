@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (session_status() === PHP_SESSION_ACTIVE) {
   // La sesión ya está iniciada, no necesitas iniciarla nuevamente
 } else {
@@ -14,15 +14,15 @@ $id_objeto = Obtener_Id_Objeto('bitacora');
 $Permisos_Objeto = Obtener_Permisos_Rol_Objeto($id_rol, $id_objeto);
 
 if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
-    header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");
+  header("Location: /PHP/Seguridad/Roles_permisos/permisos/V_error_permiso.php");
 }
 $ocultarInsercion = false;
 $ocultarReportes = false;
 if ($Permisos_Objeto["Permiso_Insercion"] !== "1") {
-    $ocultarInsercion = true;
+  $ocultarInsercion = true;
 }
 if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
-    $ocultarReportes = true;
+  $ocultarReportes = true;
 }
 ?>
 
@@ -72,11 +72,11 @@ include '../Controladores/Conexion/Conexion_be.php';
   <!-- Template Main CSS File -->
   <link href="../../../../assets/css/style.css" rel="stylesheet">
   <link href="../../../Vistas/bitacora.css" rel="stylesheet">
+  
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>
   <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://cdn.datatables.net/2.1.3/js/dataTables.js"></script> -->
 
@@ -144,44 +144,9 @@ include '../Controladores/Conexion/Conexion_be.php';
                       <td><label for="max">Hasta:</label></td>
                       <td><input type="date" id="max" name="max" class="date-input"></td>
                       <td><button type="button" id="qfiltro" class="btn btn-secondary" onclick="location.reload()">Quitar filtro</button></td>
-                     <!-- <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td> -->
-                     <script>
-         $(document).ready(function() {
-         $('#deleteButton').click(function() {
-            var min = $('#min').val();
-            var max = $('#max').val();
+                      <td><button type="submit" id="deleteButton" class="btn btn-danger">Depurar</button></td>
 
-            // Validación para asegurarse de que no estén vacíos
-            if (min === '' || max === '') {
-                alert("Por favor, ingresa un rango de fechas.");
-                return; // Detiene la ejecución si los campos están vacíos
-            }
-
-            // Confirmación antes de proceder
-            var confirmDelete = confirm("¿Estás seguro de que deseas eliminar los registros entre " + min + " y " + max + "?");
-            if (!confirmDelete) {
-                return; // Detiene la ejecución si el usuario cancela
-            }
-
-            // Si todo es correcto, realizar la petición AJAX
-            $.ajax({
-                url: '../../../Vistas/Eliminar_bitacora.php',
-                type: 'POST',
-                data: { min: min, max: max },
-                success: function(response) {
-                    // Mostrar un mensaje de éxito
-                    alert(response);
-                },
-                error: function() {
-                    // Mostrar un mensaje de error
-                    console.error("Error al eliminar registros");
-                }
-            });
-        });
-    });
-</script>
-
-
+                  
                     </tr>
                   </tbody>
                 </table>
@@ -189,7 +154,7 @@ include '../Controladores/Conexion/Conexion_be.php';
 
             </form><br><br>
 
-           
+
 
             <table class="table " id="tablaAgenda">
               <thead class="encabezado bg-light table-info">
@@ -247,26 +212,18 @@ include '../Controladores/Conexion/Conexion_be.php';
 
   <style>
     #qfiltro {
-      /* font-size: 15px; */
-      /* margin-bottom: 40px; */
-      /* margin-right: 30px; */
-      /* padding: 5px; */
-      /* border: 0px solid #cccccc; */
+    
       border-radius: 10px;
-      /* display: inline-block; */
-      /* position: absolute; */
+     
       width: auto;
-      /* Ajusta este valor según el ancho que desees */
-      /* height: 32px; */
-      /* margin-left: 100px; */
-      /* Ajusta este valor según el espacio que desees entre los botones */
+     
     }
 
-    #deleteButton{
+    #deleteButton {
       height: 30px;
       width: auto;
       border-radius: 10px;
-      
+
     }
 
     table.inputs td {
@@ -285,6 +242,7 @@ include '../Controladores/Conexion/Conexion_be.php';
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <script src="../../../../assets/js/main.js"></script>
   <!-- Vendor JS Files -->
   <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="../../../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -294,6 +252,12 @@ include '../Controladores/Conexion/Conexion_be.php';
   <script src="../../../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../../../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- BITACORA -->
+  <script src="../C_bitacora/bitacora.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
   <!-- Template Main JS File -->
   <script src="../../../../assets/js/main.js"></script>
@@ -307,6 +271,9 @@ include '../Controladores/Conexion/Conexion_be.php';
   <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> <!-- LIBRERIA HTML -->
   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"> </script> <!-- ICONOS -->
   <!-- <script src="ruta/a/jspdf.min.js"></script> -->
+
+
+
 
   <?php
   // Ruta de la imagen
