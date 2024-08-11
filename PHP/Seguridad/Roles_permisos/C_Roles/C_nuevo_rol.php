@@ -1,16 +1,11 @@
 <?php
-if (session_status() === PHP_SESSION_ACTIVE) {
-    // La sesión ya está iniciada, no necesitas iniciarla nuevamente
-} else {
-    // La sesión aún no está iniciada, entonces la inicias
-    session_start();
-}
+session_start();
+
 include '../../../Controladores/Conexion/Conexion_be.php';
 include('../../../../Recursos/SweetAlerts.php');
 include '../../../Seguridad/Roles_permisos/permisos/Obtener_Id_Objeto.php';
 
-
-// obtener el objeto
+// Obtener el objeto
 $id_objeto = Obtener_Id_Objeto('V_roles');
 if ($id_objeto === null) {
     echo "Error: id_objeto es NULL";
@@ -22,21 +17,21 @@ if ($conexion->query("SET @id_objeto = '$id_objeto'") === FALSE) {
     exit();
 }
 
+// Obtener el ID y nombre del usuario actual desde la sesión
+if (isset($_SESSION['id_D']) && isset($_SESSION['usuario'])) {
+    $current_user_id = $_SESSION['id_D'];
+    $current_user_name = $_SESSION['usuario']; // Esta es tu variable de sesión que contiene el nombre del usuario
+    $current_user_id = mysqli_real_escape_string($conexion, $current_user_id);
+    $current_user_name = mysqli_real_escape_string($conexion, $current_user_name);
 
-// Obtener el ID del usuario actual desde la sesión
-if (isset($_SESSION['id_D'])) {
-$current_user_id = $_SESSION['id_D'];
-
-$current_user_id = mysqli_real_escape_string($conexion, $current_user_id);
-
-// Establecer la variable de sesión en QL
-if ($conexion->query("SET @current_user_id = '$current_user_id'") === FALSE) {
-    echo "Error setting session variable: " . $conexion->error;
-    exit();
-}
+    // Establecer la variable de sesión en MySQL
+    if ($conexion->query("SET @current_user_id = '$current_user_id'") === FALSE) {
+        echo "Error setting session variable: " . $conexion->error;
+        exit();
+    }
 } else {
-echo "Error: current_user_id es NULL";
-exit();
+    echo "Error: current_user_id o usuario es NULL";
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,14 +46,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Ejecutar la consulta preparada
     if (mysqli_stmt_execute($stmt)) {
+        // Obtener el Id_Rol recién insertado
+        $id_rol_nuevo = mysqli_insert_id($conexion);
+
+        // Insertar los permisos para el nuevo rol
+        for ($i = 1; $i <= 19; $i++) {
+            $query_permisos = "INSERT INTO tbl_ms_permisos (
+                                    Id_Rol, 
+                                    Id_Objeto, 
+                                    Permiso_Insercion, 
+                                    Permiso_Eliminacion, 
+                                    Permiso_Actualizacion, 
+                                    Permiso_Consultar, 
+                                    Permiso_Reportes, 
+                                    Permiso_Terapeutico, 
+                                    Permiso_Clinico, 
+                                    Creado_Por, 
+                                    Fecha_Creacion
+                               ) VALUES (
+                                    ?, ?, 0, 0, 0, 0, 0, 0, 0, ?, NOW()
+                               )";
+
+            $stmt_permisos = mysqli_prepare($conexion, $query_permisos);
+            mysqli_stmt_bind_param($stmt_permisos, "iis", $id_rol_nuevo, $i, $current_user_name);
+
+            if (!mysqli_stmt_execute($stmt_permisos)) {
+                // Manejar el error si la inserción de permisos falla
+                echo "Error al insertar permisos: " . mysqli_error($conexion);
+                mysqli_stmt_close($stmt_permisos);
+                exit();
+            }
+
+            mysqli_stmt_close($stmt_permisos);
+        }
+
         // Redireccionar a la página de roles con un mensaje de éxito
-        header("Location: ../V_Roles/V_roles.php?mensaje=El rol se creó correctamente");
+        header("Location: ../V_Roles/V_roles.php");
         exit();
     } else {
         // Mostrar un mensaje de error si falla la ejecución de la consulta
-        header("Location: ../V_Roles/V_nuevo_rol.php?mensaje=El rol rol no creado.");
+        header("Location: ../V_Roles/V_nuevo_rol.php");
         exit();
-           }
+    }
 
     // Cerrar la declaración
     mysqli_stmt_close($stmt);
