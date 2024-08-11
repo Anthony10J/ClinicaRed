@@ -77,13 +77,28 @@ let validarInputPassword = (e, campo) => {
     estadoER: false,
     estadoCC: false,
   };
+
+  // Validación de campo vacío
   estadoValidacion.estadoCV = funciones.validarCampoVacio(e.target, campo, 'Por favor, ingresa tu contraseña');
-  if (estadoValidacion.estadoCV) {
-    estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, campo, 'Debe contener una mayúscula, una minúscula, un número y un caracter especial');
-    estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
+  if (!estadoValidacion.estadoCV) {
+    return estadoValidacion; // Si el campo está vacío, no continúes con más validaciones
   }
+
+  // Validación de expresión regular
+  estadoValidacion.estadoER = funciones.validarExpresionRegular(expresiones.password, e.target, campo, 'Debe contener una mayúscula, una minúscula, un número y un caracter especial');
+  if (!estadoValidacion.estadoER) {
+    return estadoValidacion; // Si la expresión regular falla, no continúes con más validaciones
+  }
+
+  // Validación de coincidencia de claves
+  estadoValidacion.estadoCC = funciones.coincidirClave('password3', 'La contraseña no coincide con la anterior');
+  if (!estadoValidacion.estadoCC) {
+    return estadoValidacion; // Si las contraseñas no coinciden, no continúes
+  }
+
   return estadoValidacion;
 };
+
 
 
 let validarInputUsuario = (e) => {
