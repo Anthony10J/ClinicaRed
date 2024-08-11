@@ -79,7 +79,7 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                     <td>
                                         <div class="formulario__grupo">
                                             <label for="genero">Género</label>
-                                             <select type="text" class="formulario__input" name="genero" id="mensajeGenero1" class="form-control" autocomplete="off" placeholder="Genero" class="combobox">
+                                             <select type="text" class="formulario__input" name="genero" id="mensajeGenero1" class="form-control" autocomplete="off" placeholder="Genero" class="combobox" required>
                                                 <option value="0">Seleccione un género</option>
                                                 <?php
                                                 foreach ($genero as $value) {
@@ -99,7 +99,7 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                         <div class="formulario__grupo" id="grupo__fecha">
                                             <label for="fechanacimiento">Fecha de Nacimiento:</label>
                                             <div class="formulario__grupo-input">
-                                                <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento">
+                                                <input type="date" class="formulario__input" placeholder="Fecha de Nacimiento" autocomplete="off" name="fechanacimiento" id="fechanacimiento" required>
                                             </div>
                                             <!-- <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: red;"></p> -->
                                             <p id="mensajeFechaNacimiento" class="mensaje_error" style="color: #bb2929;"></p>
@@ -126,7 +126,7 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                     <td>
                                         <div class="gender-options">
                                             <label for="tipo_documento">Tipo de Documento</label>
-                                            <select type="int" class="formulario__input" name="tipo_documento" id="mensajeDocumento1" class="form-control" autocomplete="off" class="combobox">
+                                            <select type="int" class="formulario__input" name="tipo_documento" id="mensajeDocumento1" class="form-control" autocomplete="off" class="combobox" required>
                                                 <option value="0" selected>SELECCIONE TIPO DE DOCUMENTO</option>
                                                 <?php
                                                 // Recorrer los resultados y mostrarlos en la tabla
