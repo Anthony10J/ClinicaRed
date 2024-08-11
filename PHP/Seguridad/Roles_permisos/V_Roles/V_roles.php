@@ -149,58 +149,39 @@ if ($Permisos_Objeto["Permiso_Reportes"] !== "1") {
         </div>
     </main>
     <script>
-        $(document).ready(function() {
-            // Manejar clic en el botón de eliminar
-            $('.eliminarBtn').on('click', function() {
-                // Obtener el ID del rol desde el atributo data-id-rol
-                var idRol = $(this).data('id-rol');
+$(document).ready(function() {
+    // Manejar clic en el botón de eliminar
+    $('.eliminarBtn').on('click', function() {
+        // Obtener el ID del rol desde el atributo data-id-rol
+        var idRol = $(this).data('id-rol');
 
-                // Usar SweetAlert para mostrar una advertencia
+        // Usar SweetAlert para mostrar una advertencia inicial
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Eliminar este rol puede ser crítico y no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Mostrar una advertencia adicional
                 Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡Eliminar este rol puede ser crítico y no se puede deshacer!",
+                    title: 'Advertencia',
+                    text: "¡Este rol no puede ser eliminado! Puede afectar a otros usuarios del sistema.",
                     icon: 'warning',
-                    showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, eliminarlo',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Enviar una solicitud AJAX al servidor para eliminar el rol
-                        $.ajax({
-                            url: '../C_Roles/C_eliminar_rol.php', // Reemplaza con la ruta de tu archivo PHP
-                            type: 'POST',
-                            data: {
-                                idRol: idRol
-                            },
-                            success: function(response) {
-                                // Verificar la respuesta del servidor
-                                if (response.trim() === 'success') {
-                                    // Mostrar mensaje de éxito
-                                    Swal.fire(
-                                        'Eliminado',
-                                        'El rol ha sido eliminado.',
-                                        'success'
-                                    ).then(() => {
-                                        // Recargar la página para reflejar los cambios
-                                        location.reload();
-                                    });
-                                } else {
-                                    // Mostrar mensaje de error
-                                    Swal.fire(
-                                        'Error',
-                                        'Error al eliminar el rol. Inténtalo de nuevo.',
-                                        'error'
-                                    );
-                                }
-                            }
-                        });
-                    }
+                    confirmButtonText: 'OK'
                 });
-            });
+            }
         });
-    </script>
+    });
+});
+</script>
+
 
 
     <script>

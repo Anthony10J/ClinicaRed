@@ -26,10 +26,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $sql = "SELECT Id_Rol, Rol, Descripcion FROM tbl_ms_roles WHERE Id_Rol = $idRol";
     $resultado = mysqli_query($conexion, $sql);
     $rol = mysqli_fetch_assoc($resultado);
-} else {
-    // Si no se proporciona un ID válido, redireccionar o mostrar un mensaje de error
-    header("Location: ./ruta_a_tu_pagina_de_error.php");
-    exit;
 }
 
 ?>
@@ -121,7 +117,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     <div class="formulario__grupo-input">
                         <label for="rol" class="form-label"></label>
                         <input type="hidden" name="id_rol" value="<?php echo $rol['Id_Rol']; ?>">
-                        <input type="text" class="formulario__input" class="form-control" readonly id="rol" name="rol" value="<?php echo $rol['Rol']; ?>" maxlength="30" required>
+                        <input type="text" class="formulario__input" class="form-control" style="text-transform: uppercase;" id="rol" name="rol" value="<?php echo $rol['Rol']; ?>" maxlength="30" required>
                     </div>
                     <p class="formulario__input-error"></p>
                 </div>
