@@ -108,7 +108,8 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
                         FROM tbl_ms_permisos p
                         INNER JOIN tbl_ms_roles r ON p.Id_Rol = r.Id_Rol
                         INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos
-                        WHERE r.Id_Rol <> 1;";
+                        WHERE r.Id_Rol NOT IN(1, 2)
+                        ORDER BY r.Rol";
                             $resultado = mysqli_query($conexion, $sql);
                             // Recorrer los resultados y mostrarlos en la tabla
                             while ($fila = mysqli_fetch_assoc($resultado)) {

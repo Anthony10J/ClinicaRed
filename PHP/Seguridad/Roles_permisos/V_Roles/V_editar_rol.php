@@ -132,7 +132,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn" id="Btnregistrarrol">ACTUALIZAR</button>
-                    <button id="Btncancelar" class="btn btn-danger" type="button">Cancelar</button>
+                    <button id="Btncancelar" class="btn btn-danger" type="button">CANCELAR</button>
                 </div>
             </form>
         </div>

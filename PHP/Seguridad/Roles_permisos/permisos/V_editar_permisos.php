@@ -64,8 +64,9 @@ include '../../../Controladores/Conexion/Conexion_be.php';
         <div class="container mt-4">
             <div class="row">
                 <div class="col-10">
-                    <form action="../C_Permisos/C_editar_permiso.php" method="post">
+                    <form action="../C_Permisos/C_editar_permiso.php" method="post" id="formEditPermisos">
                         <button id="guardarpermisobtn" class="btn btn-primary float-start">Guardar cambios</button>
+                        <button id="cancelarpermisobtn" class="btn btn-danger float-start" type="button">Cancelar</button>
                         <table id="tablaEditarPermisos" class="table">
                             <thead class="encabezado bg-light table-info">
                                 <tr>
@@ -96,7 +97,8 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                             p.Permiso_Terapeutico AS Permiso_Terapeutico
                         FROM tbl_ms_permisos p
                         INNER JOIN tbl_ms_roles r ON p.Id_Rol = r.Id_Rol
-                        INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos WHERE r.Id_Rol <> 1;";
+                        INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos WHERE r.Id_Rol NOT IN(1, 2)
+                        ORDER BY r.Rol";
 
                                 $resultado = mysqli_query($conexion, $sql);
 
@@ -138,11 +140,65 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                 ?>
                             </tbody>
                         </table>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var cancelarpermisobtn = document.getElementById('cancelarpermisobtn');
+        cancelarpermisobtn.addEventListener('click', confirmarCancelar);
+
+        function confirmarCancelar() {
+            Swal.fire({
+                title: "¿Quieres Cancelar esta Acción?",
+                text: "¿Estás seguro que quieres Cancelar?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Cancelado",
+                        text: "No se Guardaron Cambios",
+                        icon: "success",
+                        showConfirmButton: false
+                    });
+                    setTimeout(function() {
+                        window.location = "./V_permisos.php";
+                    }, 1300);
+                }
+            });
+        }
+    </script>
+
+<script>
+            document.getElementById('formEditPermisos').addEventListener('submit', function(event) {
+                event.preventDefault(); // Evitar el envío inmediato del formulario
+
+                // Mostrar la alerta de confirmación
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "¿Deseas actualizar los permisos?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, actualizar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Si el usuario confirma, se envía el formulario
+                        this.submit();
+                    }
+                });
+            });
+        </script>
 
     <!-- Vendor JS Files -->
     <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -161,7 +217,7 @@ include '../../../Controladores/Conexion/Conexion_be.php';
 
     <!-- ----------------CODIGO PARA GENERAR REPORTES------------------>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> <!-- ESTILOS DE LA TABLA -->
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>  -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>  -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> LIBRERIA PDF -->
@@ -169,114 +225,114 @@ include '../../../Controladores/Conexion/Conexion_be.php';
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"> </script> <!-- ICONOS -->
 
     <?php
-// Ruta de la imagen
-$ruta_imagen = '../../../../Imagenes/logo3.jpeg';
+    // Ruta de la imagen
+    $ruta_imagen = '../../../../Imagenes/logo3.jpeg';
 
-// Verificar si el archivo existe
-if (file_exists($ruta_imagen)) {
-    // Leer el contenido de la imagen
-    $contenido_imagen = file_get_contents($ruta_imagen);
+    // Verificar si el archivo existe
+    if (file_exists($ruta_imagen)) {
+        // Leer el contenido de la imagen
+        $contenido_imagen = file_get_contents($ruta_imagen);
 
-    // Codificar la imagen en base64
-    $ImagenBase64 = base64_encode($contenido_imagen);
-}
-?>
+        // Codificar la imagen en base64
+        $ImagenBase64 = base64_encode($contenido_imagen);
+    }
+    ?>
 
-<script>
-    // REPORTE DE PARAMETROS 
-    $(document).ready(function() {
-        $('#tablaEditarPermisos').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
-            },
-            dom: 'lBfrtip',
-            paging: true,
-            buttons: [{
-                    extend: 'excelHtml5',
-                    text: '<i class="fas fa-file-excel"> Excel </i>',
-                    exportOptions: {
-                        columns: [0, 1, 2], // Índices de las columnas que quieres exportar
-                        modifier: {
-                            page: 'current'
-                        },
-                    }
+    <script>
+        // REPORTE DE PARAMETROS 
+        $(document).ready(function() {
+            $('#tablaEditarPermisos').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
                 },
-                {
-                    extend: 'pdfHtml5',
-                    download: 'open',
-                    text: '<i class="fas fa-file-pdf">  PDF </i>',
-                    orientation: 'landscape',
-                    customize: function(doc) {
-                       
-                        // Agregar un título al reporte
-                        var title = 'Reporte Permisos Asignados';
-                        // Obtener la fecha y hora actual
-                        var now = new Date();
-                        var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
-                        var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-                        // Agregar el título y la fecha/hora al PDF
-                        doc.content.splice(1, 0, {
-                            text: title,
-                            fontSize: 15,
-                            alignment: 'center'
-                        });
-                        doc.content.splice(2, 0, {
-                            text: 'Fecha: ' + date + '\nHora: ' + horas,
-                            alignment: 'left',
-                            margin: [0, 10, 0, -70], // [left, top, right, bottom]
-                        });
-                        doc.content.splice(3, 0, {
-
-                            margin: [0, -40, 0, 20],
-                            alignment: 'right',
-                            image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
-                            width: 85,
-                            height: 100,
-                        });
-
-                        doc["footer"] = function(currentPage, pageCount) {
-                            return {
-                                margin: 10,
-                                columns: [{
-                                    fontSize: 10,
-                                    text: [{
-                                        text: "Página " +
-                                            currentPage.toString() +
-                                            " de " +
-                                            pageCount,
-                                        alignment: "center",
-                                        bold: true
-                                    }, ],
-                                    alignment: "center",
-                                }, ],
-                            };
-                        };
+                dom: 'lBfrtip',
+                paging: true,
+                buttons: [{
+                        extend: 'excelHtml5',
+                        text: '<i class="fas fa-file-excel"> Excel </i>',
+                        exportOptions: {
+                            columns: [0, 1, 2], // Índices de las columnas que quieres exportar
+                            modifier: {
+                                page: 'current'
+                            },
+                        }
                     },
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
-                        modifier: {
-                            page: 'current'
+                    {
+                        extend: 'pdfHtml5',
+                        download: 'open',
+                        text: '<i class="fas fa-file-pdf">  PDF </i>',
+                        orientation: 'landscape',
+                        customize: function(doc) {
+
+                            // Agregar un título al reporte
+                            var title = 'Reporte Permisos Asignados';
+                            // Obtener la fecha y hora actual
+                            var now = new Date();
+                            var date = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
+                            var horas = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+                            // Agregar el título y la fecha/hora al PDF
+                            doc.content.splice(1, 0, {
+                                text: title,
+                                fontSize: 15,
+                                alignment: 'center'
+                            });
+                            doc.content.splice(2, 0, {
+                                text: 'Fecha: ' + date + '\nHora: ' + horas,
+                                alignment: 'left',
+                                margin: [0, 10, 0, -70], // [left, top, right, bottom]
+                            });
+                            doc.content.splice(3, 0, {
+
+                                margin: [0, -40, 0, 20],
+                                alignment: 'right',
+                                image: 'data:image/jpeg;base64,<?php echo $ImagenBase64; ?> ',
+                                width: 85,
+                                height: 100,
+                            });
+
+                            doc["footer"] = function(currentPage, pageCount) {
+                                return {
+                                    margin: 10,
+                                    columns: [{
+                                        fontSize: 10,
+                                        text: [{
+                                            text: "Página " +
+                                                currentPage.toString() +
+                                                " de " +
+                                                pageCount,
+                                            alignment: "center",
+                                            bold: true
+                                        }, ],
+                                        alignment: "center",
+                                    }, ],
+                                };
+                            };
                         },
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                            modifier: {
+                                page: 'current'
+                            },
+                        }
+                    },
+                ],
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "Todos"]
+                ],
+                "columnDefs": [{
+                    "targets": 0,
+                    "data": null,
+                    "defaultContent": "",
+                    "title": "N°", // Título de la columna
+                    "render": function(data, type, row, meta) {
+                        // Renderiza el número de fila
+                        return meta.row + 1;
                     }
-                },
-            ],
-            "lengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "Todos"]
-            ],
-            "columnDefs": [{
-                "targets": 0,
-                "data": null,
-                "defaultContent": "",
-                "title": "N°", // Título de la columna
-                "render": function(data, type, row, meta) {
-                    // Renderiza el número de fila
-                    return meta.row + 1;
-                }
-            }]
+                }]
+            });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>
