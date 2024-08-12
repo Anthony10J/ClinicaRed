@@ -84,7 +84,7 @@ if (!empty($correo) && !empty($clave_encriptada)) {
                     $d = $_SESSION['usuario'] . ' INICIÓ SESIÓN';
                     $o= 5;
                     bitacora($n, $a, $d, $o);
-                     enviarOTP($conexion, $correo);
+                    //  enviarOTP($conexion, $correo);
 
                     if ($_SESSION['IdRol'] == 2) {
                         $mensajeError = "Contacte al administrador para definir el rol de usuario.";
