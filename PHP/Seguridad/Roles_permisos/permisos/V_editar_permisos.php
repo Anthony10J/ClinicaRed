@@ -77,6 +77,8 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                     <th scope="col">Actualizar</th>
                                     <th scope="col">Consultar</th>
                                     <th scope="col">Reportes</th>
+                                    <th scope="col">Reporte Clínico</th>
+                                    <th scope="col">Reporte Terapéutico</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,7 +91,9 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                             p.Permiso_Eliminacion AS Permiso_Eliminacion,
                             p.Permiso_Actualizacion AS Permiso_Actualizacion,
                             p.Permiso_Consultar AS Permiso_Consultar, 
-                            p.Permiso_Reportes AS Permiso_Reportes
+                            p.Permiso_Reportes AS Permiso_Reportes,
+                            p.Permiso_Clinico AS Permiso_Clinico,
+                            p.Permiso_Terapeutico AS Permiso_Terapeutico
                         FROM tbl_ms_permisos p
                         INNER JOIN tbl_ms_roles r ON p.Id_Rol = r.Id_Rol
                         INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos WHERE r.Id_Rol <> 1;";
@@ -120,6 +124,14 @@ include '../../../Controladores/Conexion/Conexion_be.php';
                                     echo '<td><select name="permisos[' . $fila['Rol'] . '][' . $fila['Objeto'] . '][reportes]">
                             <option value="1"' . ($fila['Permiso_Reportes'] == 1 ? 'selected' : '') . '>SI</option>
                             <option value="0"' . ($fila['Permiso_Reportes'] == 0 ? 'selected' : '') . '>NO</option>
+                          </select></td>';
+                                    echo '<td><select name="permisos[' . $fila['Rol'] . '][' . $fila['Objeto'] . '][clinico]">
+                            <option value="1"' . ($fila['Permiso_Clinico'] == 1 ? 'selected' : '') . '>SI</option>
+                            <option value="0"' . ($fila['Permiso_Clinico'] == 0 ? 'selected' : '') . '>NO</option>
+                          </select></td>';
+                                    echo '<td><select name="permisos[' . $fila['Rol'] . '][' . $fila['Objeto'] . '][terapeutico]">
+                            <option value="1"' . ($fila['Permiso_Terapeutico'] == 1 ? 'selected' : '') . '>SI</option>
+                            <option value="0"' . ($fila['Permiso_Terapeutico'] == 0 ? 'selected' : '') . '>NO</option>
                           </select></td>';
                                     echo '</tr>';
                                 }

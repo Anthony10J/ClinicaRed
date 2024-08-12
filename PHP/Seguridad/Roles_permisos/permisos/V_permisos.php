@@ -87,7 +87,8 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
                                 <th scope="col">Actualizar</th>
                                 <th scope="col">Consultar</th>
                                 <th scope="col">Reportes</th>
-                                <!--<th scope="col" class="ocultar">Fecha Nacimiento</th>-->
+                                <th scope="col">Reporte Clínico</th>
+                                <th scope="col">Reporte Terapéutico</th>
                                 <!-- <th scope="col">Acciones</th> -->
                             </tr>
                         </thead>
@@ -101,7 +102,9 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
                             CASE p.Permiso_Eliminacion WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Eliminacion,
                             CASE p.Permiso_Actualizacion WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Actualizacion,
                             CASE p.Permiso_Consultar WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Consultar, 
-                            CASE p.Permiso_Reportes WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Reportes
+                            CASE p.Permiso_Reportes WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Reportes,
+                            CASE p.Permiso_Clinico WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Clinico,
+                            CASE p.Permiso_Terapeutico WHEN '1' THEN 'SI' ELSE 'NO' END AS Permiso_Terapeutico
                         FROM tbl_ms_permisos p
                         INNER JOIN tbl_ms_roles r ON p.Id_Rol = r.Id_Rol
                         INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos
@@ -119,6 +122,8 @@ if ($Permisos_Objeto["Permiso_Consultar"] !== "1") {
                                     <td><?php echo $fila['Permiso_Actualizacion']; ?></td>
                                     <td><?php echo $fila['Permiso_Consultar']; ?></td>
                                     <td><?php echo $fila['Permiso_Reportes']; ?></td>
+                                    <td><?php echo $fila['Permiso_Clinico']; ?></td>
+                                    <td><?php echo $fila['Permiso_Terapeutico']; ?></td>
                                 </tr>
 
                             <?php

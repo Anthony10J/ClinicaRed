@@ -282,7 +282,9 @@
                         p.Permiso_Consultar, 
                         p.Permiso_Insercion,
                         p.Permiso_Actualizacion,
-                        p.Permiso_Eliminacion
+                        p.Permiso_Eliminacion,
+                        p.Permiso_Clinico,
+                        p.Permiso_Terapeutico
                     FROM tbl_ms_permisos p
                     INNER JOIN tbl_ms_objetos o ON p.Id_Objeto = o.Id_Objetos
                     WHERE p.Id_Rol = $idRolSeleccionado;";                
@@ -298,6 +300,8 @@
     <td><input type="checkbox" name="insertar" id="insertar" <?php echo $fila['Permiso_Insercion'] == 1 ? 'checked' : ''; ?> disabled></td>
     <td><input type="checkbox" name="actualizar" id="actualizar" <?php echo $fila['Permiso_Actualizacion'] == 1 ? 'checked' : ''; ?> disabled></td>
     <td><input type="checkbox" name="eliminar" id="eliminar" <?php echo $fila['Permiso_Eliminacion'] == 1 ? 'checked' : ''; ?> disabled></td>
+    <td><input type="checkbox" name="eliminar" id="eliminar" <?php echo $fila['Permiso_Clinico'] == 1 ? 'checked' : ''; ?> disabled></td>
+    <td><input type="checkbox" name="eliminar" id="eliminar" <?php echo $fila['Permiso_Terapeutico'] == 1 ? 'checked' : ''; ?> disabled></td>
     
 </tr>
 

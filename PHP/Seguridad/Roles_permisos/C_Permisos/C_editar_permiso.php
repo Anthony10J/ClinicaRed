@@ -57,6 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $actualizar = $acciones["actualizar"] == "1" ? 1 : 0;
                 $consultar = $acciones["consultar"] == "1" ? 1 : 0;
                 $reportes = $acciones["reportes"] == "1" ? 1 : 0;
+                $clinico = $acciones["clinico"] == "1" ? 1 : 0;
+                $terapeutico = $acciones["terapeutico"] == "1" ? 1 : 0;
 
                 // Actualizar los permisos en la base de datos
                 $sql = "UPDATE tbl_ms_permisos SET 
@@ -64,7 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Permiso_Eliminacion = $eliminar,
                         Permiso_Actualizacion = $actualizar,
                         Permiso_Consultar = $consultar,
-                        Permiso_Reportes = $reportes
+                        Permiso_Reportes = $reportes,
+                        Permiso_Clinico = $clinico,
+                        Permiso_Terapeutico = $terapeutico
                         WHERE Id_Rol = (SELECT Id_Rol FROM tbl_ms_roles WHERE Rol = '$rol')
                         AND Id_Objeto = (SELECT Id_Objetos FROM tbl_ms_objetos WHERE Objeto = '$objeto')";
 
